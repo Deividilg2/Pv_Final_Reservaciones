@@ -13,7 +13,7 @@
 
         <div>
             <asp:Label ID="lblclave" runat="server" Text="Ingrese la clave"></asp:Label>
-            <asp:TextBox ID="txtclave" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtclave" runat="server" TextMode="Password"></asp:TextBox>
         </div>
 
         <asp:Button ID="btnlogin" runat="server" Text="Iniciar sesión" OnClick="btnlogin_Click" />

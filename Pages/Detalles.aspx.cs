@@ -15,6 +15,10 @@ namespace Pv_Final_Reservaciones.Pages
         String conn = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("~/Pages/Login.aspx");
+            }
             try
             {
             if (IsPostBack == false)
@@ -38,7 +42,7 @@ namespace Pv_Final_Reservaciones.Pages
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 
             }

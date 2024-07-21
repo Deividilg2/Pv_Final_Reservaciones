@@ -33,13 +33,12 @@ namespace Pv_Final_Reservaciones.Pages
                         grdMisreservaciones.DataBind();
                         //Metodo sospechoso, preguntar al profe
                         var lista2 = db.SpMisReservaciones(idPersona).FirstOrDefault();
-                        lblcliente.Text = lista2.NombreCompleto;
                     }
                 }
                 
 
             }
-            catch (Exception ex)
+            catch
             {
 
             }

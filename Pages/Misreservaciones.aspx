@@ -3,7 +3,6 @@
      <!-- Colocamos todo dentro de un contenedor-->
     <div class="Contenedor">
         <h2>Mis reservaciónes</h2>
-        <asp:Label ID="lblcliente" runat="server" Text=""></asp:Label>
         <a href="#">Nueva reservación</a>
         <!--Colocamos las columnas respectivas de la tabla-->
         <!--Pasamos datos que necesitamos para detalles por medio de URL-->

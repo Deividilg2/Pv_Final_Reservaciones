@@ -1,5 +1,6 @@
 ﻿using DataModels;
 using LinqToDB;
+using Pv_Final_Reservaciones.Clases;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -36,20 +37,26 @@ namespace Pv_Final_Reservaciones.Pages
                         //Validamos en caso de que la cuenta sea inactiva "I"
                         if (log != null)
                         {
-                            //Extraemos la información requerida para mostrar y utilizar
-                            String nombre = log.NombreCompleto.ToString();
-
+                            
                             if (log.Estado != 'I')
                             {
+                                Usuario usuario = new Usuario();
+                                usuario.id = log.IdPersona;
+                                usuario.nombreCompleto  = log.NombreCompleto;
+                                usuario.esEmpleado = log.EsEmpleado;
                                 if (log.EsEmpleado)
                                 {
+                                    Session["Usuario"] = usuario;
                                     Response.Redirect("~/Pages/GestionarReservaciones.aspx");
+                                    
                                 }
                                 else if (log.EsEmpleado == false)
                                 {
-                                    Response.Redirect($"~/Pages/Misreservaciones.aspx?id={log.IdPersona}");
+                                    Session["Usuario"] = usuario;
+                                    Response.Redirect($"~/Pages/Misreservaciones.aspx");
+                                   
                                 }
-                                
+
                             }                            
                         }
                         else
@@ -65,7 +72,7 @@ namespace Pv_Final_Reservaciones.Pages
                 }
 
             }
-            catch (Exception ex)
+            catch
             {
 
 

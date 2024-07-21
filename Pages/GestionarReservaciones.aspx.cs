@@ -17,6 +17,10 @@ namespace Pv_Final_Reservaciones.Pages
         String conn = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("~/Pages/Login.aspx");
+            }
             try
             {
 
@@ -48,7 +52,7 @@ namespace Pv_Final_Reservaciones.Pages
                             //Unificamos o relacionamos los dos campos de DataTextField y DataValueField
                             ddlClientes.DataBind();
                         }
-                        catch (Exception ex)
+                        catch
                         {
 
 
@@ -59,7 +63,7 @@ namespace Pv_Final_Reservaciones.Pages
                 
 
             }
-            catch (Exception ex)
+            catch
             {
 
             }
@@ -68,7 +72,8 @@ namespace Pv_Final_Reservaciones.Pages
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
             try
-            {
+            {               
+
                 //Variables para realizar el filtro de busqueda
                 DateTime fechaEntrada = DateTime.Parse(txtFechaEntrada.Text);
                 DateTime fechaSalida = DateTime.Parse(txtFechaSalida.Text);
@@ -77,7 +82,7 @@ namespace Pv_Final_Reservaciones.Pages
                 if (fechaSalida < fechaEntrada)
                 {
                     Response.Redirect("~/Pages/Misreservaciones.aspx");
-                    //Esto lo utilizo de momento porque no hay página de error para mostrar
+                    //Esto lo utilizo de momento porque no hay validación de error para mostrar
                 }
                 else
                 {     
@@ -94,7 +99,7 @@ namespace Pv_Final_Reservaciones.Pages
                 }
                 
             }
-            catch (Exception ex)
+            catch
             {
 
             }

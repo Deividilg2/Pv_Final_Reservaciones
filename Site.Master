@@ -49,6 +49,12 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/">Home</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/About">About</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>
+                        <li>
+                            <asp:Label ID="lblnombre" runat="server" text="" Visible="false" ForeColor="White"></asp:Label>
+                        </li>
+                        <li class="alert-danger" >
+                            <asp:LinkButton ID="lnkbtnCierresesion" runat="server" Visible="false" OnClick="lnkbtnCierresesion_Click">Cerrar Sesión</asp:LinkButton>
+                        </li>
                     </ul>
                 </div>
             </div>
