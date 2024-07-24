@@ -23,7 +23,7 @@ namespace DataModels
 	/// <summary>
 	/// Database       : PV_ProyectoFinal
 	/// Data Source    : DEIVIDILG\DEIVIDILG
-	/// Server Version : 14.00.2052
+	/// Server Version : 14.00.2056
 	/// </summary>
 	public partial class PvProyectoFinalDB : LinqToDB.Data.DataConnection
 	{
@@ -221,14 +221,18 @@ namespace DataModels
 
 		public partial class SpConsultarDetallePorIdResult
 		{
-			[Column("idReservacion")   ] public int      IdReservacion    { get; set; }
-			[Column("nombre")          ] public string   Nombre           { get; set; }
-			[Column("numeroHabitacion")] public string   NumeroHabitacion { get; set; }
-			[Column("nombreCompleto")  ] public string   NombreCompleto   { get; set; }
-			[Column("fechaEntrada")    ] public DateTime FechaEntrada     { get; set; }
-			[Column("fechaSalida")     ] public DateTime FechaSalida      { get; set; }
-			[Column("numeroNinhos")    ] public int      NumeroNinhos     { get; set; }
-			[Column("numeroAdultos")   ] public int      NumeroAdultos    { get; set; }
+			[Column("idReservacion")       ] public int      IdReservacion        { get; set; }
+			[Column("idHabitacion")        ] public int?     IdHabitacion         { get; set; }
+			[Column("idHotel")             ] public int?     IdHotel              { get; set; }
+			[Column("nombre")              ] public string   Nombre               { get; set; }
+			[Column("fechaEntrada")        ] public DateTime FechaEntrada         { get; set; }
+			[Column("fechaSalida")         ] public DateTime FechaSalida          { get; set; }
+			[Column("numeroAdultos")       ] public int      NumeroAdultos        { get; set; }
+			[Column("numeroNinhos")        ] public int      NumeroNinhos         { get; set; }
+			[Column("totalDiasReservacion")] public int?     TotalDiasReservacion { get; set; }
+			[Column("costoTotal")          ] public decimal? CostoTotal           { get; set; }
+			[Column("estado")              ] public char     Estado               { get; set; }
+			[Column("nombreCompleto")      ] public string   NombreCompleto       { get; set; }
 		}
 
 		#endregion

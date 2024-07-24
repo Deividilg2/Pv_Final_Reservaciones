@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Configuration;
 using LinqToDB;
 using DataModels;
+using Pv_Final_Reservaciones.Clases;
 
 namespace Pv_Final_Reservaciones.Pages
 {
@@ -16,23 +17,28 @@ namespace Pv_Final_Reservaciones.Pages
         String conn = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("~/Pages/Login.aspx");
+            }
+            //Validamos la sesión del usuario
             //Colocamos un try catch en caso de cualquier error en nuestro código
             try
             {
                 if (IsPostBack == false)
                 {
-                    // Recuperamos el idPersona de la URL
-                    int idPersona = int.Parse(Request.QueryString["id"]);
                     
                     //Utilizamos using para realizar la conexion solamente cuando es necesario y que se desconecte cuando no está en uso
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
+                        Usuario usuarioP = (Usuario)Session["Usuario"];
+                        
+                        //Creamos una instancia de usuario para poder llamar el id del usuario logeado
                         //Traemos los datos para rellenar la tabla con el store procedure correspondiente
-                        var lista = db.SpMisReservaciones(idPersona).ToList();
+                        var lista = db.SpMisReservaciones(usuarioP.id).ToList();
                         grdMisreservaciones.DataSource = lista;
                         grdMisreservaciones.DataBind();
-                        //Metodo sospechoso, preguntar al profe
-                        var lista2 = db.SpMisReservaciones(idPersona).FirstOrDefault();
+                     
                     }
                 }
                 

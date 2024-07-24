@@ -2,9 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <div>
-        <asp:HiddenField ID="HiddenField1" runat="server" 
-            
-            />
+        
         <h2>Inicie sesión</h2>
         <div>
             <asp:Label ID="lblemail" runat="server" Text="Ingrese email"></asp:Label>

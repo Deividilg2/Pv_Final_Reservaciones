@@ -25,25 +25,30 @@ namespace Pv_Final_Reservaciones.Pages
             //Tomamos la información de los textBox
             String email = txtemail.Text;
             String clave = txtclave.Text;
+            //Colocamos try en caso de error
             try
             {
                 //Validamos que se coloquen datos
                 if (!String.IsNullOrEmpty(email) && !String.IsNullOrEmpty(clave))
                 {
+                    //Realizamos la conexión con la BD
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
                         //Utilizamos el StoreProcedure para validar la informacion del usuario y tomamos el primer resultado por defecto
-                        var log = db.SpLogin(email, clave).FirstOrDefault();
-                        //Validamos en caso de que la cuenta sea inactiva "I"
+                        var log = db.SpLogin(email, clave).FirstOrDefault();//Utilizamos FirstOrDefault para que la BD entienda
+                                                                            //que deseamos traer la única fila que retorna
+                       //Validamos que no venga nulo log
                         if (log != null)
                         {
-                            
+                            //Validamos en caso de que la cuenta sea inactiva "I"
                             if (log.Estado != 'I')
                             {
+                                //Creamos una instancia de usuario para utilizar sus atributos
                                 Usuario usuario = new Usuario();
                                 usuario.id = log.IdPersona;
                                 usuario.nombreCompleto  = log.NombreCompleto;
                                 usuario.esEmpleado = log.EsEmpleado;
+                                //Realizamos una comprovación de si es o no empleado el usuario logeado
                                 if (log.EsEmpleado)
                                 {
                                     Session["Usuario"] = usuario;
@@ -54,9 +59,7 @@ namespace Pv_Final_Reservaciones.Pages
                                 {
                                     Session["Usuario"] = usuario;
                                     Response.Redirect($"~/Pages/Misreservaciones.aspx");
-                                   
                                 }
-
                             }                            
                         }
                         else
@@ -68,7 +71,7 @@ namespace Pv_Final_Reservaciones.Pages
                 }
                 else
                 {
-                    Response.Write("El correo o la contraseña son incorrectas, por favor verificar credenciales");
+                    Response.Write("Es requerido rellenar ambos campos con credenciales");
                 }
 
             }

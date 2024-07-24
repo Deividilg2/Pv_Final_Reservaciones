@@ -5,12 +5,12 @@
      <h1>Gestionar reservaciónes</h1>
          <!--Colocamos el filtrado correspondiente para nuestro empleado-->
          <!--Es necesario tener el AutoPostBack en true porque de lo contrario la página no puede cargar y realizar la consulta -->
-         <asp:DropDownList ID="ddlClientes" runat="server" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="true" ></asp:DropDownList>
+         <asp:DropDownList ID="ddlClientes" runat="server" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="True" ></asp:DropDownList>
          <asp:TextBox ID="txtFechaEntrada" runat="server" placeholder="dd/MM/yyyy"></asp:TextBox>
          <asp:TextBox ID="txtFechaSalida" runat="server" placeholder="dd/MM/yyyy"></asp:TextBox>
          <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" OnClick="btnFiltrar_Click"/>
-
          <br />
+         
 
      <a href="#">Nueva reservación</a>
          <!--Colocamos las columnas respectivas de la tabla-->
@@ -24,10 +24,15 @@
           <asp:BoundField DataField="fechaSalida" HeaderText="Fecha Salida"/>
           <asp:BoundField DataField="costoTotal" HeaderText="Costo"/>
           <asp:BoundField DataField="estado" HeaderText="Estado"/>
-          <asp:CommandField SelectText="consultar" ShowSelectButton="true"/>
+          <asp:TemplateField>
+              <ItemTemplate>
+                  <a href="Detalles.aspx?id=<%# Eval("idReservacion")%>">consultar</a>
+              </ItemTemplate>
+          </asp:TemplateField>
 
       </Columns>
          </asp:GridView>
+<!--Mandamos mediante la url el id para Consultar o modificar los detalles de las reservaciónes-->
  </div>
 
 </asp:Content>

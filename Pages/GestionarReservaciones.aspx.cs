@@ -21,9 +21,11 @@ namespace Pv_Final_Reservaciones.Pages
             {
                 Response.Redirect("~/Pages/Login.aspx");
             }
+            //Validamos la sesión del usuario
+            //Usamos un try en caso de errores
             try
             {
-
+                //Realizamos la conexión con la BD
                 using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                 {
                     //Código momentaneo para recargar lista con el boton filtrar (Borrar a futuro)
