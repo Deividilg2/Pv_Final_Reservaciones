@@ -43,8 +43,9 @@ namespace Pv_Final_Reservaciones.Pages
                                 txtHotel.Text = reservacion.Nombre.ToString();
                                 txtHabitacion.Text = reservacion.NumeroHabitacion.ToString();
                                 txtCliente.Text = reservacion.NombreCompleto.ToString();
-                                txtFechaEntrada.Text = reservacion.FechaEntrada.ToString("dd/MM/yyyy");
-                                txtFechaSalida.Text = reservacion.FechaSalida.ToString("dd/MM/yyyy");
+                            //txtFechaEntrada.Text = reservacion.FechaEntrada.ToString("dd/MM/yyyy");
+                            txtFechaEntrada.Text = reservacion.FechaEntrada.ToString("yyyy-MM-dd");
+                            txtFechaSalida.Text = reservacion.FechaSalida.ToString("dd/MM/yyyy");
                                 txtNumeroAdultos.Text = reservacion.NumeroAdultos.ToString();
                                 txtNumeroNinhos.Text = reservacion.NumeroNinhos.ToString();
                             }

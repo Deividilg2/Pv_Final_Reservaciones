@@ -25,7 +25,7 @@
 <asp:Label ID="Label4" runat="server" Text="Label">Fecha de Entrada</asp:Label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <asp:Label ID="Label5" runat="server" Text="Label">Fecha de Salida</asp:Label>
 <br>
-<asp:TextBox ID="txtFechaEntrada" runat="server"  placeholder="dd/MM/YYYY"></asp:TextBox>&nbsp;&nbsp;
+<asp:TextBox ID="txtFechaEntrada" runat="server" TextMode="Date" ></asp:TextBox>&nbsp;&nbsp;
 <asp:TextBox ID="txtFechaSalida" runat="server"  placeholder="dd/MM/YYYY"></asp:TextBox>
 <br><br>
 

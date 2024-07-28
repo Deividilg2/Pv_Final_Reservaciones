@@ -207,6 +207,26 @@ namespace DataModels
 
 	public static partial class PvProyectoFinalDBStoredProcedures
 	{
+		#region SpCancelarReservacionYRegistrarBitacora
+
+		public static IEnumerable<SpCancelarReservacionYRegistrarBitacoraResult> SpCancelarReservacionYRegistrarBitacora(this PvProyectoFinalDB dataConnection, int? @idReservacion, int? @idPersona)
+		{
+			var parameters = new []
+			{
+				new DataParameter("@idReservacion", @idReservacion, LinqToDB.DataType.Int32),
+				new DataParameter("@idPersona",     @idPersona,     LinqToDB.DataType.Int32)
+			};
+
+			return dataConnection.QueryProc<SpCancelarReservacionYRegistrarBitacoraResult>("[dbo].[spCancelarReservacionYRegistrarBitacora]", parameters);
+		}
+
+		public partial class SpCancelarReservacionYRegistrarBitacoraResult
+		{
+			public string Resultado { get; set; }
+		}
+
+		#endregion
+
 		#region SpConsultarDetallePorId
 
 		public static IEnumerable<SpConsultarDetallePorIdResult> SpConsultarDetallePorId(this PvProyectoFinalDB dataConnection, int? @idreservacion)
@@ -271,6 +291,33 @@ namespace DataModels
 			[Column("fechaSalida")       ] public DateTime FechaSalida        { get; set; }
 			[Column("costoTotal")        ] public decimal  CostoTotal         { get; set; }
 			[Column("estado")            ] public char     Estado             { get; set; }
+		}
+
+		#endregion
+
+		#region SpConsultarReservacionPorID
+
+		public static IEnumerable<SpConsultarReservacionPorIDResult> SpConsultarReservacionPorID(this PvProyectoFinalDB dataConnection, int? @idReservacion)
+		{
+			var parameters = new []
+			{
+				new DataParameter("@idReservacion", @idReservacion, LinqToDB.DataType.Int32)
+			};
+
+			return dataConnection.QueryProc<SpConsultarReservacionPorIDResult>("[dbo].[spConsultarReservacionPorID]", parameters);
+		}
+
+		public partial class SpConsultarReservacionPorIDResult
+		{
+			[Column("idReservacion")   ] public int      IdReservacion    { get; set; }
+			[Column("nombre")          ] public string   Nombre           { get; set; }
+			[Column("numeroHabitacion")] public string   NumeroHabitacion { get; set; }
+			[Column("nombreCompleto")  ] public string   NombreCompleto   { get; set; }
+			[Column("fechaEntrada")    ] public DateTime FechaEntrada     { get; set; }
+			[Column("fechaSalida")     ] public DateTime FechaSalida      { get; set; }
+			[Column("numeroAdultos")   ] public int      NumeroAdultos    { get; set; }
+			[Column("numeroNinhos")    ] public int      NumeroNinhos     { get; set; }
+			[Column("estado")          ] public char     Estado           { get; set; }
 		}
 
 		#endregion
@@ -408,6 +455,30 @@ namespace DataModels
 			[Column("costoTotal")        ] public decimal  CostoTotal         { get; set; }
 			[Column("estado")            ] public char     Estado             { get; set; }
 			[Column("nombreCompleto")    ] public string   NombreCompleto     { get; set; }
+		}
+
+		#endregion
+
+		#region SpModificarReservacionYRegistrarBitacora
+
+		public static IEnumerable<SpModificarReservacionYRegistrarBitacoraResult> SpModificarReservacionYRegistrarBitacora(this PvProyectoFinalDB dataConnection, int? @idReservacion, DateTime? @fechaEntrada, DateTime? @fechaSalida, int? @numeroAdultos, int? @numeroNinhos, int? @idPersona)
+		{
+			var parameters = new []
+			{
+				new DataParameter("@idReservacion", @idReservacion, LinqToDB.DataType.Int32),
+				new DataParameter("@fechaEntrada",  @fechaEntrada,  LinqToDB.DataType.DateTime),
+				new DataParameter("@fechaSalida",   @fechaSalida,   LinqToDB.DataType.DateTime),
+				new DataParameter("@numeroAdultos", @numeroAdultos, LinqToDB.DataType.Int32),
+				new DataParameter("@numeroNinhos",  @numeroNinhos,  LinqToDB.DataType.Int32),
+				new DataParameter("@idPersona",     @idPersona,     LinqToDB.DataType.Int32)
+			};
+
+			return dataConnection.QueryProc<SpModificarReservacionYRegistrarBitacoraResult>("[dbo].[spModificarReservacionYRegistrarBitacora]", parameters);
+		}
+
+		public partial class SpModificarReservacionYRegistrarBitacoraResult
+		{
+			public string Resultado { get; set; }
 		}
 
 		#endregion
