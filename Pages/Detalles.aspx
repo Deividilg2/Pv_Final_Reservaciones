@@ -6,7 +6,9 @@
     <Fields>
         <asp:BoundField DataField="idReservacion" HeaderText="# reservación" />
         <asp:BoundField DataField="nombre" HeaderText="Hotel" />
-        <asp:BoundField DataField="idHabitacion" HeaderText="Número habitación" />
+        <%--¿porque el idHabitacion esta funcionando como numero de habitacion?--%>
+        <%--<asp:BoundField DataField="idHabitacion" HeaderText="Número habitación?" />--%>
+        <asp:BoundField DataField="numeroHabitacion" HeaderText="Número habitación" />
         <asp:BoundField DataField="nombreCompleto" HeaderText="Cliente" />
         <asp:BoundField DataField="fechaEntrada" HeaderText="Fecha de entrada" DataFormatString="{0:dd/MM/yyyy}" />
         <asp:BoundField DataField="fechaSalida" HeaderText="Fecha de salida" DataFormatString="{0:dd/MM/yyyy}" />
@@ -15,13 +17,14 @@
         <asp:BoundField DataField="numeroNinhos" HeaderText="Número de niños" />
         <asp:BoundField DataField="costoTotal" HeaderText="Costo total" />
         
-    </Fields>
+        </Fields>
 </asp:DetailsView>
     
     <div>
-        <a href="#" >Editar reservación</a>
-        <asp:Button ID="btncancelar" runat="server" Text="Cancelar reservación" />
-        <asp:Button ID="btnregresar" runat="server" Text="Regresar" />
+       <%-- <a href="ModificarReservacion.aspx?idReservacion=<%# Eval("idReservacion")%>" >Editar reservación</a>--%>
+        <asp:LinkButton ID="lnkEditar" runat="server" Text="Editar reservación"  OnClick="lnkEditar_Click"/>
+        <asp:Button ID="btncancelar" runat="server" Text="Cancelar reservación" OnClick="btncancelar_Click" />
+        <asp:Button ID="btnregresar" runat="server" Text="Regresar" OnClick="btnregresar_Click" />
 
     </div>
 

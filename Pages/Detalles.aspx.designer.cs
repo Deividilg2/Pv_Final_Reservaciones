@@ -24,6 +24,15 @@ namespace Pv_Final_Reservaciones.Pages
         protected global::System.Web.UI.WebControls.DetailsView dvDetalles;
 
         /// <summary>
+        /// Control lnkEditar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkEditar;
+
+        /// <summary>
         /// Control btncancelar.
         /// </summary>
         /// <remarks>

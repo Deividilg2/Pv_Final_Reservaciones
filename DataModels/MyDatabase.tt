@@ -1,7 +1,7 @@
 <#@ template language="C#" debug="True" hostSpecific="True"                    #>
 <#@ CleanupBehavior processor="T4VSHost" CleanupAfterProcessingtemplate="true" #>
 <#@ output extension=".generated.cs"                                           #>
-
+     
 <#@ include file="$(LinqToDBT4SqlServerTemplatesPath)LinqToDB.SqlServer.Tools.ttinclude" once="true" #>
 <#@ include file="$(LinqToDBT4SqlServerTemplatesPath)PluralizationService.ttinclude"     once="true" #>
 <#
@@ -12,7 +12,7 @@
 		MyProject
 			DataModels
 				MyDatabase.tt
-
+ 
 	2. Modify the connection settings below to connect to your database.
 
 	3. Add connection string to the web/app.config file:
@@ -115,8 +115,8 @@
 //	GenerateProceduresOnTypedContext    = true;                   // generate stored procedures on typed context
 
 	// to configure GetSchemaOptions properties, add them here, before load metadata call
-
-	LoadSqlServerMetadata("Data Source=DEIVIDILG\\DEIVIDILG;Database=PV_ProyectoFinal;Integrated Security=True");
+ 
+	LoadSqlServerMetadata("Data Source=Camila;Database=PV_ProyectoFinal;Integrated Security=True");
 //	LoadSqlServerMetadata(".", "MyDatabase"); // Integrated Security
 //	LoadSqlServerMetadata(string connectionString);
 
@@ -137,7 +137,7 @@
 //			pk.MemberName = "ID";
 //			t.Interfaces.Add("IIdentifiable");
 //		}
-//	}
+//	}  
 
 	GenerateModel();
 #>

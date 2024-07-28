@@ -271,6 +271,8 @@
     <Content Include="Pages\GestionarReservaciones.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Misreservaciones.aspx" />
+    <Content Include="Pages\ModificarReservacion.aspx" />
+    <Content Include="Pages\ResultadoDeEditarReservacion.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -409,6 +411,20 @@
     </Compile>
     <Compile Include="Pages\Misreservaciones.aspx.designer.cs">
       <DependentUpon>Misreservaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ModificarReservacion.aspx.cs">
+      <DependentUpon>ModificarReservacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ModificarReservacion.aspx.designer.cs">
+      <DependentUpon>ModificarReservacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ResultadoDeEditarReservacion.aspx.cs">
+      <DependentUpon>ResultadoDeEditarReservacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\ResultadoDeEditarReservacion.aspx.designer.cs">
+      <DependentUpon>ResultadoDeEditarReservacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">

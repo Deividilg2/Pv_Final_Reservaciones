@@ -48,6 +48,10 @@ namespace Pv_Final_Reservaciones.Pages
                                 usuario.id = log.IdPersona;
                                 usuario.nombreCompleto  = log.NombreCompleto;
                                 usuario.esEmpleado = log.EsEmpleado;
+
+                                // Guardar idPersona en la sesión
+                                Session["idPersona"] = log.IdPersona;
+
                                 //Realizamos una comprovación de si es o no empleado el usuario logeado
                                 if (log.EsEmpleado)
                                 {
