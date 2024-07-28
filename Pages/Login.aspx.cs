@@ -9,6 +9,22 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+/*
+ * Deivid
+ <connectionStrings>
+		<add name="Conn" providerName="System.Data.SqlClient"
+		connectionString="Data Source=DEIVIDILG\DEIVIDILG;Database=PV_ProyectoFinal;Integrated Security=True;TrustServerCertificate=True" />
+	</connectionStrings>
+Camila
+	<connectionStrings>
+<add name="Conn" providerName="System.Data.SqlClient"
+		connectionString="Data Source=Camila;Database=PV_ProyectoFinal;Integrated Security=True;TrustServerCertificate=True" />
+</connectionStrings>
+	
+//LoadSqlServerMetadata("Data Source=Camila;Database=PV_ProyectoFinal;Integrated Security=True");
+//LoadSqlServerMetadata("Data Source=DEIVIDILG\\DEIVIDILG;Database=PV_ProyectoFinal;Integrated Security=True");
+*/
+
 namespace Pv_Final_Reservaciones.Pages
 {
     public partial class Login : System.Web.UI.Page
