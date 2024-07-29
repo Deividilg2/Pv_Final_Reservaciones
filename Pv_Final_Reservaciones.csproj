@@ -267,9 +267,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="LinqToDB.Templates\CopyMe.SqlServer.tt.txt" />
+    <Content Include="Pages\CrearHabitacion.aspx" />
     <Content Include="Pages\Detalles.aspx" />
     <Content Include="Pages\GestionarReservaciones.aspx" />
-    <Content Include="Pages\Lista Habitaciones.aspx" />
+    <Content Include="Pages\ListaHabitaciones.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Misreservaciones.aspx" />
     <Content Include="Pages\ModificarReservacion.aspx" />
@@ -385,6 +386,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Pages\CrearHabitacion.aspx.cs">
+      <DependentUpon>CrearHabitacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\CrearHabitacion.aspx.designer.cs">
+      <DependentUpon>CrearHabitacion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Detalles.aspx.cs">
       <DependentUpon>Detalles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -399,12 +407,12 @@
     <Compile Include="Pages\GestionarReservaciones.aspx.designer.cs">
       <DependentUpon>GestionarReservaciones.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Lista Habitaciones.aspx.cs">
-      <DependentUpon>Lista Habitaciones.aspx</DependentUpon>
+    <Compile Include="Pages\ListaHabitaciones.aspx.cs">
+      <DependentUpon>ListaHabitaciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Lista Habitaciones.aspx.designer.cs">
-      <DependentUpon>Lista Habitaciones.aspx</DependentUpon>
+    <Compile Include="Pages\ListaHabitaciones.aspx.designer.cs">
+      <DependentUpon>ListaHabitaciones.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
