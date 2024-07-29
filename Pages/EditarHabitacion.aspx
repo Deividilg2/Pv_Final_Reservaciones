@@ -1,22 +1,22 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CrearHabitacion.aspx.cs" Inherits="Pv_Final_Reservaciones.Pages.CrearHabitacion" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditarHabitacion.aspx.cs" Inherits="Pv_Final_Reservaciones.Pages.EditarHabitacion" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h1>Crear habitación</h1>
+    <h1>Editar habitación</h1>
 
-    <div>
-        
-        <br />
-        <asp:Label ID="lblHotel" runat="server" Text="Hotel"></asp:Label>
-        <asp:DropDownList ID="ddlHoteles" runat="server" AutoPostBack="true" CssClass="form form-control" OnSelectedIndexChanged="ddlHoteles_SelectedIndexChanged"></asp:DropDownList>
-        <asp:RequiredFieldValidator ID="rqHotele" runat="server" ErrorMessage="Campo Obligatorio" 
-            ControlToValidate="ddlHoteles"></asp:RequiredFieldValidator>
-    </div>
-
-    <div>
+        <div>
        
+            <asp:Label ID="lblHotel" runat="server" Text="Hotel"></asp:Label>
+
+            <br />
+
+            <asp:TextBox ID="txtHotel" runat="server" ReadOnly="true"></asp:TextBox>
+
+            <br />
+            <br />
+
         <asp:Label ID="lblNumHabitacion" runat="server" Text="Número de Habitación"></asp:Label>
         <br />
-        <%--Hay que revisar si es o no necesario usar alguna validacion especifica para datos alfanumericos--%>
+        <%--Hay que revisar si es o no necesario usar alguna validacion especifica para datos alfanumericos, string deberia aceptar TODO--%>
         <asp:TextBox ID="txtNumHabitacion" runat="server" MaxLength="10"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rqNumHabitacion" runat="server" ErrorMessage="Campo Obligatorio" 
             ControlToValidate="txtNumHabitacion"></asp:RequiredFieldValidator>
@@ -43,6 +43,10 @@
     </div>
 
     <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" />
+
+    &nbsp;&nbsp;&nbsp;
+
+    <asp:Button ID="Inactivar" runat="server" Text="Inactivar" OnClick="Inactivar_Click" />
 
     &nbsp;&nbsp;&nbsp;
 

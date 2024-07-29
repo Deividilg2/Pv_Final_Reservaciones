@@ -11,7 +11,7 @@ namespace Pv_Final_Reservaciones.Pages
 {
 
 
-    public partial class CrearHabitacion
+    public partial class EditarHabitacion
     {
 
         /// <summary>
@@ -24,22 +24,13 @@ namespace Pv_Final_Reservaciones.Pages
         protected global::System.Web.UI.WebControls.Label lblHotel;
 
         /// <summary>
-        /// Control ddlHoteles.
+        /// Control txtHotel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlHoteles;
-
-        /// <summary>
-        /// Control rqHotele.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqHotele;
+        protected global::System.Web.UI.WebControls.TextBox txtHotel;
 
         /// <summary>
         /// Control lblNumHabitacion.
@@ -139,5 +130,14 @@ namespace Pv_Final_Reservaciones.Pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGuardar;
+
+        /// <summary>
+        /// Control Inactivar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Inactivar;
     }
 }

@@ -4,6 +4,10 @@
     <h1>Lista de Habitaciones</h1>
 
     <div>
+        <a href="CrearHabitacion.aspx" class="btn btn-link">Crear habitación</a>
+    </div>
+
+    <div>
 
         <asp:GridView ID="grdHabitaciones" runat="server" CssClass="table table-striped-columns">
             <Columns>
@@ -12,15 +16,19 @@
                 <asp:BoundField HeaderText="Número Habitación" ReadOnly="True" />
                 <asp:BoundField HeaderText="Capacidad Máxima" ReadOnly="True" />
                 <asp:BoundField HeaderText="Estado" ReadOnly="True" />
+                <asp:TemplateField>
+                    <ItemTemplate>
+                  <%--  Hay que hacer metodo para convertir la A y la I del Estado en Activo o Inactivo--%>
+                   
+                    </ItemTemplate>
+                </asp:TemplateField>
 
                 <asp:TemplateField>
-
                     <ItemTemplate>
-                  <%--  Hay que hacer metodo para convertir la A y la I en Activo o Inactivo--%>
-                   
+
+                        <a href="EditarHabitacion.aspx?idHabitacion=<%# Eval("idHabitacion") %>" class="btn btn-primary">Modificar</a>
 
                     </ItemTemplate>
-
                 </asp:TemplateField>
 
             </Columns>
