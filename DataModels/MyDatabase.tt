@@ -116,7 +116,7 @@
 
 	// to configure GetSchemaOptions properties, add them here, before load metadata call
 
-	LoadSqlServerMetadata("Data Source=DEIVIDILG\\DEIVIDILG;Database=PV_ProyectoFinal;Integrated Security=True");
+	LoadSqlServerMetadata("Data Source=Camila;Database=PV_ProyectoFinal;Integrated Security=True");
 //	LoadSqlServerMetadata(".", "MyDatabase"); // Integrated Security
 //	LoadSqlServerMetadata(string connectionString);
 

@@ -269,6 +269,7 @@
     <Content Include="LinqToDB.Templates\CopyMe.SqlServer.tt.txt" />
     <Content Include="Pages\Detalles.aspx" />
     <Content Include="Pages\GestionarReservaciones.aspx" />
+    <Content Include="Pages\Lista Habitaciones.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Misreservaciones.aspx" />
     <Content Include="Pages\ModificarReservacion.aspx" />
@@ -397,6 +398,13 @@
     </Compile>
     <Compile Include="Pages\GestionarReservaciones.aspx.designer.cs">
       <DependentUpon>GestionarReservaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Lista Habitaciones.aspx.cs">
+      <DependentUpon>Lista Habitaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Lista Habitaciones.aspx.designer.cs">
+      <DependentUpon>Lista Habitaciones.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
