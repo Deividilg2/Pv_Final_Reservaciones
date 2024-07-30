@@ -123,6 +123,15 @@ namespace Pv_Final_Reservaciones.Pages
         protected global::System.Web.UI.WebControls.CustomValidator cvFechaSalida;
 
         /// <summary>
+        /// Control lblMensajeCapacidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensajeCapacidad;
+
+        /// <summary>
         /// Control lblNadultos.
         /// </summary>
         /// <remarks>

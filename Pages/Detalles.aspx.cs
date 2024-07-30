@@ -20,7 +20,7 @@ namespace Pv_Final_Reservaciones.Pages
             {
                 Response.Redirect("~/Pages/Login.aspx");
             }
-            /*Verificamos la sesi[on del usuario*/
+            /*Verificamos la sesion del usuario*/
             try
             {
             if (IsPostBack == false)
@@ -29,15 +29,21 @@ namespace Pv_Final_Reservaciones.Pages
                    //Conectamos con la BD
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
-            //Tomamos el id mediante la url, la cual enviamos desde las páginas principales (Gestionar/Misreservaciones)
                         int id = int.Parse(Request.QueryString["id"]);
                         //Pasamos el id al Storeprocedure
-                        var detalle = db.SpConsultarDetallePorId(id).ToList();                        
+                        var detalle = db.SpConsultarDetallePorId(id).ToList();  
                         if (detalle != null)
                         {                           
                             // Asignar los datos al DetailsView
                             dvDetalles.DataSource = detalle;
                             dvDetalles.DataBind();
+                        }
+                        var listabitacora = db.SpConsultarBitacora(id).ToList();
+                        if (listabitacora != null)
+                        {
+                            // Asignar los datos al DetailsView
+                            grdacciones.DataSource = listabitacora;
+                            grdacciones.DataBind();
                         }
                     }
                 }
@@ -63,7 +69,7 @@ namespace Pv_Final_Reservaciones.Pages
                 // Consultar el id de la reservación desde la query string
                 int idReservacion = int.Parse(Request.QueryString["id"]);
                 // Obtener el usuario actual desde la sesión
-                Usuario usuario = Session["Usuario"] as Usuario;
+                Usuario usuario = (Usuario)Session["Usuario"];
                 //si el usuario es diferente de nulo proceda con la ejecucion 
                 if (usuario != null)
                 {
@@ -133,3 +139,17 @@ namespace Pv_Final_Reservaciones.Pages
 
     }
 }
+/*
+ REATE PROCEDURE spConsultarBitacora
+--Procedimiento para verificar los cambios que se han realizado 
+--en las reservaciones mediante la Bitacora
+@idReservacion int
+AS
+BEGIN
+SELECT b.fechaDeLaAccion, b.accionRealizada, p.nombreCompleto, r.idReservacion, b.idBitacora
+from Bitacora b left join Persona p on p.idPersona=b.idPersona
+left join Reservacion r on r.idReservacion=b.idReservacion
+WHERE r.idReservacion=@idReservacion
+ORDER BY idBitacora DESC;
+END
+ */

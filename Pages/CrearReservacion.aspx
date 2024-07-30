@@ -24,6 +24,7 @@
         <asp:CustomValidator ID="cvFechaSalida" runat="server" ControlToValidate="txtFechaSalida" OnServerValidate="cvFechaSalida_ServerValidate" ErrorMessage="La fecha de salida debe ser mayor o igual a la fecha de entrada"></asp:CustomValidator>
     </div>
     <div>
+        <asp:Label ID="lblMensajeCapacidad" runat="server" Text=""></asp:Label>
         <asp:Label ID="lblNadultos" runat="server" Text="Número de adultos"></asp:Label>
         <asp:TextBox ID="txtNadultos" TextMode="Number" runat="server"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvNadultos" ControlToValidate="txtNadultos" runat="server" ErrorMessage="Este valor es requerido"></asp:RequiredFieldValidator>

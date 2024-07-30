@@ -29,12 +29,13 @@
     </div>
 
     <div>
+        <h2>Lista de acciones realizadas</h2>
         <!--Tabla de acciones -->
-        <asp:GridView ID="grdacciones" runat="server">
+        <asp:GridView ID="grdacciones" runat="server" AutoGenerateColumns="False">
             <Columns>
-                <asp:BoundField datafield="" HeaderText="Fecha"/>
-                <asp:BoundField datafield="" HeaderText="Acción"/>
-                <asp:BoundField datafield="" HeaderText="Realizada por"/>
+                <asp:BoundField datafield="fechaDeLaAccion" DataFormatString="{0:dd/MM/yyyy HH:mm}" HeaderText="Fecha"/>
+                <asp:BoundField datafield="accionRealizada" HeaderText="Acción"/>
+                <asp:BoundField datafield="nombreCompleto" HeaderText="Realizada por"/>
             </Columns>
         </asp:GridView>
     </div>

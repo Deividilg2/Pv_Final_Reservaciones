@@ -63,7 +63,7 @@ namespace Pv_Final_Reservaciones.Pages
 
         protected void CargarClientes()
         {
-            Usuario usuario = Session["Usuario"] as Usuario;
+            Usuario usuario = (Usuario)Session["Usuario"];
             //creamos una lista
             var lista = new List<ListItem>();
             //para que aparezca un mensaje en el dropdown como primer item de la lista
@@ -143,7 +143,7 @@ namespace Pv_Final_Reservaciones.Pages
         protected void btnRegresar_Click(object sender, EventArgs e)
         {
             // Recuperamos el objeto Usuario de la sesión
-            Usuario usuario = Session["Usuario"] as Usuario;
+            Usuario usuario = (Usuario)Session["Usuario"];
 
             if (usuario != null)
             {
@@ -166,10 +166,119 @@ namespace Pv_Final_Reservaciones.Pages
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
+            if (Page.IsValid == true)
             {
-
+                try
+                {
+                    var lista = new List<ListItem>();
+                    int idHotel = Int32.Parse(ddlHoteles.SelectedItem.Value);
+                    int idpersona = Int32.Parse(ddlClientes.SelectedItem.Value);
+                    DateTime fechaEntrada = DateTime.Parse(txtFechaEntrada.Text);
+                    DateTime fechaSalida = DateTime.Parse(txtFechaSalida.Text);
+                    int numeroAdultos = Int32.Parse(txtNadultos.Text);
+                    int numeroNihos = Int32.Parse(txtNnihos.Text);
+                    int sumaCapacidad = numeroAdultos + numeroNihos;
+                    int totalDiasReservacion = (int)(fechaSalida - fechaEntrada).TotalDays;
+                    //Validamos que no sobrepase la capacidad de las habitaciones
+                    if (sumaCapacidad > 4)
+                    {
+                        lblMensajeCapacidad.Text = "La cantidad de personas sobre pasa la capacidad de las habitaciones";
+                    }
+                    using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
+                    {
+                        /*
+                        var precio= db.SpConsultarHoteles()
+                        decimal costoPorCadaAdulto = 
+                        decimal costoTotal;
+                        //Tomamos los valores que requerimos para la creacion de la reservacion
+                        var hotel = db.SpConsultarHabitacionesDeHotel(sumaCapacidad, idHotel).FirstOrDefault();
+                        var datosReservacion = db.SpCrearReservacion(idHotel,hotel.IdHabitacion,fechaEntrada,fechaSalida,numeroAdultos,numeroNihos, totalDiasReservacion, costoTotal);
+                        var idReservacion = db.SpConsultarReservacionPorID
+                        var bitacora = db.SpInsertarReservacionEnBitacora(idpersona,);
+                        */
+                    }
+                }
+                catch
+                {
+                  
+                }
             }
+             
+
+            
         }
     }
 }
+/*
+ USE [PV_ProyectoFinal]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[spConsultarHoteles]
+AS
+BEGIN
+SELECT idHotel, nombre , costoPorCadaAdulto, costoPorCadaNinho
+FROM Hotel
+ORDER BY nombre asc;
+END;USE [PV_ProyectoFinal]
+GO
+ */
+
+/*
+ CREATE PROCEDURE spInsertarReservacionEnBitacora
+--Sp que nos permite agregar acciones de creacion de reservaciones a la bitacora
+@idPersona INT,
+@idReservacion INT -- Si es necesario para el registro
+AS
+BEGIN
+-- Insertar un nuevo registro en la tabla Bitacora
+INSERT INTO Bitacora (fechaDeLaAccion, accionRealizada, idPersona, idReservacion)
+VALUES (GETDATE(), 'CREADA', @idPersona, @idReservacion);
+END;
+ */
+//---------------------------------------------------------------------------------------------------------
+/*
+CREATE PROCEDURE spConsultarHabitacionesDeHotel
+--Sp que nos permite seleccionar la habitacion que tenga suficiente capacidad y que sea la menos reservada
+@totalPersonas INT,
+@idHotel INT
+AS
+BEGIN
+DECLARE @idHabitacion INT;
+-- Seleccionamos la habitación con estado "A" que tenga capacidad suficiente y tenga menos reservaciones
+SELECT TOP 1 @idHabitacion = h.idHabitacion
+FROM Habitacion h
+LEFT JOIN Reservacion R ON h.idHabitacion = r.idHabitacion
+WHERE h.estado = 'A'
+AND h.capacidadMaxima >= @totalPersonas AND h.idHotel = @idHotel
+GROUP BY h.idHabitacion, h.capacidadMaxima, h.estado
+ORDER BY COUNT(r.idReservacion) ASC;
+
+-- Si es que encuentra una habitación disponible
+IF @idHabitacion IS NOT NULL
+BEGIN
+SELECT @idHabitacion AS idHabitacion;
+END
+END;
+ */
+//-------------------------------------------------------------------
+/*
+ USE [PV_ProyectoFinal]
+GO
+ StoredProcedure [dbo].[spConsuntarPersonas]
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[spConsuntarPersonas]
+AS
+BEGIN
+--Seleccionamos las personas para el dropdownlist
+SELECT idPersona,nombreCompleto,estado
+FROM Persona
+WHERE estado = 'A'
+ORDER BY idPersona asc
+END;
+ */
