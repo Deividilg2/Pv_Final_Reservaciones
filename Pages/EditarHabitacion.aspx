@@ -2,13 +2,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <h1>Editar habitación</h1>
+    <asp:HiddenField ID="hdnID" runat="server" />
 
         <div>
        
             <asp:Label ID="lblHotel" runat="server" Text="Hotel"></asp:Label>
-
             <br />
-
             <asp:TextBox ID="txtHotel" runat="server" ReadOnly="true"></asp:TextBox>
 
             <br />
@@ -45,8 +44,8 @@
     <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" />
 
     &nbsp;&nbsp;&nbsp;
-
-    <asp:Button ID="Inactivar" runat="server" Text="Inactivar" OnClick="Inactivar_Click" />
+    <%--Este botón no debe realizar ninguna validación de los elementos del formulario--%>
+    <asp:Button ID="Inactivar" runat="server" Text="Inactivar" OnClick="Inactivar_Click" CausesValidation="false" />
 
     &nbsp;&nbsp;&nbsp;
 

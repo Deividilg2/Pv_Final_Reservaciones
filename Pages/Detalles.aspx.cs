@@ -60,19 +60,24 @@ namespace Pv_Final_Reservaciones.Pages
         {
             try
             {
-                //Consultar este int idReservacion?
+                // Consultar el id de la reservación desde la query string
                 int idReservacion = int.Parse(Request.QueryString["id"]);
+                // Obtener el usuario actual desde la sesión
                 Usuario usuario = Session["Usuario"] as Usuario;
-
+                //si el usuario es diferente de nulo proceda con la ejecucion 
                 if (usuario != null)
                 {
+                    //realizamos la conexión a la BD
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
+                        // Llamar al procedimiento almacenado para cancelar la reservación y registrar la acción en la bitácora
                         var resultado = db.SpCancelarReservacionYRegistrarBitacora(idReservacion, usuario.id).FirstOrDefault();
+                        // Obtener el mensaje de resultado del procedimiento almacenado
                         string mensaje = resultado?.Resultado;
-
+                        // Verificar si la cancelación fue exitosa
                         if (mensaje == "Reservación cancelada exitosamente")
                         {
+                            // Redirigir al usuario a la página correspondiente según su rol
                             if (usuario.esEmpleado)
                             {
                                 Response.Redirect("~/Pages/GestionarReservaciones.aspx");
@@ -84,17 +89,20 @@ namespace Pv_Final_Reservaciones.Pages
                         }
                         else
                         {
+                            // Mostrar el mensaje de error si la cancelación no fue exitosa
                             Response.Write(mensaje);
                         }
                     }
                 }
                 else
                 {
+                    // Redirigir al usuario a la página de inicio de sesión si no está autenticado
                     Response.Redirect("~/Pages/Login.aspx");
                 }
             }
             catch (Exception ex)
             {
+                // Mostrar el mensaje de error si ocurre una excepción durante el proceso
                 Response.Write("Ocurrió un error al cancelar la reservación: " + ex.Message);
             }
         }
