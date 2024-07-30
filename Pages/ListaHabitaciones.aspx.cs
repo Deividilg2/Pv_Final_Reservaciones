@@ -56,26 +56,3 @@ namespace Pv_Final_Reservaciones.Pages
 
     }
 }
-
-/*
- --Procedimiento almacenado para consultar Habitaciones
-CREATE PROCEDURE spConsultarHabitaciones
-AS
-BEGIN
-	SET NOCOUNT ON;   
---Seleccionamos toda la información de la tabla Habitacion y la informacion que requerimos de la tabla hotel
-	SELECT  
-	   ha.[idHabitacion]
-      ,ha.[idHotel]
-      ,ha.[numeroHabitacion]
-      ,ha.[capacidadMaxima]
-      ,ha.[descripcion]
-      ,ha.[estado],
-	   h.nombre --Nombre del hotel
-	   --Indicamos de donde tomamos la informacion 
-  FROM   [Habitacion] ha
-    INNER JOIN --conectamos a las tablas Habitacion y Hotel a traves del idHotel
-        [Hotel] h ON ha.idHotel = h.idHotel;
-END
-GO
- */

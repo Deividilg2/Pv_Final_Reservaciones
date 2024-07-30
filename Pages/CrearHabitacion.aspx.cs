@@ -87,22 +87,3 @@ namespace Pv_Final_Reservaciones.Pages
 
     }
 }
-
-/*
- --Procedimiento almacenado para crear una nueva habitación
-CREATE PROCEDURE spCrearHabitacion 
---Agregamos los parametros necesarios para crear la nueva habitacion 
-	@idHotel int,
-	@numeroHabitacion varchar(10),
-	@capacidadMaxima int,
-	@descripcion varchar(500),
-	@estado varchar(1)
-AS
-BEGIN
---indicamos donde insertar los datos
-	insert into Habitacion(idHotel, numeroHabitacion, capacidadMaxima, descripcion, estado)
-	--pasamos los valores a insertar
-	values( @idHotel, @numeroHabitacion, @capacidadMaxima, @descripcion, 'A')
-END
-GO
- */
