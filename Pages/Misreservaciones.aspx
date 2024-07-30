@@ -4,7 +4,7 @@
      <!-- Colocamos todo dentro de un contenedor-->
     <div class="Contenedor">
         <h2>Mis reservaciónes</h2>
-        <a href="#">Nueva reservación</a>
+        <asp:Button ID="btnNuevareservacion" runat="server" Text="Nueva reservación" OnClick="btnNuevareservacion_Click" />
         <!--Colocamos las columnas respectivas de la tabla-->
         <!--Pasamos datos que necesitamos para detalles por medio de URL-->
         <asp:GridView ID="grdMisreservaciones" runat="server" AutoGenerateColumns="False">

@@ -49,5 +49,10 @@ namespace Pv_Final_Reservaciones.Pages
 
             }
         }
+
+        protected void btnNuevareservacion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Pages/CrearReservacion.aspx");
+        }
     }
 }

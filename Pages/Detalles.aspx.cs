@@ -60,6 +60,7 @@ namespace Pv_Final_Reservaciones.Pages
         {
             try
             {
+                //Consultar este int idReservacion?
                 int idReservacion = int.Parse(Request.QueryString["id"]);
                 Usuario usuario = Session["Usuario"] as Usuario;
 

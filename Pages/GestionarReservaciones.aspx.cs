@@ -71,41 +71,33 @@ namespace Pv_Final_Reservaciones.Pages
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
-            try
+            if(Page.IsValid == true)
             {
-
-                //Variables para realizar el filtro de busqueda
-                DateTime fechaEntrada = DateTime.Parse(txtFechaEntrada.Text);
-                DateTime fechaSalida = DateTime.Parse(txtFechaSalida.Text);
-
-                //Condicion para evitar error de busqueda
-                if (fechaSalida < fechaEntrada)
+                try
                 {
-                    Response.Redirect("~/Pages/Misreservaciones.aspx");
-                    //Esto lo utilizo de momento porque no hay validación de error para mostrar
-                }
-                else
-                {
-
+                    //Variables para realizar el filtro de busqueda
+                    DateTime fechaEntrada = DateTime.Parse(txtFechaEntrada.Text);
+                    DateTime fechaSalida = DateTime.Parse(txtFechaSalida.Text);
+                    //Carga el filtro después de la validación realizada
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
                         var lista = db.SpFiltrar(fechaEntrada, fechaSalida).ToList();
                         grdReservaciones.DataSource = lista;
                         grdReservaciones.DataBind();
-
                     }
                 }
+                catch
+                {
 
+                }
             }
-            catch
-            {
-
-            }
+            
         }
 
         //Acción que permite seleccionar el cliente que se desea filtrar utilizando el DropDownList 
         protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             String Personaselec = ddlClientes.SelectedItem.Value;
             using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
             {
@@ -121,6 +113,30 @@ namespace Pv_Final_Reservaciones.Pages
                     grdReservaciones.DataBind();
                 }
             }
+        }
+
+        protected void cvFechaSalida_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            try
+            {
+                args.IsValid = false;
+                if (args.Value != null)
+                {
+                    if (DateTime.Parse(args.Value) >= DateTime.Parse(txtFechaEntrada.Text))
+                    {
+                        args.IsValid = true;
+                    }
+                }
+            }
+            catch
+            {
+                args.IsValid = false;
+            }
+        }
+
+        protected void btnNuevareservacion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Pages/CrearReservacion.aspx");
         }
     }
 }

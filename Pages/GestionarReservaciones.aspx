@@ -8,11 +8,12 @@
          <asp:DropDownList ID="ddlClientes" runat="server" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="True" ></asp:DropDownList>
          <asp:TextBox ID="txtFechaEntrada" runat="server" placeholder="dd/MM/yyyy"></asp:TextBox>
          <asp:TextBox ID="txtFechaSalida" runat="server" placeholder="dd/MM/yyyy"></asp:TextBox>
+         <asp:CustomValidator ID="cvFechaSalida" runat="server" ControlToValidate="txtFechaSalida" OnServerValidate="cvFechaSalida_ServerValidate" ErrorMessage="La fecha de salida debe ser mayor o igual a la fecha de entrada"></asp:CustomValidator>
          <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" OnClick="btnFiltrar_Click"/>
          <br />
          
 
-     <a href="#">Nueva reservación</a>
+         <asp:Button ID="btnNuevareservacion" runat="server" Text="Nueva reservación" OnClick="btnNuevareservacion_Click" />
          <!--Colocamos las columnas respectivas de la tabla-->
      <asp:GridView ID="grdReservaciones" runat="server" AutoGenerateColumns="False">
       <Columns>
