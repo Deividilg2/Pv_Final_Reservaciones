@@ -17,6 +17,7 @@
         <asp:Label ID="lblNumHabitacion" runat="server" Text="Número de Habitación"></asp:Label>
         <br />
         <%--Hay que revisar si es o no necesario usar alguna validacion especifica para datos alfanumericos--%>
+       <%-- Hay que comprobar si se permite o no ingresar un mismo numero de habitacion para un mismo hotel--%>
         <asp:TextBox ID="txtNumHabitacion" runat="server" MaxLength="10"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rqNumHabitacion" runat="server" ErrorMessage="Campo Obligatorio" 
             ControlToValidate="txtNumHabitacion"></asp:RequiredFieldValidator>

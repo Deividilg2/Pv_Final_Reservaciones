@@ -391,6 +391,33 @@ namespace DataModels
 
 		#endregion
 
+		#region SpCrearHabitacion
+
+		public static int SpCrearHabitacion(this PvProyectoFinalDB dataConnection, int? @idHotel, string @numeroHabitacion, int? @capacidadMaxima, string @descripcion, char? @estado)
+		{
+			var parameters = new []
+			{
+				new DataParameter("@idHotel",          @idHotel,          LinqToDB.DataType.Int32),
+				new DataParameter("@numeroHabitacion", @numeroHabitacion, LinqToDB.DataType.VarChar)
+				{
+					Size = 10
+				},
+				new DataParameter("@capacidadMaxima",  @capacidadMaxima,  LinqToDB.DataType.Int32),
+				new DataParameter("@descripcion",      @descripcion,      LinqToDB.DataType.VarChar)
+				{
+					Size = 500
+				},
+				new DataParameter("@estado",           @estado,           LinqToDB.DataType.VarChar)
+				{
+					Size = 1
+				}
+			};
+
+			return dataConnection.ExecuteProc("[dbo].[spCrearHabitacion]", parameters);
+		}
+
+		#endregion
+
 		#region SpCrearReservacion
 
 		public static int SpCrearReservacion(this PvProyectoFinalDB dataConnection, int? @idPersona, int? @idHabitacion, DateTime? @fechaEntrada, DateTime? @fechaSalida, int? @numeroAdultos, int? @numeroNinhos, int? @totalDiasReservacion, decimal? @costoTotal)
