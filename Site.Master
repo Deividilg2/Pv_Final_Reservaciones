@@ -55,6 +55,7 @@
                         <li class="alert-danger" >
                             <asp:LinkButton ID="lnkbtnCierresesion" runat="server" Visible="false" OnClick="lnkbtnCierresesion_Click">Cerrar Sesión</asp:LinkButton>
                         </li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Pages/ListaHabitaciones">Contact</a></li>
                     </ul>
                 </div>
             </div>

@@ -9,17 +9,16 @@
 
     <div>
 
-        <asp:GridView ID="grdHabitaciones" runat="server" CssClass="table table-striped-columns">
+        <asp:GridView ID="grdHabitaciones" runat="server" CssClass="table table-striped" AutoGenerateColumns="False">
             <Columns>
-                <asp:BoundField HeaderText="ID" ReadOnly="True" />
-                <asp:BoundField HeaderText="Hotel" ReadOnly="True" />
-                <asp:BoundField HeaderText="Número Habitación" ReadOnly="True" />
-                <asp:BoundField HeaderText="Capacidad Máxima" ReadOnly="True" />
-                <asp:BoundField HeaderText="Estado" ReadOnly="True" />
-                <asp:TemplateField>
+                <asp:BoundField HeaderText="ID" ReadOnly="True" DataField="idHabitacion" />
+                <asp:BoundField HeaderText="Hotel" ReadOnly="True" DataField="nombre" />
+                <asp:BoundField HeaderText="Número Habitación" ReadOnly="True" DataField="numeroHabitacion" />
+                <asp:BoundField HeaderText="Capacidad Máxima" ReadOnly="True" DataField="capacidadMaxima" />
+                <asp:TemplateField HeaderText="Estado">
                     <ItemTemplate>
-                  <%--  Hay que hacer metodo para convertir la A y la I del Estado en Activo o Inactivo--%>
-                   
+                  <%--  Método para convertir la A y la I del Estado en Activo o Inactivo--%>
+                   <asp:Label ID="lblEstado" runat="server" Text='<%# ConvertEstado(Eval("estado").ToString()) %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
 
