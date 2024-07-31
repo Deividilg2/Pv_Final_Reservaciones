@@ -104,11 +104,11 @@ namespace Pv_Final_Reservaciones.Pages
             try
             {
                 //Tomamos por falso el valor desde un inicio
-            args.IsValid = false;
+                args.IsValid = false;
                 //Si el valor no es nulo validamos la condición
                 if (args.Value != null) 
                 { //Si la fecha es mayor o igual entonces es valida
-                    if(DateTime.Parse(args.Value) >= DateTime.Now) 
+                    if(DateTime.Parse(args.Value) >= DateTime.Today) 
                     {
                         args.IsValid = true; 
                     }
@@ -170,7 +170,6 @@ namespace Pv_Final_Reservaciones.Pages
             {
                 try
                 {
-                    var lista = new List<ListItem>();
                     int idHotel = Int32.Parse(ddlHoteles.SelectedItem.Value);
                     int idpersona = Int32.Parse(ddlClientes.SelectedItem.Value);
                     DateTime fechaEntrada = DateTime.Parse(txtFechaEntrada.Text);
@@ -186,6 +185,18 @@ namespace Pv_Final_Reservaciones.Pages
                     }
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
+                        var precio = db.SpConsultarDetallePorId(idpersona).FirstOrDefault();
+
+                        decimal costoTotal = (decimal)precio.CostoTotal;
+                        if (precio != null)
+                        {
+                            db.SpCrearReservacion(idpersona,idHotel, fechaEntrada, fechaSalida,numeroAdultos,numeroNihos,totalDiasReservacion,costoTotal);
+                        }
+
+
+
+
+
                         /*
                         var precio= db.SpConsultarHoteles()
                         decimal costoPorCadaAdulto = 
@@ -210,20 +221,34 @@ namespace Pv_Final_Reservaciones.Pages
     }
 }
 /*
- USE [PV_ProyectoFinal]
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER PROCEDURE [dbo].[spConsultarHoteles]
+ ALTER PROCEDURE [dbo].[spCrearReservacion]
+@idPersona INT,
+@idHotel INT,
+@fechaEntrada DATETIME,
+@fechaSalida DATETIME,
+@numeroAdultos INT,
+@numeroNinhos INT,
+@totalDiasReservacion INT,
+@costoTotal NUMERIC(14, 2)
 AS
 BEGIN
-SELECT idHotel, nombre , costoPorCadaAdulto, costoPorCadaNinho
+DECLARE @fechaCreacion DATETIME = GETDATE();
+
+INSERT INTO Reservacion (idPersona, fechaEntrada, fechaSalida, 
+numeroAdultos, numeroNinhos, totalDiasReservacion, costoTotal, fechaCreacion, estado)
+VALUES (@idPersona, @fechaEntrada, @fechaSalida, @numeroAdultos, 
+@numeroNinhos, @totalDiasReservacion,@costoTotal,@fechaCreacion, 'A'); 
+END;
+ */
+//---------------------------------------------------------------------------
+/*
+ ALTER PROCEDURE [dbo].[spConsultarHoteles]
+AS
+BEGIN
+SELECT idHotel, nombre
 FROM Hotel
 ORDER BY nombre asc;
-END;USE [PV_ProyectoFinal]
-GO
+END;
  */
 
 /*
@@ -264,6 +289,7 @@ END
 END;
  */
 //-------------------------------------------------------------------
+//Este lo cambie porque solo debo mostrar en el ddlclientes las personas activas
 /*
  USE [PV_ProyectoFinal]
 GO

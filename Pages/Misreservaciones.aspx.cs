@@ -41,12 +41,9 @@ namespace Pv_Final_Reservaciones.Pages
                      
                     }
                 }
-                
-
             }
             catch
             {
-
             }
         }
 
