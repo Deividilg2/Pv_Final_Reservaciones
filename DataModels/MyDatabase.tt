@@ -1,7 +1,7 @@
 <#@ template language="C#" debug="True" hostSpecific="True"                    #>
 <#@ CleanupBehavior processor="T4VSHost" CleanupAfterProcessingtemplate="true" #>
 <#@ output extension=".generated.cs"                                           #>
-        
+          
 <#@ include file="$(LinqToDBT4SqlServerTemplatesPath)LinqToDB.SqlServer.Tools.ttinclude" once="true" #>
 <#@ include file="$(LinqToDBT4SqlServerTemplatesPath)PluralizationService.ttinclude"     once="true" #>
 <#
@@ -113,10 +113,10 @@
 //	GenerateProcedureErrors             = true;                   // generate stored procedure metadata errors
 //	GenerateProcedureResultAsList       = false;                  // generate stored procedure result as List<T>
 //	GenerateProceduresOnTypedContext    = true;                   // generate stored procedures on typed context
-
+ 
 	// to configure GetSchemaOptions properties, add them here, before load metadata call
 
-	LoadSqlServerMetadata("Data Source=DEIVIDILG\\DEIVIDILG;Database=PV_ProyectoFinal;Integrated Security=True");
+	LoadSqlServerMetadata("Data Source=Camila;Database=PV_ProyectoFinal;Integrated Security=True");
 //	LoadSqlServerMetadata(".", "MyDatabase"); // Integrated Security
 //	LoadSqlServerMetadata(string connectionString);
 

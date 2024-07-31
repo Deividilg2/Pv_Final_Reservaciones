@@ -70,7 +70,7 @@ namespace Pv_Final_Reservaciones.Pages
         }
 
         protected void btnGuardarModificacion_Click(object sender, EventArgs e)
-        {
+        {//Hay que colocarle metodo o algo para que no sobrepase la cant max de personas en habitacion
             if (Page.IsValid == true)
             {
                 try

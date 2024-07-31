@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+//Arreglar validacion de id segun la reservacion del usuario pag 23 doc
+
 namespace Pv_Final_Reservaciones.Pages
 {
     public partial class Detalles : System.Web.UI.Page

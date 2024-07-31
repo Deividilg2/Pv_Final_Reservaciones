@@ -46,10 +46,10 @@
 
 <br><br>
 <asp:RangeValidator ID="rgvNumAdultos" runat="server" ErrorMessage="Mínimo 1 adulto"
-    ControlToValidate="txtNumeroAdultos" MinimumValue="1" MaximumValue="100" Type="Integer" ></asp:RangeValidator>
+    ControlToValidate="txtNumeroAdultos" MinimumValue="1" MaximumValue="8" Type="Integer" ></asp:RangeValidator>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <asp:RangeValidator ID="rgvNumNinhos" runat="server" ErrorMessage="" 
-    ControlToValidate="txtNumeroNinhos" MinimumValue="0" MaximumValue="100" Type="Integer"></asp:RangeValidator>
+    ControlToValidate="txtNumeroNinhos" MinimumValue="0" MaximumValue="7" Type="Integer"></asp:RangeValidator>
 
     </div>
 <asp:Button ID="btnGuardarModificacion" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardarModificacion_Click" /> &nbsp;&nbsp; 

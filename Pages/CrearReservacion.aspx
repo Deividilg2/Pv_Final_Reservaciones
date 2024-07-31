@@ -28,10 +28,11 @@
         <asp:Label ID="lblNadultos" runat="server" Text="Número de adultos"></asp:Label>
         <asp:TextBox ID="txtNadultos" TextMode="Number" runat="server"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvNadultos" ControlToValidate="txtNadultos" runat="server" ErrorMessage="Este valor es requerido"></asp:RequiredFieldValidator>
-        <asp:RangeValidator ID="rvNadultos" ControlToValidate="txtNadultos" runat="server" MaximumValue="4" MinimumValue="1" ErrorMessage="El número ingresado no puede ser procesado"></asp:RangeValidator>
+        <asp:RangeValidator ID="rvNadultos" ControlToValidate="txtNadultos" runat="server" MaximumValue="8" MinimumValue="1" ErrorMessage="El número ingresado no puede ser procesado"></asp:RangeValidator>
         <br /> 
         <asp:Label ID="lblNnihos" runat="server" Text="Número de niños"></asp:Label>
         <asp:TextBox ID="txtNnihos" TextMode="Number" runat="server"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="rfvNnihos" runat="server" ErrorMessage="Este valor es requerido" ControlToValidate="txtNnihos"></asp:RequiredFieldValidator>
         <asp:RangeValidator ID="rvNnihos" ControlToValidate="txtNnihos" runat="server" MaximumValue="3" MinimumValue="0" ErrorMessage="El número ingresado no puede ser procesado"></asp:RangeValidator>
     </div>
     <div>
