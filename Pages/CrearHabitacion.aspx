@@ -15,6 +15,7 @@
     <div>
        
         <asp:Label ID="lblNumHabitacion" runat="server" Text="Número de Habitación"></asp:Label>
+        <asp:Label ID="lblMensajeError" runat="server" Text=""></asp:Label>
         <br />
         <%--Hay que revisar si es o no necesario usar alguna validacion especifica para datos alfanumericos--%>
        <%-- Hay que comprobar si se permite o no ingresar un mismo numero de habitacion para un mismo hotel--%>

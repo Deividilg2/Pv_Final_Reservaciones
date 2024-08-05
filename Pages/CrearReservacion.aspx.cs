@@ -179,6 +179,9 @@ namespace Pv_Final_Reservaciones.Pages
                     DateTime fechaSalida = DateTime.Parse(txtFechaSalida.Text);
                     int numeroAdultos = Int32.Parse(txtNadultos.Text);
                     int numeroNihos = Int32.Parse(txtNnihos.Text);
+                    int totalPersonas = numeroAdultos + numeroNihos;
+
+
 
                     if (string.IsNullOrEmpty(txtNnihos.Text))
                     {

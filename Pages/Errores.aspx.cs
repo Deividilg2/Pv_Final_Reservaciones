@@ -26,14 +26,14 @@ namespace Pv_Final_Reservaciones.Pages
                     case "ErrorId":
                         lblMensaje.Text = "El id que se solicita no corresponde al usuario o no existe";
                         break;
-                    case "CrearHabitacion":
-                        lblMensaje.Text = "Ha modificado correctamente la habitación";
+                    case "ErrorInactivo":
+                        lblMensaje.Text = "La habitación no puede ser modificada debido a que está inactiva";
                         break;
-                    case "EditarHabitacion":
-                        lblMensaje.Text = "Se ha logrado modificar de forma correcta la habitación";
+                    case "ErrorActivo":
+                        lblMensaje.Text = "Actualmente existen reservaciones asociadas en proceso o espera para esta habitación";
                         break;
-                    case "Inactivarhabitacion":
-                        lblMensaje.Text = "Se ha logrado modificar de forma correcta la habitación";
+                    case "ErrorInactivar":
+                        lblMensaje.Text = "Habitación ya se encuentra inactiva";
                         break;
                     default:
                         lblMensaje.Text = "Operación realizada.";

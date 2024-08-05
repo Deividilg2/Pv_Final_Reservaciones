@@ -251,6 +251,28 @@ namespace DataModels
 
 		#endregion
 
+		#region SpConsultarCapacidadMaximadeHotel
+
+		public static int SpConsultarCapacidadMaximadeHotel(this PvProyectoFinalDB dataConnection, int? @idHotel, ref int? @capacidadTotal)
+		{
+			var parameters = new []
+			{
+				new DataParameter("@idHotel",        @idHotel,        LinqToDB.DataType.Int32),
+				new DataParameter("@capacidadTotal", @capacidadTotal, LinqToDB.DataType.Int32)
+				{
+					Direction = ParameterDirection.InputOutput
+				}
+			};
+
+			var ret = dataConnection.ExecuteProc("[dbo].[spConsultarCapacidadMaximadeHotel]", parameters);
+
+			@capacidadTotal = Converter.ChangeTypeTo<int?>(parameters[1].Value);
+
+			return ret;
+		}
+
+		#endregion
+
 		#region SpConsultarDetallePorId
 
 		public static IEnumerable<SpConsultarDetallePorIdResult> SpConsultarDetallePorId(this PvProyectoFinalDB dataConnection, int? @idreservacion, int? @idUsuario)
@@ -475,6 +497,31 @@ namespace DataModels
 
 		#endregion
 
+		#region SpEditarHabitacion
+
+		public static int SpEditarHabitacion(this PvProyectoFinalDB dataConnection, int? @idHabitacion, int? @idHotel, string @numeroHabitacion, int? @idPersona, int? @capacidadMaxima, string @descripcion)
+		{
+			var parameters = new []
+			{
+				new DataParameter("@idHabitacion",     @idHabitacion,     LinqToDB.DataType.Int32),
+				new DataParameter("@idHotel",          @idHotel,          LinqToDB.DataType.Int32),
+				new DataParameter("@numeroHabitacion", @numeroHabitacion, LinqToDB.DataType.VarChar)
+				{
+					Size = 10
+				},
+				new DataParameter("@idPersona",        @idPersona,        LinqToDB.DataType.Int32),
+				new DataParameter("@capacidadMaxima",  @capacidadMaxima,  LinqToDB.DataType.Int32),
+				new DataParameter("@descripcion",      @descripcion,      LinqToDB.DataType.VarChar)
+				{
+					Size = 500
+				}
+			};
+
+			return dataConnection.ExecuteProc("[dbo].[spEditarHabitacion]", parameters);
+		}
+
+		#endregion
+
 		#region SpFiltrar
 
 		public static IEnumerable<SpFiltrarResult> SpFiltrar(this PvProyectoFinalDB dataConnection, DateTime? @fechaInicial, DateTime? @fechaFinal)
@@ -625,6 +672,48 @@ namespace DataModels
 		public partial class SpModificarReservacionYRegistrarBitacoraResult
 		{
 			public string Resultado { get; set; }
+		}
+
+		#endregion
+
+		#region SpVerificarHabitacionDuplicada
+
+		public static IEnumerable<SpVerificarHabitacionDuplicadaResult> SpVerificarHabitacionDuplicada(this PvProyectoFinalDB dataConnection, int? @idHotel, string @numeroHabitacion)
+		{
+			var parameters = new []
+			{
+				new DataParameter("@idHotel",          @idHotel,          LinqToDB.DataType.Int32),
+				new DataParameter("@numeroHabitacion", @numeroHabitacion, LinqToDB.DataType.VarChar)
+				{
+					Size = 10
+				}
+			};
+
+			return dataConnection.QueryProc<SpVerificarHabitacionDuplicadaResult>("[dbo].[SpVerificarHabitacionDuplicada]", parameters);
+		}
+
+		public partial class SpVerificarHabitacionDuplicadaResult
+		{
+			public int? HabitacionesDuplicadas { get; set; }
+		}
+
+		#endregion
+
+		#region SpVerificarReservacionesActivas
+
+		public static IEnumerable<SpVerificarReservacionesActivasResult> SpVerificarReservacionesActivas(this PvProyectoFinalDB dataConnection, int? @idHabitacion)
+		{
+			var parameters = new []
+			{
+				new DataParameter("@idHabitacion", @idHabitacion, LinqToDB.DataType.Int32)
+			};
+
+			return dataConnection.QueryProc<SpVerificarReservacionesActivasResult>("[dbo].[spVerificarReservacionesActivas]", parameters);
+		}
+
+		public partial class SpVerificarReservacionesActivasResult
+		{
+			public int? ReservacionesActivas { get; set; }
 		}
 
 		#endregion

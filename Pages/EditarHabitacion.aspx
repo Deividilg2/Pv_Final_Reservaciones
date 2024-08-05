@@ -14,6 +14,7 @@
             <br />
 
         <asp:Label ID="lblNumHabitacion" runat="server" Text="Número de Habitación"></asp:Label>
+            <asp:Label ID="lblMensajeError" runat="server" Text=""></asp:Label>
         <br />
         <%--Hay que revisar si es o no necesario usar alguna validacion especifica para datos alfanumericos, string deberia aceptar TODO--%>
         <asp:TextBox ID="txtNumHabitacion" runat="server" MaxLength="10"></asp:TextBox>

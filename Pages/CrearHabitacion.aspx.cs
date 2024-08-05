@@ -81,13 +81,23 @@ namespace Pv_Final_Reservaciones.Pages
                     int capacidadMax = int.Parse(txtCapacidadMax.Text);  
                     string descripcion = txtDescripcion.Text;
                     char estado = 'A';
-
+                    
                     //realizamos la conexion a la BD
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
-                        //llamamos al procedimiento almacenado de la BD y le pasamos los parametros necesarios
-                        db.SpCrearHabitacion(hotel,numeroHabitacion,capacidadMax,descripcion,estado);
-                        Response.Redirect("~/Pages/Resultado.aspx?source=CrearHabitacion", false);
+                        // Verificamos si ya existe una habitación con el mismo número en el mismo hotel
+                        var habitacionesDuplicadas = db.SpVerificarHabitacionDuplicada(hotel, numeroHabitacion).FirstOrDefault();
+
+                        if (habitacionesDuplicadas != null || habitacionesDuplicadas.HabitacionesDuplicadas > 0)
+                        {
+                            lblMensajeError.Text = "Ya existe una habitación con el mismo número en el hotel seleccionado.";
+                        }
+                        else
+                        {
+                            // Llamamos al procedimiento almacenado de la BD y le pasamos los parámetros necesarios
+                            db.SpCrearHabitacion(hotel, numeroHabitacion, capacidadMax, descripcion, estado);
+                            Response.Redirect("~/Pages/Resultado.aspx?source=CrearHabitacion", false);
+                        }
                     }
 
                 }

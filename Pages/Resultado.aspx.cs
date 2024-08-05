@@ -33,7 +33,7 @@ namespace Pv_Final_Reservaciones.Pages
                         lblMensaje.Text = "Se ha logrado modificar de forma correcta la habitación";
                         break;
                     case "Inactivarhabitacion":
-                        lblMensaje.Text = "Se ha logrado modificar de forma correcta la habitación";
+                        lblMensaje.Text = "Se ha inactivado la habitación con éxito";
                         break;
                     default:
                         lblMensaje.Text = "Operación realizada.";
