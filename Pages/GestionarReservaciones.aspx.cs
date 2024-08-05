@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
+using Pv_Final_Reservaciones.Clases;
 
 
 namespace Pv_Final_Reservaciones.Pages
@@ -20,9 +21,15 @@ namespace Pv_Final_Reservaciones.Pages
             if (Session["Usuario"] == null)
             {
                 Response.Redirect("~/Pages/Login.aspx");
+
             }
-            //Validamos la sesión del usuario
-            if(Page.IsPostBack == false)
+            Usuario usuario = (Usuario)Session["Usuario"];
+            if (!usuario.esEmpleado)
+            {
+                Response.Redirect("~/Pages/Errores.aspx?source=ErrorUrl", false);
+            }
+                //Validamos la sesión del usuario
+                if (Page.IsPostBack == false)
             {
                 //Usamos un try en caso de errores
                 try

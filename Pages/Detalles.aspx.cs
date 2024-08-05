@@ -21,32 +21,38 @@ namespace Pv_Final_Reservaciones.Pages
             if (Session["Usuario"] == null)
             {
                 Response.Redirect("~/Pages/Login.aspx");
+
             }
+
             /*Verificamos la sesion del usuario*/
             try
             {
             if (IsPostBack == false)
                 //Comprobamos que la carga de página no venga de un boton y no realice la accion dentro
                 {
-                   //Conectamos con la BD
+                    int id = int.Parse(Request.QueryString["id"]);
+                    //Conectamos con la BD
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
-                        int id = int.Parse(Request.QueryString["id"]);
+                        Usuario usuario = Session["Usuario"] as Usuario;
+                        
                         //Pasamos el id al Storeprocedure
-                        var detalle = db.SpConsultarDetallePorId(id).ToList();  
-                        if (detalle != null)
+                        var detalle = db.SpConsultarDetallePorId(id, usuario.id).FirstOrDefault();  //Revisar en bd
+                        var listabitacora = db.SpConsultarBitacora(id, usuario.id).ToList();
+                        if (detalle != null )
                         {                           
-                            // Asignar los datos al DetailsView
-                            dvDetalles.DataSource = detalle;
+                            // Asignar los datos al DetailsView con un objeto Ienumerable list
+                            dvDetalles.DataSource = new List<dynamic> { detalle };
                             dvDetalles.DataBind();
-                        }
-                        var listabitacora = db.SpConsultarBitacora(id).ToList();
-                        if (listabitacora != null)
-                        {
                             // Asignar los datos al DetailsView
                             grdacciones.DataSource = listabitacora;
                             grdacciones.DataBind();
+                        }else
+                        {
+                            Response.Redirect("~/Pages/Errores.aspx?source=ErrorId", false);
                         }
+                        
+
                     }
                 }
             }
@@ -142,16 +148,39 @@ namespace Pv_Final_Reservaciones.Pages
     }
 }
 /*
- REATE PROCEDURE spConsultarBitacora
+ALTER PROCEDURE [dbo].[spConsultarDetallePorId]
+@idreservacion int,
+@idUsuario int
+AS
+BEGIN
+SELECT r.idReservacion,ha.idHabitacion,ha.numeroHabitacion,h.idHotel,h.nombre,r.fechaEntrada,r.fechaSalida,r.numeroAdultos,r.numeroNinhos,
+totalDiasReservacion = CASE 
+            WHEN DATEDIFF(DAY, r.fechaEntrada, r.fechaSalida) = 0 THEN 1
+            ELSE DATEDIFF(DAY, r.fechaEntrada, r.fechaSalida)
+END,
+costoTotal =totalDiasReservacion * ((r.numeroAdultos*r.costoPorCadaAdulto)+(r.numeroNinhos*r.costoPorCadaNinho)),
+r.estado,p.nombreCompleto
+FROM Reservacion r left join Habitacion ha on r.idHabitacion = ha.idHabitacion
+--Seleccionamos a la tabla habitación para conectarnos con la tabla hotel y poder traer el nombre del hotel
+left join Hotel h on h.idHotel = ha.idHotel
+join Persona p on r.idPersona = p.idPersona
+WHERE r.idReservacion = @idreservacion and r.idPersona = @idUsuario
+--Ordenamos de manera descendente
+Order by r.idreservacion desc
+END;
+ */
+/*
+ ALTER PROCEDURE [dbo].[spConsultarBitacora]
 --Procedimiento para verificar los cambios que se han realizado 
 --en las reservaciones mediante la Bitacora
-@idReservacion int
+@idReservacion int,
+@idUsuario int
 AS
 BEGIN
 SELECT b.fechaDeLaAccion, b.accionRealizada, p.nombreCompleto, r.idReservacion, b.idBitacora
 from Bitacora b left join Persona p on p.idPersona=b.idPersona
 left join Reservacion r on r.idReservacion=b.idReservacion
-WHERE r.idReservacion=@idReservacion
+WHERE r.idReservacion=@idReservacion and r.idPersona = @idUsuario
 ORDER BY idBitacora DESC;
 END
  */

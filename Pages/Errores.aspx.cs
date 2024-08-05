@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace Pv_Final_Reservaciones.Pages
 {
-    public partial class Resultado : System.Web.UI.Page
+    public partial class Errores : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -17,14 +17,14 @@ namespace Pv_Final_Reservaciones.Pages
                 string source = Request.QueryString["source"];
                 switch (source)
                 {
-                    case "CrearReservacion":
-                        lblMensaje.Text = "La reservación ha sido registrada exitosamente en el sistema";
+                    case "Errormodificacion":
+                        lblMensaje.Text = "Error la reservación que busca no existe";
                         break;
-                    case "ModificarReservacion":
-                        lblMensaje.Text = "Ha modificado correctamente la reservación";
+                    case "ErrorUrl":
+                        lblMensaje.Text = "La dirección URL que busca no ha sido encontrada";
                         break;
-                    case "CancelarReservacion":
-                        lblMensaje.Text = "La reservación ha sido cancelada con éxito";
+                    case "ErrorId":
+                        lblMensaje.Text = "El id que se solicita no corresponde al usuario o no existe";
                         break;
                     case "CrearHabitacion":
                         lblMensaje.Text = "Ha modificado correctamente la habitación";
@@ -48,7 +48,7 @@ namespace Pv_Final_Reservaciones.Pages
 
             if (usuario != null)
             {
-                
+
                 // Realizamos una comprobación de si es o no empleado el usuario logeado
                 if (usuario.esEmpleado)
                 {
@@ -62,7 +62,7 @@ namespace Pv_Final_Reservaciones.Pages
                         Response.Redirect("~/Pages/GestionarReservaciones.aspx");
                     }
                 }
-                if(!usuario.esEmpleado)
+                if (!usuario.esEmpleado)
                 {
                     Response.Redirect("~/Pages/Misreservaciones.aspx");
                 }

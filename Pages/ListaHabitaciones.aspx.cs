@@ -1,5 +1,6 @@
 ﻿using DataModels;
 using LinqToDB;
+using Pv_Final_Reservaciones.Clases;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,6 +16,17 @@ namespace Pv_Final_Reservaciones.Pages
         String conn = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Validamos la sesion del usuario activa
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("~/Pages/Login.aspx");
+            }
+            //Creamos una instancia de Usuario para tomar los datos  del usuario
+            Usuario usuario = (Usuario)Session["Usuario"];
+            if (!usuario.esEmpleado)//Validamos que el usuario sea un empleado para poder entrar
+            {
+                Response.Redirect("~/Pages/Errores.aspx?source=ErrorUrl", false);
+            }
             try
             {
                 //Realizamos la conexión con la BD

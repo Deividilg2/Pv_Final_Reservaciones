@@ -19,6 +19,7 @@
         <asp:TextBox ID="txtNumHabitacion" runat="server" MaxLength="10"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rqNumHabitacion" runat="server" ErrorMessage="Campo Obligatorio" 
             ControlToValidate="txtNumHabitacion"></asp:RequiredFieldValidator>
+        <asp:RegularExpressionValidator ID="revNumHabitacion" ValidationExpression="^[a-zA-Z0-9]+$" runat="server" ControlToValidate="txtNumHabitacion" ErrorMessage="Solo caracteres alfanuméricos"></asp:RegularExpressionValidator>
         <br />
         <br />
         <asp:Label ID="lblCapacidadMax" runat="server" Text="Capacidad Máxima"></asp:Label>

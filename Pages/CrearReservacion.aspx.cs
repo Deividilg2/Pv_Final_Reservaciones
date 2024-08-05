@@ -195,26 +195,12 @@ namespace Pv_Final_Reservaciones.Pages
                         if (idHabitacion != null)
                         {
                             var datos = db.SpCrearReservacion(idpersona, idHotel, idHabitacion.IdHabitacion, fechaEntrada, fechaSalida, numeroAdultos, numeroNihos);
+                            Response.Redirect("~/Pages/Resultado.aspx?source=CrearReservacion", false);
                         }
                         else
                         {
                             lblMensajeCapacidad.Text = "La cantidad de personas sobre pasa la capacidad de las habitaciones";
                         }
-
-                        
-
-
-
-                        /*
-                        var precio= db.SpConsultarHoteles()
-                        decimal costoPorCadaAdulto = 
-                        decimal costoTotal;
-                        //Tomamos los valores que requerimos para la creacion de la reservacion
-                        var hotel = db.SpConsultarHabitacionesDeHotel(sumaCapacidad, idHotel).FirstOrDefault();
-                        var datosReservacion = db.SpCrearReservacion(idHotel,hotel.IdHabitacion,fechaEntrada,fechaSalida,numeroAdultos,numeroNihos, totalDiasReservacion, costoTotal);
-                        var idReservacion = db.SpConsultarReservacionPorID
-                        var bitacora = db.SpInsertarReservacionEnBitacora(idpersona,);
-                        */
                     }
                 }
                 catch

@@ -69,6 +69,15 @@ namespace Pv_Final_Reservaciones.Pages
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rqNumHabitacion;
 
         /// <summary>
+        /// Control revNumHabitacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revNumHabitacion;
+
+        /// <summary>
         /// Control lblCapacidadMax.
         /// </summary>
         /// <remarks>

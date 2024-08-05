@@ -15,6 +15,15 @@ namespace Pv_Final_Reservaciones
     {
 
         /// <summary>
+        /// Control lnkInicio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkInicio;
+
+        /// <summary>
         /// Control lblnombre.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace Pv_Final_Reservaciones
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkbtnCierresesion;
+
+        /// <summary>
+        /// Control alistahabitaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor alistahabitaciones;
 
         /// <summary>
         /// Control MainContent.

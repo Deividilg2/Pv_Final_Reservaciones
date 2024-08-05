@@ -52,13 +52,8 @@ namespace Pv_Final_Reservaciones.Pages
                             else
                             {
                             // Redireccionar si no se encuentra la reservación
-                            Response.Redirect("~/Pages/ResultadoDeEditarReservacion.aspx");
+                            Response.Redirect("~/Pages/Errores.aspx?source=Errormodificacion", false);
                         }
-                            ////else 
-                            ////    {
-                            ////        // Redireccionar si el idReservacion no está presente en QueryString
-                            ////        // Response.Redirect("~/Pages/ErrorGeneral.aspx");
-                            ////    }
                         }
                     }
                     catch
@@ -110,7 +105,11 @@ namespace Pv_Final_Reservaciones.Pages
                                 }
 
                                 db.SpModificarReservacionYRegistrarBitacora(idReservacion, FechaEntrada, FechaSalida, NumeroAdultos, NumeroNinhos, idPersona);
-                                Response.Redirect("~/Pages/ResultadoDeEditarReservacion.aspx");
+                                Response.Redirect("~/Pages/Resultado.aspx?source=ModificarReservacion");
+                            }else
+                            {
+                                RedirectUser();
+                                Response.Write("Error la reservacion no existe");
                             }
                         }
                     }

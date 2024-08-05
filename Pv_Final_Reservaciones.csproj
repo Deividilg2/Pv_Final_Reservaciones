@@ -271,13 +271,13 @@
     <Content Include="Pages\CrearReservacion.aspx" />
     <Content Include="Pages\Detalles.aspx" />
     <Content Include="Pages\EditarHabitacion.aspx" />
+    <Content Include="Pages\Errores.aspx" />
     <Content Include="Pages\GestionarReservaciones.aspx" />
     <Content Include="Pages\ListaHabitaciones.aspx" />
     <Content Include="Pages\Login.aspx" />
     <Content Include="Pages\Misreservaciones.aspx" />
     <Content Include="Pages\ModificarReservacion.aspx" />
     <Content Include="Pages\Resultado.aspx" />
-    <Content Include="Pages\ResultadoDeEditarReservacion.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -417,6 +417,13 @@
     <Compile Include="Pages\EditarHabitacion.aspx.designer.cs">
       <DependentUpon>EditarHabitacion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Errores.aspx.cs">
+      <DependentUpon>Errores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Errores.aspx.designer.cs">
+      <DependentUpon>Errores.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\GestionarReservaciones.aspx.cs">
       <DependentUpon>GestionarReservaciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -458,13 +465,6 @@
     </Compile>
     <Compile Include="Pages\Resultado.aspx.designer.cs">
       <DependentUpon>Resultado.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ResultadoDeEditarReservacion.aspx.cs">
-      <DependentUpon>ResultadoDeEditarReservacion.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\ResultadoDeEditarReservacion.aspx.designer.cs">
-      <DependentUpon>ResultadoDeEditarReservacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
