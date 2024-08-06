@@ -4,7 +4,7 @@
           
 <#@ include file="$(LinqToDBT4SqlServerTemplatesPath)LinqToDB.SqlServer.Tools.ttinclude" once="true" #>
 <#@ include file="$(LinqToDBT4SqlServerTemplatesPath)PluralizationService.ttinclude"     once="true" #>
-<#
+<# 
 /*
 	1. Create new *.tt file (e.g. MyDatabase.tt) in a folder where you would like to generate your data model
 		and copy content from this file to it. For example:
@@ -115,11 +115,11 @@
 //	GenerateProceduresOnTypedContext    = true;                   // generate stored procedures on typed context
  
 	// to configure GetSchemaOptions properties, add them here, before load metadata call
-
-	LoadSqlServerMetadata("Data Source=DEIVIDILG\\DEIVIDILG;Database=PV_ProyectoFinal;Integrated Security=True");
+ 
+	LoadSqlServerMetadata("Data Source=Camila;Database=PV_ProyectoFinal;Integrated Security=True");
 //	LoadSqlServerMetadata(".", "MyDatabase"); // Integrated Security
 //	LoadSqlServerMetadata(string connectionString);
-
+ 
 	// to adjust loaded database model before generation, add your code here, after load metadata, but before GenerateModel() call
 
 //	GetTable("Order").TypeName                = "TheOrder";
