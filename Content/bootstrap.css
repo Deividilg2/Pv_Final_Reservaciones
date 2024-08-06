@@ -125,6 +125,7 @@ h1, .h1 {
 
 h2, .h2 {
   font-size: calc(1.325rem + 0.9vw);
+    width: 1245px;
 }
 @media (min-width: 1200px) {
   h2, .h2 {

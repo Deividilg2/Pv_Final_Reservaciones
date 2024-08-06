@@ -87,15 +87,6 @@ namespace Pv_Final_Reservaciones.Pages
         protected global::System.Web.UI.WebControls.Label Label4;
 
         /// <summary>
-        /// Control Label5.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
-
-        /// <summary>
         /// Control txtFechaEntrada.
         /// </summary>
         /// <remarks>
@@ -105,15 +96,6 @@ namespace Pv_Final_Reservaciones.Pages
         protected global::System.Web.UI.WebControls.TextBox txtFechaEntrada;
 
         /// <summary>
-        /// Control txtFechaSalida.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaSalida;
-
-        /// <summary>
         /// Control cvFechaEntrada.
         /// </summary>
         /// <remarks>
@@ -121,6 +103,24 @@ namespace Pv_Final_Reservaciones.Pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator cvFechaEntrada;
+
+        /// <summary>
+        /// Control Label5.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label5;
+
+        /// <summary>
+        /// Control txtFechaSalida.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFechaSalida;
 
         /// <summary>
         /// Control cvFechaSalida.
@@ -141,15 +141,6 @@ namespace Pv_Final_Reservaciones.Pages
         protected global::System.Web.UI.WebControls.Label Label6;
 
         /// <summary>
-        /// Control Label7.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label7;
-
-        /// <summary>
         /// Control txtNumeroAdultos.
         /// </summary>
         /// <remarks>
@@ -159,15 +150,6 @@ namespace Pv_Final_Reservaciones.Pages
         protected global::System.Web.UI.WebControls.TextBox txtNumeroAdultos;
 
         /// <summary>
-        /// Control txtNumeroNinhos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNumeroNinhos;
-
-        /// <summary>
         /// Control rgvNumAdultos.
         /// </summary>
         /// <remarks>
@@ -175,6 +157,24 @@ namespace Pv_Final_Reservaciones.Pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RangeValidator rgvNumAdultos;
+
+        /// <summary>
+        /// Control Label7.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label7;
+
+        /// <summary>
+        /// Control txtNumeroNinhos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNumeroNinhos;
 
         /// <summary>
         /// Control rgvNumNinhos.

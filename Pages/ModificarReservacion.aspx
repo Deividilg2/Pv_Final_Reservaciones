@@ -3,56 +3,53 @@
 
     <div>
 
-        <h1>Modificar Reservación</h1>
+        <h2>Modificar Reservación</h2>
 
 <asp:HiddenField ID="hdnId" runat="server" />
 <br />
+
+<asp:Label ID="Label1" runat="server" Text="Label" CssClass="form-label" Font-Bold="True">Hotel</asp:Label>
+<br>
+<asp:TextBox ID="txtHotel" runat="server" ReadOnly="True" CssClass="form-control"></asp:TextBox>
+        <br>
+<asp:Label ID="Label2" runat="server" Text="Label" CssClass="form-label" Font-Bold="True">Número de habitación</asp:Label>
+<br>
+<asp:TextBox ID="txtHabitacion" runat="server" ReadOnly="true" CssClass="form-control"></asp:TextBox>
+        <br>
+<asp:Label ID="Label3" runat="server" Text="Label" CssClass="form-label" Font-Bold="True">Cliente</asp:Label>
+<br>
+<asp:TextBox ID="txtCliente" runat="server" ReadOnly="true" CssClass="form-control"></asp:TextBox>
+        <br>
+
+<asp:Label ID="Label4" runat="server" Text="Label" CssClass="form-label" Font-Bold="True">Fecha de Entrada</asp:Label>
+<br>
+<asp:TextBox ID="txtFechaEntrada" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+ <asp:CustomValidator ID="cvFechaEntrada" runat="server" ErrorMessage="No se admiten fechas menores o iguales a la actual" 
+     ControlToValidate="txtFechaEntrada" OnServerValidate="cvFechaEntrada_ServerValidate" ></asp:CustomValidator>
 <br />
+<asp:Label ID="Label5" runat="server" Text="Label" CssClass="form-label" Font-Bold="True">Fecha de Salida</asp:Label>
+<asp:TextBox ID="txtFechaSalida" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+  <%-- el custom validator impide el redirect, hay que revisar eso--%>
+     <asp:CustomValidator ID="cvFechaSalida" runat="server" ErrorMessage="No se admiten fechas menores o iguales a la actual" 
+         ControlToValidate="txtFechaSalida" OnServerValidate="cvFechaSalida_ServerValidate"></asp:CustomValidator>
+        <br>
 
-<asp:Label ID="Label1" runat="server" Text="Label">Hotel</asp:Label>
-<br>
-<asp:TextBox ID="txtHotel" runat="server" ReadOnly="True"></asp:TextBox>
-<br><br>
-<asp:Label ID="Label2" runat="server" Text="Label">Número de habitación</asp:Label>
-<br>
-<asp:TextBox ID="txtHabitacion" runat="server" ReadOnly="true"></asp:TextBox>
-<br><br>
-<asp:Label ID="Label3" runat="server" Text="Label">Cliente</asp:Label>
-<br>
-<asp:TextBox ID="txtCliente" runat="server" ReadOnly="true"></asp:TextBox>
-<br><br>
-
-<asp:Label ID="Label4" runat="server" Text="Label">Fecha de Entrada</asp:Label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<asp:Label ID="Label5" runat="server" Text="Label">Fecha de Salida</asp:Label>
-<br>
-<asp:TextBox ID="txtFechaEntrada" runat="server" TextMode="Date" ></asp:TextBox>&nbsp;&nbsp;
-<asp:TextBox ID="txtFechaSalida" runat="server"  placeholder="dd/MM/YYYY"></asp:TextBox>
-<br><br>
-
-        <asp:CustomValidator ID="cvFechaEntrada" runat="server" ErrorMessage="CustomValidator" 
-            ControlToValidate="txtFechaEntrada" OnServerValidate="cvFechaEntrada_ServerValidate" ></asp:CustomValidator>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:CustomValidator ID="cvFechaSalida" runat="server" ErrorMessage="CustomValidator" 
-            ControlToValidate="txtFechaSalida" OnServerValidate="cvFechaSalida_ServerValidate"></asp:CustomValidator>
-
-        <br />
-        <br />
-
-<asp:Label ID="Label6" runat="server" Text="Label">Número de Adultos</asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-<asp:Label ID="Label7" runat="server" Text="Label">Número de Niños</asp:Label>
-<br>
-<asp:TextBox ID="txtNumeroAdultos" runat="server" TextMode="Number"></asp:TextBox> &nbsp;&nbsp;
-<asp:TextBox ID="txtNumeroNinhos" runat="server" TextMode="Number"></asp:TextBox>
-
-<br><br>
+<asp:Label ID="Label6" runat="server" Text="Label" CssClass="form-label" Font-Bold="True">Número de Adultos</asp:Label> 
+        <asp:TextBox ID="txtNumeroAdultos" runat="server" TextMode="Number" CssClass="form-control"></asp:TextBox> 
 <asp:RangeValidator ID="rgvNumAdultos" runat="server" ErrorMessage="Mínimo 1 adulto"
     ControlToValidate="txtNumeroAdultos" MinimumValue="1" MaximumValue="8" Type="Integer" ></asp:RangeValidator>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <br />
+
+<asp:Label ID="Label7" runat="server" Text="Label" CssClass="form-label" Font-Bold="True">Número de Niños</asp:Label>
+<br>
+<asp:TextBox ID="txtNumeroNinhos" runat="server" TextMode="Number" CssClass="form-control"></asp:TextBox>
+<br>
 <asp:RangeValidator ID="rgvNumNinhos" runat="server" ErrorMessage="" 
     ControlToValidate="txtNumeroNinhos" MinimumValue="0" MaximumValue="7" Type="Integer"></asp:RangeValidator>
 
     </div>
 <asp:Button ID="btnGuardarModificacion" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardarModificacion_Click" /> &nbsp;&nbsp; 
-<asp:Button ID="btnRegresar" runat="server" Text="Regresar"  CssClass="btn btn-secondary" OnClick="btnRegresar_Click"/>
+<asp:Button ID="btnRegresar" runat="server" Text="Regresar"  CssClass="btn btn-secondary" OnClick="btnRegresar_Click" CausesValidation="false"/>
 
 </asp:Content>

@@ -10,6 +10,7 @@
         background-color: #fff;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
+
     }
     
     .login-container h2 {
@@ -19,6 +20,7 @@
 
     .form-group {
         margin-bottom: 15px;
+
     }
 
     .form-label {
@@ -32,14 +34,14 @@
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
-        font-size: 14px;
+        font-size: 20px;
     }
 
     .btn-block {
         display: block;
         width: 100%;
         padding: 10px;
-        font-size: 16px;
+        font-size: 22px;
         border-radius: 5px;
     }
 
