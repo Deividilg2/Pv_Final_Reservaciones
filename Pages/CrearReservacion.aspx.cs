@@ -180,31 +180,40 @@ namespace Pv_Final_Reservaciones.Pages
                     int numeroAdultos = Int32.Parse(txtNadultos.Text);
                     int numeroNihos = Int32.Parse(txtNnihos.Text);
                     int totalPersonas = numeroAdultos + numeroNihos;
-
-
-
-                    if (string.IsNullOrEmpty(txtNnihos.Text))
-                    {
-                        numeroNihos = 0;
-                    }
-                    int sumaCapacidad = numeroAdultos + numeroNihos;
-
                     int totalDiasReservacion = (int)(fechaSalida - fechaEntrada).TotalDays;
-
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
-                        var idHabitacion = db.SpConsultarHabitacionesDeHotel(sumaCapacidad, idHotel).FirstOrDefault();
-
-                        if (idHabitacion != null)
+                        var capacidad = db.SpConsultarCapacidadMaximadeHotel(totalPersonas,totalPersonas).FirstOrDefault();
+                        if(capacidad.HabitacionCapacidadMx >= totalPersonas)
                         {
-                            var datos = db.SpCrearReservacion(idpersona, idHotel, idHabitacion.IdHabitacion, fechaEntrada, fechaSalida, numeroAdultos, numeroNihos);
-                            Response.Redirect("~/Pages/Resultado.aspx?source=CrearReservacion", false);
+                            while (totalPersonas > 0)
+                            {
+                                var idHabitacion = db.SpConsultarHabitacionesDeHotel(totalPersonas, idHotel).FirstOrDefault();
+                                
+
+                                if (idHabitacion != null)
+                                {
+                                    var datos = db.SpCrearReservacion(idpersona, idHotel, idHabitacion.IdHabitacion, fechaEntrada, fechaSalida, numeroAdultos, numeroNihos);
+                                    Response.Redirect("~/Pages/Resultado.aspx?source=CrearReservacion", false);
+
+                                }
+                                else
+                                {
+                                    Response.Redirect("~/Pages/Error.aspx?source=CrearReservacion", false);
+                                }
+
+                            }
                         }
                         else
                         {
                             lblMensajeCapacidad.Text = "La cantidad de personas sobre pasa la capacidad de las habitaciones";
                         }
+                        
                     }
+
+                      
+                    
+                    
                 }
                 catch
                 {
@@ -217,3 +226,24 @@ namespace Pv_Final_Reservaciones.Pages
         }
     }
 }
+/*
+ ALTER PROCEDURE [dbo].[spConsultarHabitacionesDeHotel]
+    @totalPersonas INT,
+    @idHotel INT
+AS
+BEGIN
+    DECLARE @idHabitacion INT;
+
+    -- Seleccionamos la habitación con estado "A" cuya capacidad máxima se acerque más al total de personas
+    SELECT TOP 1 @idHabitacion = h.idHabitacion
+    FROM Habitacion h
+    WHERE h.estado = 'A' AND h.idHotel = @idHotel
+    ORDER BY ABS(h.capacidadMaxima - @totalPersonas) ASC;
+
+    -- Si es que encuentra una habitación disponible
+    IF @idHabitacion IS NOT NULL
+    BEGIN
+        SELECT @idHabitacion AS idHabitacion;
+    END
+END;
+ */

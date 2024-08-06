@@ -253,22 +253,20 @@ namespace DataModels
 
 		#region SpConsultarCapacidadMaximadeHotel
 
-		public static int SpConsultarCapacidadMaximadeHotel(this PvProyectoFinalDB dataConnection, int? @idHotel, ref int? @capacidadTotal)
+		public static IEnumerable<SpConsultarCapacidadMaximadeHotelResult> SpConsultarCapacidadMaximadeHotel(this PvProyectoFinalDB dataConnection, int? @idHotel, int? @capacidadTotal)
 		{
 			var parameters = new []
 			{
 				new DataParameter("@idHotel",        @idHotel,        LinqToDB.DataType.Int32),
 				new DataParameter("@capacidadTotal", @capacidadTotal, LinqToDB.DataType.Int32)
-				{
-					Direction = ParameterDirection.InputOutput
-				}
 			};
 
-			var ret = dataConnection.ExecuteProc("[dbo].[spConsultarCapacidadMaximadeHotel]", parameters);
+			return dataConnection.QueryProc<SpConsultarCapacidadMaximadeHotelResult>("[dbo].[spConsultarCapacidadMaximadeHotel]", parameters);
+		}
 
-			@capacidadTotal = Converter.ChangeTypeTo<int?>(parameters[1].Value);
-
-			return ret;
+		public partial class SpConsultarCapacidadMaximadeHotelResult
+		{
+			[Column("habitacionCapacidadMx")] public int? HabitacionCapacidadMx { get; set; }
 		}
 
 		#endregion
@@ -340,7 +338,9 @@ namespace DataModels
 
 		public partial class SpConsultarHabitacionesDeHotelResult
 		{
-			[Column("idHabitacion")] public int? IdHabitacion { get; set; }
+			[Column("idHabitacion")   ] public int? IdHabitacion    { get; set; }
+			[Column("capacidad")      ] public int? Capacidad       { get; set; }
+			[Column("capacidadMaxima")] public int? CapacidadMaxima { get; set; }
 		}
 
 		#endregion
