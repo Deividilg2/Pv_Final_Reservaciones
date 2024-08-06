@@ -39,7 +39,7 @@
     }
 
 </style>
-
+<%--    Se debe verificar como aparece el Estado en las listas de Reservaciones--%>
      <!-- Colocamos todo dentro de un contenedor-->
     <div class="Contenedor">
         <h2>Mis reservaciones</h2>
