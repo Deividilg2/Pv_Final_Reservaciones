@@ -18,17 +18,18 @@ namespace Pv_Final_Reservaciones.Pages
         String conn = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Validamos la sesión del usuario activa
             if (Session["Usuario"] == null)
             {
                 Response.Redirect("~/Pages/Login.aspx");
 
             }
-            Usuario usuario = (Usuario)Session["Usuario"];
-            if (!usuario.esEmpleado)
-            {
-                Response.Redirect("~/Pages/Errores.aspx?source=ErrorUrl", false);
-            }
-                //Validamos la sesión del usuario
+            //Usuario usuario = (Usuario)Session["Usuario"];
+            //if (!usuario.esEmpleado)
+            //{
+            //    Response.Redirect("~/Pages/Errores.aspx?source=ErrorUrl", false);
+            //}
+                
                 if (Page.IsPostBack == false)
             {
                 //Usamos un try en caso de errores
