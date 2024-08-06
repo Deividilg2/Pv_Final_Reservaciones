@@ -35,22 +35,45 @@ namespace Pv_Final_Reservaciones.Pages
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
                         Usuario usuario = Session["Usuario"] as Usuario;
-                        
-                        //Pasamos el id al Storeprocedure
-                        var detalle = db.SpConsultarDetallePorId(id, usuario.id).FirstOrDefault();  //Revisar en bd
-                        var listabitacora = db.SpConsultarBitacora(id, usuario.id).ToList();
-                        if (detalle != null )
-                        {                           
-                            // Asignar los datos al DetailsView con un objeto Ienumerable list
-                            dvDetalles.DataSource = new List<dynamic> { detalle };
-                            dvDetalles.DataBind();
-                            // Asignar los datos al DetailsView
-                            grdacciones.DataSource = listabitacora;
-                            grdacciones.DataBind();
-                        }else
+                        if (usuario.esEmpleado)
                         {
-                            Response.Redirect("~/Pages/Errores.aspx?source=ErrorId", false);
+                            //Pasamos el id al Storeprocedure
+                            var detalle = db.SpConsultarDetallePorIdEmpleado(id).FirstOrDefault();  //Revisar en bd
+                            var listabitacora = db.SpConsultarBitacoraEmpleado(id).ToList();
+                            if (detalle != null)
+                            {
+                                // Asignar los datos al DetailsView con un objeto Ienumerable list
+                                dvDetalles.DataSource = new List<dynamic> { detalle };
+                                dvDetalles.DataBind();
+                                // Asignar los datos al DetailsView
+                                grdacciones.DataSource = listabitacora;
+                                grdacciones.DataBind();
+                            }
+                            else
+                            {
+                                Response.Redirect("~/Pages/Errores.aspx?source=ErrorId", false);
+                            }
                         }
+                        else 
+                        {
+                            //Pasamos el id al Storeprocedure
+                            var detalle = db.SpConsultarDetallePorId(id, usuario.id).FirstOrDefault();  //Revisar en bd
+                            var listabitacora = db.SpConsultarBitacora(id, usuario.id).ToList();
+                            if (detalle != null)
+                            {
+                                // Asignar los datos al DetailsView con un objeto Ienumerable list
+                                dvDetalles.DataSource = new List<dynamic> { detalle };
+                                dvDetalles.DataBind();
+                                // Asignar los datos al DetailsView
+                                grdacciones.DataSource = listabitacora;
+                                grdacciones.DataBind();
+                            }
+                            else
+                            {
+                                Response.Redirect("~/Pages/Errores.aspx?source=ErrorId", false);
+                            }
+                        }
+                       
                         
 
                     }
@@ -148,9 +171,8 @@ namespace Pv_Final_Reservaciones.Pages
     }
 }
 /*
-ALTER PROCEDURE [dbo].[spConsultarDetallePorId]
-@idreservacion int,
-@idUsuario int
+ CREATE PROCEDURE [dbo].[spConsultarDetallePorIdEmpleado]
+@idreservacion int
 AS
 BEGIN
 SELECT r.idReservacion,ha.idHabitacion,ha.numeroHabitacion,h.idHotel,h.nombre,r.fechaEntrada,r.fechaSalida,r.numeroAdultos,r.numeroNinhos,
@@ -164,23 +186,23 @@ FROM Reservacion r left join Habitacion ha on r.idHabitacion = ha.idHabitacion
 --Seleccionamos a la tabla habitación para conectarnos con la tabla hotel y poder traer el nombre del hotel
 left join Hotel h on h.idHotel = ha.idHotel
 join Persona p on r.idPersona = p.idPersona
-WHERE r.idReservacion = @idreservacion and r.idPersona = @idUsuario
+WHERE r.idReservacion = @idreservacion
 --Ordenamos de manera descendente
 Order by r.idreservacion desc
 END;
- */
-/*
- ALTER PROCEDURE [dbo].[spConsultarBitacora]
+ 
+
+
+CREATE PROCEDURE [dbo].[spConsultarBitacoraEmpleado]
 --Procedimiento para verificar los cambios que se han realizado 
 --en las reservaciones mediante la Bitacora
-@idReservacion int,
-@idUsuario int
+@idReservacion int
 AS
 BEGIN
 SELECT b.fechaDeLaAccion, b.accionRealizada, p.nombreCompleto, r.idReservacion, b.idBitacora
 from Bitacora b left join Persona p on p.idPersona=b.idPersona
 left join Reservacion r on r.idReservacion=b.idReservacion
-WHERE r.idReservacion=@idReservacion and r.idPersona = @idUsuario
+WHERE r.idReservacion=@idReservacion
 ORDER BY idBitacora DESC;
 END
  */

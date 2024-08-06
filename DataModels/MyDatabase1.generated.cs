@@ -22,8 +22,8 @@ namespace DataModels
 {
 	/// <summary>
 	/// Database       : PV_ProyectoFinal
-	/// Data Source    : Camila
-	/// Server Version : 16.00.1000
+	/// Data Source    : DEIVIDILG\DEIVIDILG
+	/// Server Version : 14.00.2056
 	/// </summary>
 	public partial class PvProyectoFinalDB : LinqToDB.Data.DataConnection
 	{
@@ -207,22 +207,6 @@ namespace DataModels
 
 	public static partial class PvProyectoFinalDBStoredProcedures
 	{
-		#region ConsultarBitacoras
-
-		public static IEnumerable<ConsultarBitacorasResult> ConsultarBitacoras(this PvProyectoFinalDB dataConnection)
-		{
-			return dataConnection.QueryProc<ConsultarBitacorasResult>("[dbo].[ConsultarBitacoras]");
-		}
-
-		public partial class ConsultarBitacorasResult
-		{
-			[Column("fechaDeLaAccion")] public DateTime FechaDeLaAccion { get; set; }
-			[Column("accionRealizada")] public string   AccionRealizada { get; set; }
-			[Column("nombreCompleto") ] public string   NombreCompleto  { get; set; }
-		}
-
-		#endregion
-
 		#region SpCancelarReservacionYRegistrarBitacora
 
 		public static IEnumerable<SpCancelarReservacionYRegistrarBitacoraResult> SpCancelarReservacionYRegistrarBitacora(this PvProyectoFinalDB dataConnection, int? @idReservacion, int? @idPersona)
@@ -267,6 +251,29 @@ namespace DataModels
 
 		#endregion
 
+		#region SpConsultarBitacoraEmpleado
+
+		public static IEnumerable<SpConsultarBitacoraEmpleadoResult> SpConsultarBitacoraEmpleado(this PvProyectoFinalDB dataConnection, int? @idReservacion)
+		{
+			var parameters = new []
+			{
+				new DataParameter("@idReservacion", @idReservacion, LinqToDB.DataType.Int32)
+			};
+
+			return dataConnection.QueryProc<SpConsultarBitacoraEmpleadoResult>("[dbo].[spConsultarBitacoraEmpleado]", parameters);
+		}
+
+		public partial class SpConsultarBitacoraEmpleadoResult
+		{
+			[Column("fechaDeLaAccion")] public DateTime FechaDeLaAccion { get; set; }
+			[Column("accionRealizada")] public string   AccionRealizada { get; set; }
+			[Column("nombreCompleto") ] public string   NombreCompleto  { get; set; }
+			[Column("idReservacion")  ] public int?     IdReservacion   { get; set; }
+			[Column("idBitacora")     ] public int      IdBitacora      { get; set; }
+		}
+
+		#endregion
+
 		#region SpConsultarCapacidadMaximadeHotel
 
 		public static IEnumerable<SpConsultarCapacidadMaximadeHotelResult> SpConsultarCapacidadMaximadeHotel(this PvProyectoFinalDB dataConnection, int? @idHotel, int? @capacidadTotal)
@@ -301,6 +308,37 @@ namespace DataModels
 		}
 
 		public partial class SpConsultarDetallePorIdResult
+		{
+			[Column("idReservacion")       ] public int      IdReservacion        { get; set; }
+			[Column("idHabitacion")        ] public int?     IdHabitacion         { get; set; }
+			[Column("numeroHabitacion")    ] public string   NumeroHabitacion     { get; set; }
+			[Column("idHotel")             ] public int?     IdHotel              { get; set; }
+			[Column("nombre")              ] public string   Nombre               { get; set; }
+			[Column("fechaEntrada")        ] public DateTime FechaEntrada         { get; set; }
+			[Column("fechaSalida")         ] public DateTime FechaSalida          { get; set; }
+			[Column("numeroAdultos")       ] public int      NumeroAdultos        { get; set; }
+			[Column("numeroNinhos")        ] public int      NumeroNinhos         { get; set; }
+			[Column("totalDiasReservacion")] public int?     TotalDiasReservacion { get; set; }
+			[Column("costoTotal")          ] public decimal? CostoTotal           { get; set; }
+			[Column("estado")              ] public char     Estado               { get; set; }
+			[Column("nombreCompleto")      ] public string   NombreCompleto       { get; set; }
+		}
+
+		#endregion
+
+		#region SpConsultarDetallePorIdEmpleado
+
+		public static IEnumerable<SpConsultarDetallePorIdEmpleadoResult> SpConsultarDetallePorIdEmpleado(this PvProyectoFinalDB dataConnection, int? @idreservacion)
+		{
+			var parameters = new []
+			{
+				new DataParameter("@idreservacion", @idreservacion, LinqToDB.DataType.Int32)
+			};
+
+			return dataConnection.QueryProc<SpConsultarDetallePorIdEmpleadoResult>("[dbo].[spConsultarDetallePorIdEmpleado]", parameters);
+		}
+
+		public partial class SpConsultarDetallePorIdEmpleadoResult
 		{
 			[Column("idReservacion")       ] public int      IdReservacion        { get; set; }
 			[Column("idHabitacion")        ] public int?     IdHabitacion         { get; set; }
@@ -446,15 +484,6 @@ namespace DataModels
 			[Column("numeroAdultos")   ] public int      NumeroAdultos    { get; set; }
 			[Column("numeroNinhos")    ] public int      NumeroNinhos     { get; set; }
 			[Column("estado")          ] public char     Estado           { get; set; }
-		}
-
-		#endregion
-
-		#region SpConsultarTodasLasPersonas
-
-		public static IEnumerable<Persona> SpConsultarTodasLasPersonas(this PvProyectoFinalDB dataConnection)
-		{
-			return dataConnection.QueryProc<Persona>("[dbo].[spConsultarTodasLasPersonas]");
 		}
 
 		#endregion
@@ -677,28 +706,6 @@ namespace DataModels
 
 		#endregion
 
-		#region SpModificarReservacion
-
-		public static int SpModificarReservacion(this PvProyectoFinalDB dataConnection, int? @idReservacion, DateTime? @fechaEntrada, DateTime? @fechaSalida, int? @numeroAdultos, int? @numeroNinhos, DateTime? @fechaModificacion, int? @totalDiasReservacion, decimal? @costoTotal, int? @idPersona)
-		{
-			var parameters = new []
-			{
-				new DataParameter("@idReservacion",        @idReservacion,        LinqToDB.DataType.Int32),
-				new DataParameter("@fechaEntrada",         @fechaEntrada,         LinqToDB.DataType.DateTime),
-				new DataParameter("@fechaSalida",          @fechaSalida,          LinqToDB.DataType.DateTime),
-				new DataParameter("@numeroAdultos",        @numeroAdultos,        LinqToDB.DataType.Int32),
-				new DataParameter("@numeroNinhos",         @numeroNinhos,         LinqToDB.DataType.Int32),
-				new DataParameter("@fechaModificacion",    @fechaModificacion,    LinqToDB.DataType.DateTime),
-				new DataParameter("@totalDiasReservacion", @totalDiasReservacion, LinqToDB.DataType.Int32),
-				new DataParameter("@costoTotal",           @costoTotal,           LinqToDB.DataType.Decimal),
-				new DataParameter("@idPersona",            @idPersona,            LinqToDB.DataType.Int32)
-			};
-
-			return dataConnection.ExecuteProc("[dbo].[spModificarReservacion]", parameters);
-		}
-
-		#endregion
-
 		#region SpModificarReservacionYRegistrarBitacora
 
 		public static IEnumerable<SpModificarReservacionYRegistrarBitacoraResult> SpModificarReservacionYRegistrarBitacora(this PvProyectoFinalDB dataConnection, int? @idReservacion, DateTime? @fechaEntrada, DateTime? @fechaSalida, int? @numeroAdultos, int? @numeroNinhos, int? @idPersona)
@@ -719,15 +726,6 @@ namespace DataModels
 		public partial class SpModificarReservacionYRegistrarBitacoraResult
 		{
 			public string Resultado { get; set; }
-		}
-
-		#endregion
-
-		#region SpMostrarReservaciones
-
-		public static IEnumerable<Reservacion> SpMostrarReservaciones(this PvProyectoFinalDB dataConnection)
-		{
-			return dataConnection.QueryProc<Reservacion>("[dbo].[spMostrarReservaciones]");
 		}
 
 		#endregion

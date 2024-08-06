@@ -24,13 +24,13 @@ namespace Pv_Final_Reservaciones.Pages
                 Response.Redirect("~/Pages/Login.aspx");
 
             }
-            //Usuario usuario = (Usuario)Session["Usuario"];
-            //if (!usuario.esEmpleado)
-            //{
-            //    Response.Redirect("~/Pages/Errores.aspx?source=ErrorUrl", false);
-            //}
-                
-                if (Page.IsPostBack == false)
+            Usuario usuario = (Usuario)Session["Usuario"];
+            if (!usuario.esEmpleado)
+            {
+                Response.Redirect("~/Pages/Errores.aspx?source=ErrorUrl", false);
+            }
+
+            if (Page.IsPostBack == false)
             {
                 //Usamos un try en caso de errores
                 try
