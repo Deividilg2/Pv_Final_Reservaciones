@@ -77,6 +77,37 @@ namespace Pv_Final_Reservaciones.Pages
             }
         }
 
+        // Método para convertir el estado segun se necesite
+        // Este método toma un string como parámetro llamado "estado"
+        // y devuelve una cadena de texto (“Cancelada”,“Finalizada”,“En proceso” o “En espera”)
+        // dependiendo del valor del parámetro "estado".
+        protected string ConvertEstado(string estado, DateTime fechaEntrada, DateTime fechaSalida)
+        {
+            DateTime today = DateTime.Today;
+
+            if (estado == "I")
+            {
+                return "Cancelada";
+            }
+            else if (estado == "A")
+            {
+                if (fechaSalida < today)
+                {
+                    return "Finalizada";
+                }
+                else if (fechaEntrada <= today)
+                {
+                    return "En proceso";
+                }
+                else
+                {
+                    return "En espera";
+                }
+            }
+            return "Estado desconocido";
+        }
+
+
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
             if(Page.IsValid == true)

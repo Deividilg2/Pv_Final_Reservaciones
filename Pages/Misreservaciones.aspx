@@ -55,7 +55,14 @@
              <asp:BoundField DataField="fechaEntrada" HeaderText="Fecha Entrada" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-CssClass="text-center font-weight-bold" ItemStyle-CssClass="text-center"/>
              <asp:BoundField DataField="fechaSalida" HeaderText="Fecha Salida" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-CssClass="text-center font-weight-bold" ItemStyle-CssClass="text-center"/>
              <asp:BoundField DataField="costoTotal" HeaderText="Costo" DataFormatString="{0:$#,##0.00}" HeaderStyle-CssClass="text-right font-weight-bold" ItemStyle-CssClass="text-right"/>
-             <asp:BoundField DataField="estado" HeaderText="Estado" HeaderStyle-CssClass="text-center font-weight-bold" ItemStyle-CssClass="text-center"/>
+
+             <asp:TemplateField HeaderText="Estado" HeaderStyle-CssClass="text-center font-weight-bold">
+                <HeaderTemplate>Estado</HeaderTemplate>
+             <ItemTemplate>
+                 <%# ConvertEstado(Eval("estado").ToString(), Convert.ToDateTime(Eval("fechaEntrada")), Convert.ToDateTime(Eval("fechaSalida"))) %>
+             </ItemTemplate>
+             </asp:TemplateField>
+
              <asp:TemplateField>
                  <ItemTemplate>
                      <a href="Detalles.aspx?id=<%# Eval("idReservacion")%>" class="btn btn-info btn-sm">Consultar</a>
