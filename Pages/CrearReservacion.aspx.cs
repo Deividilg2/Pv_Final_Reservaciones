@@ -42,7 +42,7 @@ namespace Pv_Final_Reservaciones.Pages
             var lista = new List<ListItem>();
 
             //para que aparezca un mensaje en el dropdown como primer item de la lista
-            lista.Add(new ListItem("Seleccione un hotel", "0"));
+            lista.Add(new ListItem("Seleccione un hotel", ""));
 
             //Lista Dinamica usando la BD
             //Realizamos la conexión con la BD
@@ -61,7 +61,7 @@ namespace Pv_Final_Reservaciones.Pages
             ddlHoteles.DataBind();
 
             //para que se coloque ya una de las opciones predeterminadas
-            ddlHoteles.Items.FindByValue("0").Selected = true;
+            ddlHoteles.Items.FindByValue("").Selected = true;
         }
 
         protected void CargarClientes()
@@ -70,7 +70,7 @@ namespace Pv_Final_Reservaciones.Pages
             //creamos una lista
             var lista = new List<ListItem>();
             //para que aparezca un mensaje en el dropdown como primer item de la lista
-            lista.Add(new ListItem("Seleccione un cliente", "0"));
+            lista.Add(new ListItem("Seleccione un cliente", ""));
            
                 //Realizamos la conexión con la BD
                 using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
@@ -89,7 +89,7 @@ namespace Pv_Final_Reservaciones.Pages
              if (usuario.esEmpleado)
             {
                 //para que se coloque ya una de las opciones predeterminadas
-                ddlClientes.Items.FindByValue("0").Selected = true;
+                ddlClientes.Items.FindByValue("").Selected = true;
             }
             else
             {
