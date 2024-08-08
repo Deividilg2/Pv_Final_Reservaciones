@@ -14,20 +14,20 @@
 
     <div>
        
-        <asp:Label ID="lblNumHabitacion" runat="server" Text="Número de Habitación"></asp:Label>
-        <asp:Label ID="lblMensajeError" runat="server" Text=""></asp:Label>
+        <asp:Label ID="lblNumHabitacion" runat="server" Text="Número de Habitación" CssClass="form-label"></asp:Label>
+        <asp:Label ID="lblMensajeError" runat="server" Text="" CssClass="form-label"></asp:Label>
         <br />
         <%--Hay que revisar si es o no necesario usar alguna validacion especifica para datos alfanumericos--%>
        <%-- Hay que comprobar si se permite o no ingresar un mismo numero de habitacion para un mismo hotel--%>
-        <asp:TextBox ID="txtNumHabitacion" runat="server" MaxLength="10"></asp:TextBox>
+        <asp:TextBox ID="txtNumHabitacion" runat="server" MaxLength="10" CssClass="form-control"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rqNumHabitacion" runat="server" ErrorMessage="Campo Obligatorio" 
             ControlToValidate="txtNumHabitacion"></asp:RequiredFieldValidator>
         <asp:RegularExpressionValidator ID="revNumHabitacion" ValidationExpression="^[a-zA-Z0-9]+$" runat="server" ControlToValidate="txtNumHabitacion" ErrorMessage="Solo caracteres alfanuméricos"></asp:RegularExpressionValidator>
         <br />
         <br />
-        <asp:Label ID="lblCapacidadMax" runat="server" Text="Capacidad Máxima"></asp:Label>
+        <asp:Label ID="lblCapacidadMax" runat="server" Text="Capacidad Máxima" CssClass="form-label"></asp:Label>
         <br />
-        <asp:TextBox ID="txtCapacidadMax" runat="server" TextMode="Number"></asp:TextBox>
+        <asp:TextBox ID="txtCapacidadMax" runat="server" TextMode="Number" CssClass="form-control"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rqCapacidadMax" runat="server" ErrorMessage="Campo Obligatorio"
             ControlToValidate="txtCapacidadMax"></asp:RequiredFieldValidator>
         <br />
@@ -35,7 +35,7 @@
             ControlToValidate="txtCapacidadMax" MinimumValue="1" MaximumValue="8" Type="Integer" ></asp:RangeValidator>
         <br />
         
-        <asp:Label ID="lblDescripcion" runat="server" Text="Descripción"></asp:Label>
+        <asp:Label ID="lblDescripcion" runat="server" Text="Descripción" CssClass="form-label" ></asp:Label>
         <br />
         <%--Hay que revisar si es o no necesario usar alguna validacion especifica para datos alfanumericos, string deberia aceptar TODO--%>
         <asp:TextBox ID="txtDescripcion" runat="server" MaxLength="500" CssClass="form-control"></asp:TextBox>

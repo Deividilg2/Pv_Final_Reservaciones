@@ -10,23 +10,25 @@
         background-color: #fff;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
-
+        text-align: center; /* Centrar todo el texto dentro del contenedor */
     }
     
     .login-container h2 {
         text-align: center;
         margin-bottom: 20px;
+        width: 100%; /* Asegurar que el h2 ocupe todo el ancho del contenedor */
     }
 
     .form-group {
         margin-bottom: 15px;
-
+        text-align:center;
     }
 
     .form-label {
         display: block;
         margin-bottom: 5px;
         font-weight: bold;
+        text-align:center;
     }
 
     .form-control {
@@ -35,6 +37,9 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         font-size: 20px;
+        text-align:center;
+        margin: 0 auto; /* Centrará el TextBox */
+    display: block; /* Asegura que se comporta como un bloque para centrarlo */
     }
 
     .btn-block {
@@ -43,6 +48,8 @@
         padding: 10px;
         font-size: 22px;
         border-radius: 5px;
+        text-align:center;
+        margin: 20px auto;   /* Centra el botón horizontalmente */
     }
 
     body {
