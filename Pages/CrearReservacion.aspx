@@ -18,14 +18,14 @@
     </div>
     <div>
         <asp:Label ID="lblFechaEntrada" runat="server" Text="Fecha de entrada" CssClass="form-label" Font-Bold="True"></asp:Label>
-        <asp:TextBox ID="txtFechaEntrada" runat="server" placeholder="dd/MM/yyyy" CssClass="form-control"></asp:TextBox>
+        <asp:TextBox ID="txtFechaEntrada" runat="server" TextMode="Date" placeholder="dd/MM/yyyy" CssClass="form-control"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvFechaEntrada" ControlToValidate="txtFechaEntrada" runat="server" 
             ErrorMessage="La fecha de entrada es necesaria para el registro" CssClass="text-danger"></asp:RequiredFieldValidator>
         <asp:CustomValidator ID="cvFechaEntrada" runat="server" ControlToValidate="txtFechaEntrada" 
             OnServerValidate="cvFechaEntrada_ServerValidate" ErrorMessage="No se permiten fechas menores a la actual" CssClass="text-danger"></asp:CustomValidator>
         <br />
         <asp:Label ID="lblFechaSalida" runat="server" Text="Fecha de salida" CssClass="form-label" Font-Bold="True"></asp:Label>
-        <asp:TextBox ID="txtFechaSalida" runat="server" placeholder="dd/MM/yyyy" CssClass="form-control"></asp:TextBox>
+        <asp:TextBox ID="txtFechaSalida" runat="server" TextMode="Date" placeholder="dd/MM/yyyy" CssClass="form-control"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvFechaSalida" ControlToValidate="txtFechaSalida" runat="server" 
             ErrorMessage="La fecha de salida es necesaria para el registro" CssClass="text-danger"></asp:RequiredFieldValidator>
         <asp:CustomValidator ID="cvFechaSalida" runat="server" ControlToValidate="txtFechaSalida" 

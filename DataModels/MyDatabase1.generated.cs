@@ -455,9 +455,14 @@ namespace DataModels
 
 		#region SpConsultarReservaciones
 
-		public static IEnumerable<SpConsultarReservacionesResult> SpConsultarReservaciones(this PvProyectoFinalDB dataConnection)
+		public static IEnumerable<SpConsultarReservacionesResult> SpConsultarReservaciones(this PvProyectoFinalDB dataConnection, int? @idEmpleado)
 		{
-			return dataConnection.QueryProc<SpConsultarReservacionesResult>("[dbo].[spConsultarReservaciones]");
+			var parameters = new []
+			{
+				new DataParameter("@idEmpleado", @idEmpleado, LinqToDB.DataType.Int32)
+			};
+
+			return dataConnection.QueryProc<SpConsultarReservacionesResult>("[dbo].[spConsultarReservaciones]", parameters);
 		}
 
 		public partial class SpConsultarReservacionesResult

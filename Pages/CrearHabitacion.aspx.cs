@@ -88,7 +88,7 @@ namespace Pv_Final_Reservaciones.Pages
                         // Verificamos si ya existe una habitación con el mismo número en el mismo hotel
                         var habitacionesDuplicadas = db.SpVerificarHabitacionDuplicada(hotel, numeroHabitacion).FirstOrDefault();
 
-                        if (habitacionesDuplicadas != null || habitacionesDuplicadas.HabitacionesDuplicadas > 0)
+                        if (habitacionesDuplicadas.HabitacionesDuplicadas > 0)
                         {
                             lblMensajeError.Text = "Ya existe una habitación con el mismo número en el hotel seleccionado.";
                         }

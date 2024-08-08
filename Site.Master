@@ -16,6 +16,13 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
         <style>
+            <%--Cambios por realizar hoy 07/8/2024--%>
+    .btn-custom {
+        border: none;
+        background-color: transparent;
+        color: white;
+    }
+
         /* Personalización de la barra de navegación */
         .navbar-custom {
             background-color: #0056b3; /* Azul similar a Booking.com */
@@ -67,16 +74,13 @@
         <%--<nav class="navbar navbar-expand-lg navbar-light bg-light">--%>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom">
             <div class="container">
-                <a class="navbar-brand" runat="server" href="~/">Booking.com</a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <%--<a class="navbar-brand" runat="server" href="~/">Booking.com</a>--%>
+               <asp:Button ID="btnBooking" class="navbar-brand" runat="server" OnClick="btnBooking_Click" CssClass="btn btn-custom navbar-brand" Text="Booking.com" />
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                     <%--<div class="collapse navbar-collapse" id="navbarNav">--%>
                     <ul class="navbar-nav flex-grow-1">
                         <%--<ul class="navbar-nav mr-auto">--%>
-                        <li class="nav-item"><asp:LinkButton ID="lnkInicio" runat="server" OnClick="lnkInicio_Click" CssClass="nav-link" >Inicio</asp:LinkButton></li>
+                       
                         <%--<li class="nav-item"><a class="nav-link" runat="server" href="~/About">About</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>--%>
                         <li class="nav-item"><a ID="alistahabitaciones" class="nav-link" Visible="false" runat="server" href="~/Pages/ListaHabitaciones">Lista de habitaciones</a></li>
@@ -86,7 +90,7 @@
                             <asp:Label ID="lblnombre" runat="server" text="" Visible="false" CssClass="nav-link text-light"></asp:Label>
                         </li>
                         <li class="nav-item" >
-                            <asp:LinkButton ID="lnkbtnCierresesion" runat="server" Visible="false" OnClick="lnkbtnCierresesion_Click" CssClass="nav-link btn btn-danger text-white">Cerrar Sesión</asp:LinkButton>
+                            <asp:LinkButton ID="lnkbtnCierresesion" runat="server" Visible="false" OnClick="lnkbtnCierresesion_Click" CssClass="nav-link btn btn-danger text-white" CausesValidation="false">Cerrar Sesión</asp:LinkButton>
                         </li>
                         
                     </ul>

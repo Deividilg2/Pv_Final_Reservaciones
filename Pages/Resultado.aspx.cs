@@ -27,7 +27,7 @@ namespace Pv_Final_Reservaciones.Pages
                         lblMensaje.Text = "La reservación ha sido cancelada con éxito";
                         break;
                     case "CrearHabitacion":
-                        lblMensaje.Text = "Ha modificado correctamente la habitación";
+                        lblMensaje.Text = "Ha creado correctamente la habitación";
                         break;
                     case "EditarHabitacion":
                         lblMensaje.Text = "Se ha logrado modificar de forma correcta la habitación";

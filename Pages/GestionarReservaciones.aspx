@@ -78,7 +78,7 @@
 
           <asp:TemplateField>
               <ItemTemplate>
-                  <a href="Detalles.aspx?id=<%# Eval("idReservacion")%>" class="btn btn-info btn-sm">Consultar</a>
+                  <a href="Detalles.aspx?id=<%# Eval("idReservacion")%>" class="btn btn-primary">Consultar</a>
               </ItemTemplate>
           </asp:TemplateField>
 

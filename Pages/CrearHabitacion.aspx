@@ -45,7 +45,7 @@
         <br />
     </div>
 
-    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" />
+    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" CssClass="btn btn-primary" />
 
     &nbsp;&nbsp;&nbsp;
 

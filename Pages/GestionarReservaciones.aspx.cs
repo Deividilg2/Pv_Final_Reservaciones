@@ -43,7 +43,7 @@ namespace Pv_Final_Reservaciones.Pages
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
                         //Código momentaneo para Cargar las reservaciones
-                        var listareservaciones = db.SpConsultarReservaciones().ToList();
+                        var listareservaciones = db.SpConsultarReservaciones(usuario.id).ToList();
                         grdReservaciones.DataSource = listareservaciones;
                         grdReservaciones.DataBind();
 
@@ -143,11 +143,12 @@ namespace Pv_Final_Reservaciones.Pages
                 var lista = db.SpFiltroPorID(Int32.Parse(Personaselec));
                 grdReservaciones.DataSource = lista;
                 grdReservaciones.DataBind();
+                Usuario usuario = (Usuario)Session["Usuario"];
                 //Excepción para recargar las reservaciones
                 if (Personaselec == "0")
                 {
                     //Código Para recargar las reservaciones
-                    var listareservaciones = db.SpConsultarReservaciones().ToList();
+                    var listareservaciones = db.SpConsultarReservaciones(usuario.id).ToList();
                     grdReservaciones.DataSource = listareservaciones;
                     grdReservaciones.DataBind();
                 }

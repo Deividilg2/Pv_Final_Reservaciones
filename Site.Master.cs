@@ -57,5 +57,31 @@ namespace Pv_Final_Reservaciones
                 Session.RemoveAll();
             }
         }
+
+        protected void btnBooking_Click(object sender, EventArgs e)
+        {
+            Usuario usuario = (Usuario)Session["Usuario"];
+
+            if (usuario != null)
+            {
+
+                // Realizamos una comprobación de si es o no empleado el usuario logeado
+                if (usuario.esEmpleado)
+                {
+                    Response.Redirect("~/Pages/GestionarReservaciones.aspx");
+
+                }
+                else
+                {
+                    Response.Redirect("~/Pages/Misreservaciones.aspx");
+                }
+            }
+            else
+            {
+                // Si no se puede recuperar el usuario de la sesión, redirigimos a la página de inicio de sesión
+                Response.Redirect("~/Pages/Login.aspx");
+                Session.RemoveAll();
+            }
+        }
     }
 }
