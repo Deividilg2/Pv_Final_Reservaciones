@@ -35,6 +35,9 @@ namespace Pv_Final_Reservaciones.Pages
                     case "ErrorInactivar":
                         lblMensaje.Text = "Habitación ya se encuentra inactiva";
                         break;
+                    case "Errorhabitacion":
+                        lblMensaje.Text = "No se encontro una habitación";
+                        break;
                     default:
                         lblMensaje.Text = "Operación realizada.";
                         break;

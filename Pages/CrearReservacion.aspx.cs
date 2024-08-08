@@ -173,8 +173,9 @@ namespace Pv_Final_Reservaciones.Pages
             {
                 try
                 {
+                    //Obtenemos los datos a guardar
                     int idHotel = Int32.Parse(ddlHoteles.SelectedItem.Value);
-                    int idpersona = Int32.Parse(ddlClientes.SelectedItem.Value);
+                    int idPersona = Int32.Parse(ddlClientes.SelectedItem.Value);
                     DateTime fechaEntrada = DateTime.Parse(txtFechaEntrada.Text);
                     DateTime fechaSalida = DateTime.Parse(txtFechaSalida.Text);
                     int numeroAdultos = Int32.Parse(txtNadultos.Text);
@@ -183,46 +184,76 @@ namespace Pv_Final_Reservaciones.Pages
                     int totalDiasReservacion = (int)(fechaSalida - fechaEntrada).TotalDays;
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
-                        var capacidad = db.SpConsultarCapacidadMaximadeHotel(totalPersonas,totalPersonas).FirstOrDefault();
-                        if(capacidad.HabitacionCapacidadMx >= totalPersonas)
+                        //Utilizamos este ciclo para realizar las reservaciones automaticas hasta acabar con el total de personas ingresadas
+                        while (totalPersonas > 0)
                         {
-                            while (totalPersonas > 0)
+                            //Revisamos la capacidad que tiene el hotel para poder realizar la validacion de abajo
+                            var capacidad = db.SpConsultarCapacidadMaximadeHotel(idHotel, totalPersonas).FirstOrDefault();
+                            //En caso de que no alcance la capacidad total nos manda error controlado
+                            if (capacidad != null && capacidad.HotelCapacidadMx >= totalPersonas)
                             {
-                                var idHabitacion = db.SpConsultarHabitacionesDeHotel(totalPersonas, idHotel).FirstOrDefault();
-                                
+                                //Buscamos la habitacion que mas cerca esta del total de personas por almacenar
+                                var habitacion = db.SpConsultarHabitacionesDeHotel(totalPersonas, idHotel).FirstOrDefault();
+                                if (habitacion != null)
+                                {//Almacenamos la capacidad que tiene la habitacion
+                                    int capacidadHabitacion = habitacion.Capacidad.GetValueOrDefault();
+                                    // Inicializamos el números de adultos y niños
+                                    int adultosEnHabitacion = 0;
+                                    int nihosEnHabitacion = 0;
 
-                                if (idHabitacion != null)
-                                {
-                                    var datos = db.SpCrearReservacion(idpersona, idHotel, idHabitacion.IdHabitacion, fechaEntrada, fechaSalida, numeroAdultos, numeroNihos);
-                                    Response.Redirect("~/Pages/Resultado.aspx?source=CrearReservacion", false);
-
+                                    // Asignamos a los niños primero si hay capacidad y si no hay que pase con los adultos
+                                    if (numeroNihos > 0)
+                                    {
+                                        //En caso de que sea 1 se se termina de repartir 
+                                        if (numeroNihos != 1 && numeroAdultos > 0)
+                                        {//Asignamos un adulto a la habitacion
+                                            adultosEnHabitacion = 1;
+                                            //Restamos el campo asignado
+                                            capacidadHabitacion -= 1;
+                                            //Repartimos los niños segun la capacidad que queda
+                                            nihosEnHabitacion = Math.Min((numeroNihos - 1), capacidadHabitacion);
+                                        }
+                                        else
+                                        {
+                                            nihosEnHabitacion = Math.Min((numeroNihos), capacidadHabitacion);
+                                            adultosEnHabitacion = Math.Min(numeroAdultos, capacidadHabitacion - nihosEnHabitacion);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        adultosEnHabitacion = Math.Min(numeroAdultos, capacidadHabitacion);
+                                    }
+                                    // Creamos la reservación con los datos calculados
+                                    var datos = db.SpCrearReservacion(idPersona, idHotel, habitacion.IdHabitacion, fechaEntrada, fechaSalida, adultosEnHabitacion, nihosEnHabitacion);
+                                    // Actualizamos el número de personas restantes
+                                    totalPersonas -= (adultosEnHabitacion + nihosEnHabitacion);
+                                    numeroAdultos -= adultosEnHabitacion;
+                                    numeroNihos -= nihosEnHabitacion;
                                 }
                                 else
                                 {
-                                    Response.Redirect("~/Pages/Error.aspx?source=CrearReservacion", false);
+                                    Response.Redirect("~/Pages/Errores.aspx?source=Errorhabitacion", true);
+                                    totalPersonas = 0;
                                 }
-
+                            }
+                            else
+                            {
+                                Response.Redirect("~/Pages/Errores.aspx?source=ErrorCantidad", true);
+                                totalPersonas = 0;
                             }
                         }
-                        else
+                        if (totalPersonas == 0)
                         {
-                            lblMensajeCapacidad.Text = "La cantidad de personas sobre pasa la capacidad de las habitaciones";
+                            Response.Redirect("~/Pages/Resultado.aspx?source=CrearReservacion", true);
                         }
-                        
                     }
-
-                      
-                    
-                    
                 }
-                catch
+                catch (Exception ex)
                 {
-                  
+                    // Manejo de errores
+                    lblMensajeCapacidad.Text = "Error: " + ex.Message;
                 }
             }
-             
-
-            
         }
     }
 }
