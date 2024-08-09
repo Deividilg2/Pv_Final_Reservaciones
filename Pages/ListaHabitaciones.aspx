@@ -35,7 +35,7 @@
         font-weight: 500;
         color: #007bff;
         text-decoration: underline;
-        font-size: 20px;
+        font-size: 1.5rem;
     }
 
     .btn-primary {
@@ -53,11 +53,11 @@
 
 
     <h1>Lista de Habitaciones</h1>
-
+     <br />
     <div>
-        <a href="CrearHabitacion.aspx" class="btn btn-link">Crear habitación</a>
+        <a href="CrearHabitacion.aspx" class="btn btn-primary">Crear habitación</a>
     </div>
-
+    <br />
     <div>
 
         <asp:GridView ID="grdHabitaciones" runat="server" CssClass="table table-striped" AutoGenerateColumns="False">

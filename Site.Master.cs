@@ -21,6 +21,8 @@ namespace Pv_Final_Reservaciones
                 if (usuario.esEmpleado)
                 {
                     alistahabitaciones.Visible = true;
+                    aGestionarReservaciones.Visible=true;
+                    aMisReservaciones.Visible =true;    
                 }
             }
             
