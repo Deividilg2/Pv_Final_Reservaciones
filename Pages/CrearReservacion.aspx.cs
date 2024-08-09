@@ -75,7 +75,7 @@ namespace Pv_Final_Reservaciones.Pages
                 //Realizamos la conexión con la BD
                 using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                 {
-                    var query = db.SpConsuntarPersonas(usuario.id).Select(S => new ListItem(S.NombreCompleto, S.IdPersona.ToString()))
+                    var query = db.SpConsultarPersonas(usuario.id).Select(S => new ListItem(S.NombreCompleto, S.IdPersona.ToString()))
                         .ToList();
                     lista.AddRange(query);
                 }

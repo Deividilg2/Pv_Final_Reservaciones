@@ -131,11 +131,21 @@ namespace Pv_Final_Reservaciones.Pages
                 using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                 {   //En caso de que la habitacion ya se encuentre inactiva entonces manda error controlado
                     var errorHabitacion = db.SpConsultarHabitacionPorID(id).FirstOrDefault();
+                    //En caso de que la habitación se encuentre con reservaciones activas en proceso o en espera 
+                    var estadoReservacion = db.SpEstadoReservacion(id).FirstOrDefault();
+
                     if(errorHabitacion.Estado != 'I')
                     {
-                        //llamamos al procedimiento almacenado correspondiente, indicandole el parametro necesario para ejecutarse
-                        db.SpInactivarHabitacion(id);
-                        Response.Redirect("~/Pages/Resultado.aspx?source=Inactivarhabitacion", false);
+                        if(estadoReservacion.FechaSalida > DateTime.Today)
+                        {
+                            Response.Redirect("~/Pages/Errores.aspx?source=ErrorEstadoHabitacion", true);
+                        }
+                        else if (estadoReservacion == null)
+                        {
+                            //llamamos al procedimiento almacenado correspondiente, indicandole el parametro necesario para ejecutarse
+                            db.SpInactivarHabitacion(id);
+                            Response.Redirect("~/Pages/Resultado.aspx?source=Inactivarhabitacion", false);
+                        }
                     }else
                     {
                         Response.Redirect("~/Pages/Errores.aspx?source=ErrorInactivar", false);

@@ -50,7 +50,7 @@ namespace Pv_Final_Reservaciones.Pages
                         if (!IsPostBack)
                         {
                             //Cargamos a las personas en el DropDownList
-                            var personas = db.SpConsuntarPersonas(usuario.id)
+                            var personas = db.SpConsultarPersonas(usuario.id)
                                 .Select(S => new ListItem(S.NombreCompleto, S.IdPersona.ToString())).ToList();
                             //Agregamos lo anterior a la lista
                             listaddl.AddRange(personas);
@@ -126,8 +126,14 @@ namespace Pv_Final_Reservaciones.Pages
                     }
                 }
                 catch
-                {
-
+                { //Error planeado para recargar los datos de las reservaciones
+                    using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
+                    {
+                        Usuario usuario = (Usuario)Session["Usuario"];
+                        var listareservaciones = db.SpConsultarReservaciones(usuario.id).ToList();
+                        grdReservaciones.DataSource = listareservaciones;
+                        grdReservaciones.DataBind();
+                    }
                 }
             }
             

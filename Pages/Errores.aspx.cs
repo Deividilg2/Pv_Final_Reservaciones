@@ -38,6 +38,9 @@ namespace Pv_Final_Reservaciones.Pages
                     case "Errorhabitacion":
                         lblMensaje.Text = "No se encontro una habitación";
                         break;
+                    case "ErrorEstadoHabitacion":
+                        lblMensaje.Text = "La habitación seleccionada tiene una reservación 'En proceso' o 'En Espera' ";
+                        break;
                     default:
                         lblMensaje.Text = "Operación realizada.";
                         break;

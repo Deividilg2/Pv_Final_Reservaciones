@@ -39,13 +39,13 @@
         <asp:RequiredFieldValidator ID="rfvNadultos" ControlToValidate="txtNadultos" runat="server" 
             ErrorMessage="Este valor es requerido" CssClass="text-danger"></asp:RequiredFieldValidator>
         <asp:RangeValidator ID="rvNadultos" ControlToValidate="txtNadultos" runat="server"
-            MaximumValue="8" MinimumValue="1" ErrorMessage="El número ingresado no puede ser procesado" CssClass="text-danger"></asp:RangeValidator>
+            MaximumValue="8" MinimumValue="1" ErrorMessage="Se necesita mínimo 1 adulto" CssClass="text-danger"></asp:RangeValidator>
         <br /> 
         <asp:Label ID="lblNnihos" runat="server" Text="Número de niños" CssClass="form-label" Font-Bold="True"></asp:Label>
         <asp:TextBox ID="txtNnihos" TextMode="Number" runat="server" CssClass="form-control"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvNnihos" runat="server" ErrorMessage="Este valor es requerido"
             ControlToValidate="txtNnihos" CssClass="text-danger"></asp:RequiredFieldValidator>
-        <asp:RangeValidator ID="rvNnihos" ControlToValidate="txtNnihos" runat="server" MaximumValue="3" MinimumValue="0" 
+        <asp:RangeValidator ID="rvNnihos" ControlToValidate="txtNnihos" runat="server" MaximumValue="7" MinimumValue="0" 
             ErrorMessage="El número ingresado no puede ser procesado" CssClass="text-danger"></asp:RangeValidator>
     </div>
     <div>

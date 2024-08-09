@@ -38,6 +38,56 @@
         margin-bottom: 20px;
     }
 
+    .textbox-date {
+        padding: 10px;
+        font-size: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .textbox-date:hover {
+        border-color: #007bff;
+    }
+
+    .textbox-date:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+    }
+
+    .dropdown-custom {
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    width: 100%;
+    max-width: 250px;
+    appearance: none; /* Oculta el estilo por defecto */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /*Añade una pequeña flecha como ícono para la lista desplegable*/
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="8"><path fill="%23666" d="M7 8L0 0h14z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px 10px;
+}
+
+.dropdown-custom:hover {
+    border-color: #007bff;
+}
+
+.dropdown-custom:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+
 </style>
 
 
@@ -45,9 +95,9 @@
      <h1>Gestionar reservaciones</h1>
          <!--Colocamos el filtrado correspondiente para nuestro empleado-->
          <!--Es necesario tener el AutoPostBack en true porque de lo contrario la página no puede cargar y realizar la consulta -->
-         <asp:DropDownList ID="ddlClientes" runat="server" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="True" ></asp:DropDownList>
-         <asp:TextBox ID="txtFechaEntrada" runat="server" TextMode="Date" placeholder="dd/MM/yyyy"></asp:TextBox>
-         <asp:TextBox ID="txtFechaSalida" runat="server" TextMode="Date" placeholder="dd/MM/yyyy"></asp:TextBox>
+         <asp:DropDownList ID="ddlClientes" runat="server" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="True" CssClass="dropdown-custom" ></asp:DropDownList>
+         <asp:TextBox ID="txtFechaEntrada" runat="server" TextMode="Date" placeholder="Fecha Entrada" CssClass="textbox-date"></asp:TextBox>
+         <asp:TextBox ID="txtFechaSalida" runat="server" TextMode="Date" placeholder="Fecha Salida" CssClass="textbox-date"></asp:TextBox>
          &nbsp;
          <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" OnClick="btnFiltrar_Click" CssClass="btn btn-secondary"/>
          <br />
