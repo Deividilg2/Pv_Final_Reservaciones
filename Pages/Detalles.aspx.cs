@@ -67,6 +67,16 @@ namespace Pv_Final_Reservaciones.Pages
                                 // Asignar los datos al DetailsView
                                 grdacciones.DataSource = listabitacora;
                                 grdacciones.DataBind();
+
+
+                                // Logica para mostrar/ocultar el boton de editar
+                                lnkEditar.Visible = detalle.Estado == 'A' &&
+                                                    ((usuario.esEmpleado && detalle.FechaSalida > DateTime.Now) ||
+                                                     (!usuario.esEmpleado && detalle.FechaEntrada > DateTime.Now));
+
+                                // Logica para mostrar/ocultar el boton de cancelar
+                                btncancelar.Visible = detalle.Estado == 'A' && detalle.FechaEntrada > DateTime.Now;
+
                             }
                             else
                             {
