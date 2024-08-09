@@ -46,8 +46,8 @@
          <!--Colocamos el filtrado correspondiente para nuestro empleado-->
          <!--Es necesario tener el AutoPostBack en true porque de lo contrario la página no puede cargar y realizar la consulta -->
          <asp:DropDownList ID="ddlClientes" runat="server" OnSelectedIndexChanged="ddlClientes_SelectedIndexChanged" AutoPostBack="True" ></asp:DropDownList>
-         <asp:TextBox ID="txtFechaEntrada" runat="server" placeholder="dd/MM/yyyy"></asp:TextBox>
-         <asp:TextBox ID="txtFechaSalida" runat="server" placeholder="dd/MM/yyyy"></asp:TextBox>
+         <asp:TextBox ID="txtFechaEntrada" runat="server" TextMode="Date" placeholder="dd/MM/yyyy"></asp:TextBox>
+         <asp:TextBox ID="txtFechaSalida" runat="server" TextMode="Date" placeholder="dd/MM/yyyy"></asp:TextBox>
          &nbsp;
          <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" OnClick="btnFiltrar_Click" CssClass="btn btn-secondary"/>
          <br />

@@ -35,6 +35,7 @@
         <br>
 
         <asp:Label ID="lblMensajeCapacidad" runat="server" ForeColor="Red" Text=""></asp:Label><br />
+        
 
 <asp:Label ID="Label6" runat="server" Text="Label" CssClass="form-label" Font-Bold="True">Número de Adultos</asp:Label> 
         <asp:TextBox ID="txtNumeroAdultos" runat="server" TextMode="Number" CssClass="form-control"></asp:TextBox> 

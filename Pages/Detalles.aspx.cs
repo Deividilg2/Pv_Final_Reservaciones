@@ -48,6 +48,15 @@ namespace Pv_Final_Reservaciones.Pages
                                 // Asignar los datos al DetailsView
                                 grdacciones.DataSource = listabitacora;
                                 grdacciones.DataBind();
+
+                                // Logica para mostrar/ocultar el boton de editar
+                                lnkEditar.Visible = detalle.Estado == 'A' &&
+                                                    ((usuario.esEmpleado && detalle.FechaSalida > DateTime.Today) ||
+                                                     (!usuario.esEmpleado && detalle.FechaEntrada > DateTime.Today));
+
+                                // Logica para mostrar/ocultar el boton de cancelar
+                                btncancelar.Visible = detalle.Estado == 'A' && detalle.FechaEntrada > DateTime.Today;
+
                             }
                             else
                             {
@@ -71,11 +80,11 @@ namespace Pv_Final_Reservaciones.Pages
 
                                 // Logica para mostrar/ocultar el boton de editar
                                 lnkEditar.Visible = detalle.Estado == 'A' &&
-                                                    ((usuario.esEmpleado && detalle.FechaSalida > DateTime.Now) ||
-                                                     (!usuario.esEmpleado && detalle.FechaEntrada > DateTime.Now));
+                                                    ((usuario.esEmpleado && detalle.FechaSalida > DateTime.Today) ||
+                                                     (!usuario.esEmpleado && detalle.FechaEntrada > DateTime.Today));
 
                                 // Logica para mostrar/ocultar el boton de cancelar
-                                btncancelar.Visible = detalle.Estado == 'A' && detalle.FechaEntrada > DateTime.Now;
+                                btncancelar.Visible = detalle.Estado == 'A' && detalle.FechaEntrada > DateTime.Today;
 
                             }
                             else

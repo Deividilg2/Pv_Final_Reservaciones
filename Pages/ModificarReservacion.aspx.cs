@@ -75,17 +75,37 @@ namespace Pv_Final_Reservaciones.Pages
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {//Buscamos la reservacion para poder extraer el numeroHabitacion
                         var reservacion = db.SpConsultarReservacionPorID(id).FirstOrDefault();
-                        //Buscamos la capacidad que tiene la habitacion
-                        var capacidadHabitacion = db.SpConsultarCapacidadHabitacionPorID(reservacion.NumeroHabitacion).FirstOrDefault();
-                        //Validamos que no pase la capacidad de la habitacion
-                        if (capacidadHabitacion.CapacidadMaxima >= totalPersonas)
-                        {//Si cumple la validacion se modifica la reservacion
-                            db.SpModificarReservacionYRegistrarBitacora(id, capacidadHabitacion.IdHotel, fechaEntrada, fechaSalida, totalDiasReservacion, numeroAdultos, numeroNihos);
-                            Response.Redirect("~/Pages/Resultado.aspx?source=ModificarReservacion", false);
-                        }
-                        else//Si se pasa del maximo de la habitacion
+
+                        if (reservacion != null)
                         {
-                            lblMensajeCapacidad.Text = "Demasiadas personas para la habitacón, máximo alcanzan " + capacidadHabitacion.CapacidadMaxima;
+                            if (reservacion.Estado == 'I')
+                            {
+                                RedirectUser();
+                                return;
+                            }
+                           else if (reservacion.FechaSalida <= DateTime.Today)
+                            {
+                                RedirectUser();
+                                return;
+                            }
+                            else if (reservacion.FechaEntrada <= DateTime.Today && reservacion.FechaSalida > DateTime.Today)
+                            {
+                                RedirectUser();
+                                return;
+                            }
+                            //Buscamos la capacidad que tiene la habitacion
+                            var capacidadHabitacion = db.SpConsultarCapacidadHabitacionPorID(reservacion.NumeroHabitacion).FirstOrDefault();
+                            //Validamos que no pase la capacidad de la habitacion
+                            if (capacidadHabitacion.CapacidadMaxima >= totalPersonas)
+                            {//Si cumple la validacion se modifica la reservacion
+                                db.SpModificarReservacionYRegistrarBitacora(id, capacidadHabitacion.IdHotel, fechaEntrada, fechaSalida, numeroAdultos, numeroNihos);
+                                Response.Redirect("~/Pages/Resultado.aspx?source=ModificarReservacion", false);
+                            }
+                            else//Si se pasa del maximo de la habitacion
+                            {
+                                lblMensajeCapacidad.Text = "Demasiadas personas para la habitacón, máximo alcanzan " + capacidadHabitacion.CapacidadMaxima;
+
+                            }
                         }
                     }
                 }
@@ -153,7 +173,7 @@ namespace Pv_Final_Reservaciones.Pages
                 args.IsValid = false;
                 if (args.Value != null)
                 {
-                    if (DateTime.Parse(args.Value) < DateTime.Today)
+                    if (DateTime.Parse(args.Value) > DateTime.Today)
                     {
                         args.IsValid = true;
 
@@ -180,9 +200,9 @@ namespace Pv_Final_Reservaciones.Pages
                 // Verificar si ambas fechas son válidas
                 if (fechaEntradaValida && fechaSalidaValida)
                 {
-                    // Verificar que la fecha de salida no sea menor ni igual que la fecha de entrada
-                    //esta fecha debe ser mayor
-                    if (fechaSalida > fechaEntrada)
+                    // Verificar que la fecha de salida no sea menor a la fecha de entrada
+                    //esta fecha debe ser mayor o igual
+                    if (fechaSalida >= fechaEntrada)
                     {
                         args.IsValid = true;
                     }
