@@ -75,7 +75,7 @@ namespace Pv_Final_Reservaciones.Pages
                 //Realizamos la conexión con la BD
                 using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                 {
-                    var query = db.SpConsuntarPersonas().Select(S => new ListItem(S.NombreCompleto, S.IdPersona.ToString()))
+                    var query = db.SpConsuntarPersonas(usuario.id).Select(S => new ListItem(S.NombreCompleto, S.IdPersona.ToString()))
                         .ToList();
                     lista.AddRange(query);
                 }
@@ -224,7 +224,7 @@ namespace Pv_Final_Reservaciones.Pages
                                         adultosEnHabitacion = Math.Min(numeroAdultos, capacidadHabitacion);
                                     }
                                     // Creamos la reservación con los datos calculados
-                                    var datos = db.SpCrearReservacion(idPersona, idHotel, habitacion.IdHabitacion, fechaEntrada, fechaSalida, adultosEnHabitacion, nihosEnHabitacion);
+                                    db.SpCrearReservacion(idPersona, idHotel, habitacion.IdHabitacion, fechaEntrada, fechaSalida, adultosEnHabitacion, nihosEnHabitacion);
                                     // Actualizamos el número de personas restantes
                                     totalPersonas -= (adultosEnHabitacion + nihosEnHabitacion);
                                     numeroAdultos -= adultosEnHabitacion;

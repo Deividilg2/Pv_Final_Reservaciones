@@ -38,7 +38,7 @@ namespace Pv_Final_Reservaciones.Pages
                     //Creamos la lista para mostrar en el DDL
                     var listaddl = new List<ListItem>();
                     //Añadimos la opción por defecto
-                    listaddl.Add(new ListItem("Seleccione un cliente", "0"));
+                    listaddl.Add(new ListItem("Seleccione un cliente", ""));
                     //Realizamos la conexión con la BD
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
@@ -50,7 +50,7 @@ namespace Pv_Final_Reservaciones.Pages
                         if (!IsPostBack)
                         {
                             //Cargamos a las personas en el DropDownList
-                            var personas = db.SpConsuntarPersonas()
+                            var personas = db.SpConsuntarPersonas(usuario.id)
                                 .Select(S => new ListItem(S.NombreCompleto, S.IdPersona.ToString())).ToList();
                             //Agregamos lo anterior a la lista
                             listaddl.AddRange(personas);
@@ -67,7 +67,7 @@ namespace Pv_Final_Reservaciones.Pages
                     //Unificamos o relacionamos los dos campos de DataTextField y DataValueField
                     ddlClientes.DataBind();
                     //Seleccionamos una opción a mostrar por defecto al cargar
-                    ddlClientes.Items.FindByValue("0").Selected = true;
+                    ddlClientes.Items.FindByValue("").Selected = true;
 
                 }
                 catch
@@ -138,15 +138,18 @@ namespace Pv_Final_Reservaciones.Pages
         {
             
             String Personaselec = ddlClientes.SelectedItem.Value;
+            
             using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
             {
-                var lista = db.SpFiltroPorID(Int32.Parse(Personaselec));
-                grdReservaciones.DataSource = lista;
-                grdReservaciones.DataBind();
-                Usuario usuario = (Usuario)Session["Usuario"];
-                //Excepción para recargar las reservaciones
-                if (Personaselec == "0")
+                if(Personaselec != "") 
                 {
+                    var lista = db.SpFiltroPorID(Int32.Parse(Personaselec));
+                    grdReservaciones.DataSource = lista;
+                    grdReservaciones.DataBind();
+                }
+                else
+                {
+                    Usuario usuario = (Usuario)Session["Usuario"];
                     //Código Para recargar las reservaciones
                     var listareservaciones = db.SpConsultarReservaciones(usuario.id).ToList();
                     grdReservaciones.DataSource = listareservaciones;

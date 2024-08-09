@@ -56,19 +56,27 @@ namespace Pv_Final_Reservaciones.Pages
                 if (usuario.esEmpleado)
                 {
                     string source = Request.QueryString["source"];
-                    if (source == "CrearHabitacion" || source == "EditarHabitacion" || source == "Inactivarhabitacion")
+                    switch (source)
                     {
-                        Response.Redirect("~/Pages/ListaHabitaciones.aspx");
-                    }
-                    else
-                    {
-                        Response.Redirect("~/Pages/GestionarReservaciones.aspx");
+                        case "CrearHabitacion":
+                            Response.Redirect("~/Pages/ListaHabitaciones.aspx");
+                            break;
+                        case "ErrorInactivo":
+                            Response.Redirect("~/Pages/ListaHabitaciones.aspx");
+                            break;
+                        case "Inactivarhabitacion":
+                            Response.Redirect("~/Pages/ListaHabitaciones.aspx");
+                            break;
+                        default:
+                            lblMensaje.Text = "Error desconocido";
+                            break;
                     }
                 }
-                if (!usuario.esEmpleado)
+                else
                 {
                     Response.Redirect("~/Pages/Misreservaciones.aspx");
                 }
+                
             }
             else
             {

@@ -21,48 +21,42 @@ namespace Pv_Final_Reservaciones.Pages
             {
                 Response.Redirect("~/Pages/Login.aspx");
             }
-
-            if (!IsPostBack)
+            Usuario usuario = (Usuario)Session["Usuario"];
+            if (IsPostBack == false)
             {
-                //if (int.TryParse(Request.QueryString["idReservacion"], out int idReservacion))
-                //{
-                    try
+                try
+                {
+                    int id = int.Parse(Request.QueryString["idReservacion"]);
+
+                    using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
-                        int id = int.Parse(Request.QueryString["idReservacion"]);
-
-                        using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
+                        // Llamar al procedimiento almacenado para obtener la reservación
+                        var reservacion = db.SpConsultarReservacionPorID(id).FirstOrDefault();
+                        //Validamos que la reservacion sea del usuario o un empleado quiera entrar
+                        if (reservacion.NombreCompleto == usuario.nombreCompleto || usuario.esEmpleado)
                         {
-                            // Llamar al procedimiento almacenado para obtener la reservación
-                            var reservacion = db.SpConsultarReservacionPorID(id).FirstOrDefault();
-                            //var reservacion = db.SpModificarReservacionYRegistrarBitacora(idReservacion).FirstOrDefault();
-
-                            if (reservacion != null)
-                            {
-                                // Asignar valores a los controles de la página
-                                hdnId.Value = reservacion.IdReservacion.ToString();
-                                txtHotel.Text = reservacion.Nombre.ToString();
-                                txtHabitacion.Text = reservacion.NumeroHabitacion.ToString();
-                                txtCliente.Text = reservacion.NombreCompleto.ToString();
-                            //txtFechaEntrada.Text = reservacion.FechaEntrada.ToString("dd/MM/yyyy");
+                            // Asignar valores a los controles de la página
+                            txtHotel.Text = reservacion.Nombre.ToString();
+                            txtHabitacion.Text = reservacion.NumeroHabitacion.ToString();
+                            txtCliente.Text = reservacion.NombreCompleto.ToString();
                             txtFechaEntrada.Text = reservacion.FechaEntrada.ToString("yyyy-MM-dd");
-                            //txtFechaSalida.Text = reservacion.FechaSalida.ToString("dd/MM/yyyy");
                             txtFechaSalida.Text = reservacion.FechaSalida.ToString("yyyy-MM-dd");
                             txtNumeroAdultos.Text = reservacion.NumeroAdultos.ToString();
-                                txtNumeroNinhos.Text = reservacion.NumeroNinhos.ToString();
-                            }
-                            else
-                            {
+                            txtNumeroNinhos.Text = reservacion.NumeroNinhos.ToString();
+                        }
+                        else
+                        {
                             // Redireccionar si no se encuentra la reservación
                             Response.Redirect("~/Pages/Errores.aspx?source=Errormodificacion", false);
                         }
-                        }
                     }
-                    catch
-                    {
 
-                    }
                 }
-            //}
+                catch
+                {
+
+                }
+            }
         }
 
         protected void btnGuardarModificacion_Click(object sender, EventArgs e)
@@ -70,54 +64,34 @@ namespace Pv_Final_Reservaciones.Pages
             if (Page.IsValid == true)
             {
                 try
-                {
-                    int idReservacion = int.Parse(hdnId.Value);
-                    DateTime FechaEntrada = DateTime.Parse(txtFechaEntrada.Text);
-                    DateTime FechaSalida = DateTime.Parse(txtFechaSalida.Text);
-                    int NumeroAdultos = int.Parse(txtNumeroAdultos.Text);
-                    int NumeroNinhos = int.Parse(txtNumeroNinhos.Text);
-                    
-
-                    // Obtener el idPersona de la sesión
-                    if (Session["idPersona"] != null)
-                    {
-                        int idPersona = (int)Session["idPersona"];
-
-                        using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
+                {//Tomamos los datos
+                    int id = int.Parse(Request.QueryString["idReservacion"]);
+                    DateTime fechaEntrada = DateTime.Parse(txtFechaEntrada.Text);
+                    DateTime fechaSalida = DateTime.Parse(txtFechaSalida.Text);
+                    int numeroAdultos = int.Parse(txtNumeroAdultos.Text);
+                    int numeroNihos = int.Parse(txtNumeroNinhos.Text);
+                    int totalPersonas = numeroAdultos + numeroNihos;
+                    int totalDiasReservacion = (int)(fechaSalida - fechaEntrada).TotalDays;
+                    using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
+                    {//Buscamos la reservacion para poder extraer el numeroHabitacion
+                        var reservacion = db.SpConsultarReservacionPorID(id).FirstOrDefault();
+                        //Buscamos la capacidad que tiene la habitacion
+                        var capacidadHabitacion = db.SpConsultarCapacidadHabitacionPorID(reservacion.NumeroHabitacion).FirstOrDefault();
+                        //Validamos que no pase la capacidad de la habitacion
+                        if (capacidadHabitacion.CapacidadMaxima >= totalPersonas)
+                        {//Si cumple la validacion se modifica la reservacion
+                            db.SpModificarReservacionYRegistrarBitacora(id, capacidadHabitacion.IdHotel, fechaEntrada, fechaSalida, totalDiasReservacion, numeroAdultos, numeroNihos);
+                            Response.Redirect("~/Pages/Resultado.aspx?source=ModificarReservacion", false);
+                        }
+                        else//Si se pasa del maximo de la habitacion
                         {
-                            var reservacion = db.SpConsultarReservacionPorID(idReservacion).FirstOrDefault();
-
-                            if (reservacion != null)
-                            {
-                                if (reservacion.Estado == 'I')
-                                {
-                                    RedirectUser();
-                                    return;
-                                }
-                                if (reservacion.FechaSalida <= DateTime.Today)
-                                {
-                                    RedirectUser();
-                                    return;
-                                }
-                                if (reservacion.FechaEntrada <= DateTime.Today && reservacion.FechaSalida > DateTime.Today)
-                                {
-                                    RedirectUser();
-                                    return;
-                                }
-
-                                db.SpModificarReservacionYRegistrarBitacora(idReservacion, FechaEntrada, FechaSalida, NumeroAdultos, NumeroNinhos, idPersona);
-                                Response.Redirect("~/Pages/Resultado.aspx?source=ModificarReservacion");
-                            }else
-                            {
-                                RedirectUser();
-                                Response.Write("Error la reservacion no existe");
-                            }
+                            lblMensajeCapacidad.Text = "Demasiadas personas para la habitacón, máximo alcanzan " + capacidadHabitacion.CapacidadMaxima;
                         }
                     }
                 }
                 catch
                 {
-
+                    Response.Redirect("~/Pages/Errores.aspx?source=Errormodificar");
                 }
             }
 

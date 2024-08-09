@@ -34,6 +34,8 @@
          ControlToValidate="txtFechaSalida" OnServerValidate="cvFechaSalida_ServerValidate"></asp:CustomValidator>
         <br>
 
+        <asp:Label ID="lblMensajeCapacidad" runat="server" ForeColor="Red" Text=""></asp:Label><br />
+
 <asp:Label ID="Label6" runat="server" Text="Label" CssClass="form-label" Font-Bold="True">Número de Adultos</asp:Label> 
         <asp:TextBox ID="txtNumeroAdultos" runat="server" TextMode="Number" CssClass="form-control"></asp:TextBox> 
 <asp:RangeValidator ID="rgvNumAdultos" runat="server" ErrorMessage="Mínimo 1 adulto"
