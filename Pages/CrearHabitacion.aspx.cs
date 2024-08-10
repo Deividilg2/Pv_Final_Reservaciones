@@ -40,13 +40,13 @@ namespace Pv_Final_Reservaciones.Pages
                     //Lista Dinamica usando la BD
                     //Realizamos la conexión con la BD
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
-                    {
+                    {//Hacemos la consulta de los elementos necesarios para la lista
                         var query = db.SpConsultarHoteles().Select(H => new ListItem(H.Nombre,H.IdHotel.ToString())).ToList();
-
+                        //Asignamos los datos a la lista
                         lista.AddRange(query);
                     }
 
-                    ddlHoteles.DataSource = lista;
+                    ddlHoteles.DataSource = lista;//Pasamos la lista
                     //antes de hacer el databind hay que agregar el datatextfield, indicando cual es el campo que
                     //queremos se muestre como texto y cual como valor
                     ddlHoteles.DataTextField = "Text";
@@ -58,7 +58,7 @@ namespace Pv_Final_Reservaciones.Pages
                 }
                 catch
                 {
-
+                    Response.Redirect("~/Pages/Errores.aspx?");
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace Pv_Final_Reservaciones.Pages
                         // Verificamos si ya existe una habitación con el mismo número en el mismo hotel
                         var habitacionesDuplicadas = db.SpVerificarHabitacionDuplicada(hotel, numeroHabitacion).FirstOrDefault();
 
-                        if (habitacionesDuplicadas.HabitacionesDuplicadas > 0)
+                        if (habitacionesDuplicadas.HabitacionesDuplicadas > 0)//Verificamos que no existan habitaciones duplicadas
                         {
                             lblMensajeError.Text = "Ya existe una habitación con el mismo número en el hotel seleccionado.";
                         }

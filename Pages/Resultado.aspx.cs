@@ -13,7 +13,7 @@ namespace Pv_Final_Reservaciones.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
+            {//Tomamos el source para mostrar diversos mensajes de resultados
                 string source = Request.QueryString["source"];
                 switch (source)
                 {
@@ -44,15 +44,15 @@ namespace Pv_Final_Reservaciones.Pages
 
         protected void btnRegresar_Click(object sender, EventArgs e)
         {
-            Usuario usuario = (Usuario)Session["Usuario"];
-            string id = Request.QueryString["id"];
-            string source = Request.QueryString["source"];
+            Usuario usuario = (Usuario)Session["Usuario"];//Creamos una instancia de la clase Usuario
+            string id = Request.QueryString["id"];//Tomamos el id de la reservacion segun se necesite
+            string source = Request.QueryString["source"];//Tomamos el source para conocer de que pagina viene y hacer diversas acciones
             if (usuario != null)
             {
 
                 // Realizamos una comprobación de si es o no empleado el usuario logeado
                 if (usuario.esEmpleado)
-                {
+                {//Si viene de estas paginas se hace una accion
                     if (source == "CrearReservacion" || source == "ModificarReservacion" || source == "CancelarReservacion")
                     {
                         Response.Redirect("~/Pages/Detalles?id=" + id, false);
@@ -63,7 +63,7 @@ namespace Pv_Final_Reservaciones.Pages
                     }
                 }
                 else if (!usuario.esEmpleado)
-                {
+                {//Si viene de estas paginas se hace una accion
                     if (source == "CrearReservacion" || source == "ModificarReservacion" || source == "CancelarReservacion")
                     {
                         Response.Redirect("~/Pages/Detalles?id=" + id, false);

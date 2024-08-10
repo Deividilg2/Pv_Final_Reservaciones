@@ -13,7 +13,7 @@ namespace Pv_Final_Reservaciones.Pages
 {
     public partial class ModificarReservacion : System.Web.UI.Page
     {
-        String conn = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
+        String conn = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;//Variable para realizar la conexion con la BD
         protected void Page_Load(object sender, EventArgs e)
         {
             //validamos sesion del usuario
@@ -21,18 +21,18 @@ namespace Pv_Final_Reservaciones.Pages
             {
                 Response.Redirect("~/Pages/Login.aspx");
             }
-            Usuario usuario = (Usuario)Session["Usuario"];
+            Usuario usuario = (Usuario)Session["Usuario"];//validamos la sesion del usuario
             if (IsPostBack == false)
             {
                 try
-                {
+                {//Tomamos el id de la reservacion
                     int id = int.Parse(Request.QueryString["idReservacion"]);
 
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
                         // Llamar al procedimiento almacenado para obtener la reservación
                         var reservacion = db.SpConsultarReservacionPorID(id).FirstOrDefault();
-                        //Validamos que la reservacion sea del usuario o un empleado quiera entrar
+                        //Validamos que la reservacion sea del cliente o un empleado que quiera entrar
                         if (reservacion.NombreCompleto == usuario.nombreCompleto || usuario.esEmpleado)
                         {
                             // Asignar valores a los controles de la página
@@ -50,7 +50,6 @@ namespace Pv_Final_Reservaciones.Pages
                             Response.Redirect("~/Pages/Errores.aspx?source=Errormodificacion", false);
                         }
                     }
-
                 }
                 catch
                 {
@@ -60,7 +59,7 @@ namespace Pv_Final_Reservaciones.Pages
         }
 
         protected void btnGuardarModificacion_Click(object sender, EventArgs e)
-        {//Hay que colocarle metodo o algo para que no sobrepase la cant max de personas en habitacion
+        {//Boton que permite modificar los datos de la reservacion existente
             if (Page.IsValid == true)
             {
                 try
@@ -74,8 +73,7 @@ namespace Pv_Final_Reservaciones.Pages
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {//Buscamos la reservacion para poder extraer el numeroHabitacion
                         var reservacion = db.SpConsultarReservacionPorID(id).FirstOrDefault();
-
-                        if (reservacion != null)
+                        if (reservacion != null)//Si viene null, no entra
                         {
                             if (reservacion.Estado == 'I')
                             {
@@ -99,12 +97,17 @@ namespace Pv_Final_Reservaciones.Pages
                             {//Si cumple la validacion se modifica la reservacion
                                 db.SpModificarReservacionYRegistrarBitacora(id, capacidadHabitacion.IdHotel, fechaEntrada, fechaSalida, numeroAdultos, numeroNihos);
                                 Response.Redirect("~/Pages/Resultado?id=" + id + "&source=ModificarReservacion", false);
+                                //Redireccionamos para poder mostrar el guardado con exito y despues el detalle de esta nueva reservacion
                             }
                             else//Si se pasa del maximo de la habitacion
                             {
                                 lblMensajeCapacidad.Text = "Demasiadas personas para la habitación, máximo alcanzan " + capacidadHabitacion.CapacidadMaxima;
 
                             }
+                        }
+                        else
+                        {
+                            Response.Redirect("~/Pages/Errores?source=ErrorId");
                         }
                     }
                 }
@@ -166,7 +169,7 @@ namespace Pv_Final_Reservaciones.Pages
         }
 
         protected void cvFechaEntrada_ServerValidate(object source, ServerValidateEventArgs args)
-        {
+        {//Validamos la fecha de entrada que sea mayor a la actual
             try
             {
                 args.IsValid = false;
@@ -186,7 +189,7 @@ namespace Pv_Final_Reservaciones.Pages
         }
 
         protected void cvFechaSalida_ServerValidate(object source, ServerValidateEventArgs args)
-        {
+        {//Validamos que la fecha de salida sea mayor o igual a la de entrada
             try
             {
                 DateTime fechaEntrada;

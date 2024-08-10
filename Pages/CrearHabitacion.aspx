@@ -4,8 +4,8 @@
     <h1>Crear habitación</h1>
 
     <div>
-        
         <br />
+        
         <asp:Label ID="lblHotel" runat="server" Text="Hotel"></asp:Label>
         <asp:DropDownList ID="ddlHoteles" runat="server" AutoPostBack="true" CssClass="form form-control dropdown" ></asp:DropDownList>
         <asp:RequiredFieldValidator ID="rqHotele" runat="server" ErrorMessage="Campo Obligatorio" 
@@ -17,8 +17,6 @@
         <asp:Label ID="lblNumHabitacion" runat="server" Text="Número de Habitación" CssClass="form-label"></asp:Label>
         <asp:Label ID="lblMensajeError" runat="server" Text="" CssClass="form-label"></asp:Label>
         <br />
-        <%--Hay que revisar si es o no necesario usar alguna validacion especifica para datos alfanumericos--%>
-       <%-- Hay que comprobar si se permite o no ingresar un mismo numero de habitacion para un mismo hotel--%>
         <asp:TextBox ID="txtNumHabitacion" runat="server" MaxLength="10" CssClass="form-control"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rqNumHabitacion" runat="server" ErrorMessage="Campo Obligatorio" 
             ControlToValidate="txtNumHabitacion"></asp:RequiredFieldValidator>
@@ -37,7 +35,6 @@
         
         <asp:Label ID="lblDescripcion" runat="server" Text="Descripción" CssClass="form-label" ></asp:Label>
         <br />
-        <%--Hay que revisar si es o no necesario usar alguna validacion especifica para datos alfanumericos, string deberia aceptar TODO--%>
         <asp:TextBox ID="txtDescripcion" runat="server" MaxLength="500" CssClass="form-control"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rqDescripcion" runat="server" ErrorMessage="Campo Obligatorio" 
             ControlToValidate="txtDescripcion"></asp:RequiredFieldValidator>

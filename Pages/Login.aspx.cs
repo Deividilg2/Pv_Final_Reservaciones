@@ -9,21 +9,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-/*
- * Deivid
- <connectionStrings>
-		<add name="Conn" providerName="System.Data.SqlClient"
-		connectionString="Data Source=DEIVIDILG\DEIVIDILG;Database=PV_ProyectoFinal;Integrated Security=True;TrustServerCertificate=True" />
-	</connectionStrings>
-Camila
-	<connectionStrings>
-<add name="Conn" providerName="System.Data.SqlClient"
-		connectionString="Data Source=Camila;Database=PV_ProyectoFinal;Integrated Security=True;TrustServerCertificate=True" />
-</connectionStrings>
-	
-//LoadSqlServerMetadata("Data Source=Camila;Database=PV_ProyectoFinal;Integrated Security=True");
-//LoadSqlServerMetadata("Data Source=DEIVIDILG\\DEIVIDILG;Database=PV_ProyectoFinal;Integrated Security=True");
-*/
 
 namespace Pv_Final_Reservaciones.Pages
 {
@@ -32,8 +17,6 @@ namespace Pv_Final_Reservaciones.Pages
         String conn = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
         }
 
         protected void btnlogin_Click(object sender, EventArgs e)
@@ -64,13 +47,12 @@ namespace Pv_Final_Reservaciones.Pages
                                 usuario.id = log.IdPersona;
                                 usuario.nombreCompleto  = log.NombreCompleto;
                                 usuario.esEmpleado = log.EsEmpleado;
-                                // Guardar idPersona en la sesión
-                                Session["idPersona"] = log.IdPersona;
                                 //Realizamos una comprovación de si es o no empleado el usuario logeado
                                 if (log.EsEmpleado)
-                                {
+                                {//Asignamos el Estado empleado true para las paginas que le pertenecen al empleado y poder cambiarlo en 
+                                    //las paginas que necesiten colocarlo como un cliente
                                     usuario.Estado = true;
-                                    Session["Usuario"] = usuario;
+                                    Session["Usuario"] = usuario;//Asignamos la sesion usuario con sus atributos
                                     Response.Redirect("~/Pages/GestionarReservaciones.aspx", false);
                                     
                                 }

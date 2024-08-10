@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace Pv_Final_Reservaciones.Pages
 {
@@ -95,7 +96,7 @@ namespace Pv_Final_Reservaciones.Pages
                             lblMensajeError.Text = "Ya existe una habitación con el mismo número en el hotel seleccionado.";
                             return;
                         }
-                        //Evaluamos
+                        //Evaluamos que el estado sea A
                         if (habitacion.Estado == 'A')
                         {
                             //Nos permite verificar cuantos id de nuestra habitacion estan en uso de estado 'A'
@@ -104,8 +105,8 @@ namespace Pv_Final_Reservaciones.Pages
                             if (reservaciones.ReservacionesActivas != 0)
                             {
                                 Response.Redirect("~/Pages/Errores.aspx?source=ErrorEstadoHabitacion", false);
-                            }//Sino entonces logra editar la habitacion y manda a pantalla de resultado
-                            else
+                            }
+                            else// Sino entonces logra editar la habitacion y manda a pantalla de resultado
                             {
                                 db.SpEditarHabitacion(idHabitacion, habitacion.IdHotel, numeroHabitacion, idpersona, capacidadmMaxima, descripcion);
                                 Response.Redirect("~/Pages/Resultado.aspx?source=EditarHabitacion", false);
@@ -125,7 +126,7 @@ namespace Pv_Final_Reservaciones.Pages
         }
 
         protected void Inactivar_Click(object sender, EventArgs e)
-        {
+        {////Boton para inactivar la habitacion
             //abrimos un try catch para manejar errores, en este botón no es necesario realizar validaciones de elementos
             //en el formulario
             try
@@ -141,22 +142,21 @@ namespace Pv_Final_Reservaciones.Pages
                     var estadoReservacion = db.SpEstadoReservacion(id).FirstOrDefault();
                     //En caso de que la habitacion tenga el estado 'I'
                     if(errorHabitacion.Estado != 'I')
-                    {//Si la reservacion tiene la fechaSalida mayor a la actual entra
-                        if(estadoReservacion.FechaSalida > DateTime.Today)
-                        {//Redireccionamos a un error, ya que no corresponde la edicion
-                            Response.Redirect("~/Pages/Errores.aspx?source=ErrorEstadoHabitacion", true);
-                        }
-                        else if (estadoReservacion == null)//Si viene null es porque no tiene reservaciones asociadas a la habitacion
+                    {//Si la reservacion es null entonces si podemos inactivar 
+                        if (estadoReservacion == null)//Si viene null es porque no tiene reservaciones asociadas a la habitacion
                         {
                             //llamamos al procedimiento almacenado correspondiente, indicandole el parametro necesario para ejecutarse
                             db.SpInactivarHabitacion(id);
                             Response.Redirect("~/Pages/Resultado.aspx?source=Inactivarhabitacion", false);
                         }
+                        else if (estadoReservacion.FechaSalida > DateTime.Today)
+                        {//Redireccionamos a un error, ya que no corresponde la edicion
+                            Response.Redirect("~/Pages/Errores.aspx?source=ErrorEstadoHabitacion", false);
+                        }
                     }else
                     {
                         Response.Redirect("~/Pages/Errores.aspx?source=ErrorInactivar", false);
                     }
-                    
                 }
 
             }

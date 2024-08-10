@@ -25,8 +25,8 @@ namespace Pv_Final_Reservaciones.Pages
                 Response.Redirect("~/Pages/Login.aspx");
 
             }
-            Usuario usuario = (Usuario)Session["Usuario"];
-            if (!usuario.esEmpleado)
+            Usuario usuario = (Usuario)Session["Usuario"];//Hacemos una instancia de la clase Usuario
+            if (!usuario.esEmpleado)//Validamos que sea un empleado para entrar en esta pagina
             {
                 Response.Redirect("~/Pages/Errores.aspx?source=ErrorUrl", false);
             }
@@ -89,7 +89,7 @@ namespace Pv_Final_Reservaciones.Pages
         // y devuelve una cadena de texto (“Cancelada”,“Finalizada”,“En proceso” o “En espera”)
         // dependiendo del valor del parámetro "estado".
         protected string ConvertEstado(string estado, DateTime fechaEntrada, DateTime fechaSalida)
-        {
+        {//Convertir el estado en la tabla GridView
             DateTime today = DateTime.Today;
 
             if (estado == "I")
@@ -116,7 +116,7 @@ namespace Pv_Final_Reservaciones.Pages
 
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
-        {
+        {//Boton para realizar el filtro de busqueda de reservaciones en el rango de fechas
             if(Page.IsValid == true)
             {
                 try
@@ -126,9 +126,9 @@ namespace Pv_Final_Reservaciones.Pages
                     DateTime fechaSalida = DateTime.Parse(txtFechaSalida.Text);
                     //Carga el filtro después de la validación realizada
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
-                    {
+                    {//Buscamos en el sp cuales reservaciones coinciden con las fechas
                         var lista = db.SpFiltrar(fechaEntrada, fechaSalida).ToList();
-                        if (lista.Count > 0)//Si hay registros los carga
+                        if (lista.Count > 0)//Si hay registros, los carga
                         {
                             grdReservaciones.DataSource = lista;
                             grdReservaciones.DataBind();
@@ -139,14 +139,13 @@ namespace Pv_Final_Reservaciones.Pages
                             grdReservaciones.DataBind();
                             lblnulo.Visible = true;
                         }
-                        
                     }
                 }
                 catch
-                { //Error planeado para recargar los datos de las reservaciones
+                { //Error planeado para recargar los datos de las reservaciones al no recibir datos en las fechas
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
-                        lblnulo.Visible = false;
+                        lblnulo.Visible = false;//Esconder el error
                         Usuario usuario = (Usuario)Session["Usuario"];
                         var listareservaciones = db.SpConsultarReservaciones(usuario.id).ToList();
                         grdReservaciones.DataSource = listareservaciones;
@@ -168,7 +167,7 @@ namespace Pv_Final_Reservaciones.Pages
             {//Si Personaselec no viene vacio entra
                 if (Personaselec != "") 
                 {
-                    var lista = db.SpFiltroPorID(Int32.Parse(Personaselec));
+                    var lista = db.SpFiltroPorID(Int32.Parse(Personaselec));//Carga la lista con las reservaciones de la persona
                     grdReservaciones.DataSource = lista;
                     grdReservaciones.DataBind();
                 }

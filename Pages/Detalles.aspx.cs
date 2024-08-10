@@ -23,24 +23,23 @@ namespace Pv_Final_Reservaciones.Pages
                 Response.Redirect("~/Pages/Login.aspx");
 
             }
-
             /*Verificamos la sesion del usuario*/
             try
             {
                 if (IsPostBack == false)
                 //Comprobamos que la carga de página no venga de un boton y no realice la accion dentro
                 {
-                    int id = int.Parse(Request.QueryString["id"]);
+                    int id = int.Parse(Request.QueryString["id"]);//Tomamos el id de la url
                     //Conectamos con la BD
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
-                    {
+                    {//Creamos una instancia del usuario
                         Usuario usuario = Session["Usuario"] as Usuario;
                         if (usuario.esEmpleado && usuario.Estado)
-                        {
-                            //Pasamos el id al Storeprocedure
-                            var detalle = db.SpConsultarDetallePorIdEmpleado(id).FirstOrDefault();  //Revisar en bd
+                        {//Si el usuario es empleado y el Estado de cliente es true, entra
+                            //Pasamos el id al Storeprocedure para cargar los datos de la tabla detalles y bitacora
+                            var detalle = db.SpConsultarDetallePorIdEmpleado(id).FirstOrDefault(); 
                             var listabitacora = db.SpConsultarBitacoraEmpleado(id).ToList();
-                            if (detalle != null)
+                            if (detalle != null)//Si no viene null, entra
                             {
                                 // Asignar los datos al DetailsView con un objeto Ienumerable list
                                 dvDetalles.DataSource = new List<dynamic> { detalle };
@@ -65,10 +64,10 @@ namespace Pv_Final_Reservaciones.Pages
                         }
                         else 
                         {
-                            //Pasamos el id al Storeprocedure
-                            var detalle = db.SpConsultarDetallePorId(id, usuario.id).FirstOrDefault();  //Revisar en bd
+                            //Pasamos el id al Storeprocedure para cargar los datos de la tabla detalles y bitacora
+                            var detalle = db.SpConsultarDetallePorId(id, usuario.id).FirstOrDefault(); 
                             var listabitacora = db.SpConsultarBitacora(id, usuario.id).ToList();
-                            if (detalle != null)
+                            if (detalle != null)//Si no viene null, entra
                             {
                                 // Asignar los datos al DetailsView con un objeto Ienumerable list
                                 dvDetalles.DataSource = new List<dynamic> { detalle };
@@ -85,16 +84,12 @@ namespace Pv_Final_Reservaciones.Pages
 
                                 // Logica para mostrar/ocultar el boton de cancelar
                                 btncancelar.Visible = detalle.Estado == 'A' && detalle.FechaEntrada > DateTime.Today;
-
                             }
                             else
                             {
                                 Response.Redirect("~/Pages/Errores.aspx?source=ErrorId", false);
                             }
                         }
-                       
-                        
-
                     }
                 }
             }
@@ -107,13 +102,13 @@ namespace Pv_Final_Reservaciones.Pages
 
 
         protected void lnkEditar_Click(object sender, EventArgs e)
-        {
+        {//Boton que permite enviar id por URL de la reservacion y poder editarla
             int id = int.Parse(Request.QueryString["id"]);
             Response.Redirect($"ModificarReservacion.aspx?idReservacion={id}");
         }
 
         protected void btncancelar_Click(object sender, EventArgs e)
-        {
+        {//Boton que nos permite cancelar una reservacion
             try
             {
                 // Consultar el id de la reservación desde la query string
@@ -129,7 +124,7 @@ namespace Pv_Final_Reservaciones.Pages
                         // Llamar al procedimiento almacenado para cancelar la reservación y registrar la acción en la bitácora
                         var resultado = db.SpCancelarReservacionYRegistrarBitacora(idReservacion, usuario.id).FirstOrDefault();
                         
-                        if(resultado != null)
+                        if(resultado != null)//Si viene null manda error
                         {
                             Response.Redirect("~/Pages/Resultado?id=" + idReservacion + "&source=CancelarReservacion", false);
                         }
@@ -153,11 +148,11 @@ namespace Pv_Final_Reservaciones.Pages
         }
 
         protected void btnregresar_Click(object sender, EventArgs e)
-        {
+        {//Boton que nos permite regresar a la pestaña inicial segun corresponda el atributo esEmpleado
             // Recuperamos el objeto Usuario de la sesión
             Usuario usuario = Session["Usuario"] as Usuario;
 
-            if (usuario != null)
+            if (usuario != null)//Si no se logra obtener los datos de la sesion manda al login
             {
                 // Realizamos una comprobación de si es o no empleado el usuario logeado
                 if (usuario.esEmpleado)

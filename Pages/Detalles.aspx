@@ -6,6 +6,7 @@
             return confirm('¿Estás seguro de que deseas cancelar?');
         }
     </script>
+<%--Este se activa solamente en el caso de cancelar una reservacion--%>
 
 
 

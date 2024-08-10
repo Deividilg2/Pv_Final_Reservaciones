@@ -13,9 +13,9 @@ namespace Pv_Final_Reservaciones.Pages
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
+            {//Tomamos el source que viene de la URL para realizar seguimiento de errores
                 string source = Request.QueryString["source"];
-                switch (source)
+                switch (source)//Segun lo que venga mostramos un error
                 {
                     case "Errormodificacion":
                         lblMensaje.Text = "Error la reservación que busca no existe";
@@ -29,9 +29,6 @@ namespace Pv_Final_Reservaciones.Pages
                     case "ErrorInactivo":
                         lblMensaje.Text = "La habitación no puede ser modificada debido a que está inactiva";
                         break;
-                    //case "ErrorActivo":
-                    //    lblMensaje.Text = "Actualmente existen reservaciones asociadas en proceso o espera para esta habitación";
-                    //    break;
                     case "ErrorInactivar":
                         lblMensaje.Text = "Habitación ya se encuentra inactiva";
                         break;
@@ -58,17 +55,17 @@ namespace Pv_Final_Reservaciones.Pages
         }
 
         protected void btnRegresar_Click(object sender, EventArgs e)
-        {
+        {//Creamos una instancia de la clase Usuario
             Usuario usuario = (Usuario)Session["Usuario"];
 
-            if (usuario != null)
+            if (usuario != null)//Si viene null no entra
             {
 
                 // Realizamos una comprobación de si es o no empleado el usuario logeado
                 if (usuario.esEmpleado)
-                {
+                {//Tomamos el dato que venga de source
                     string source = Request.QueryString["source"];
-                    switch (source)
+                    switch (source)//Comparamos lo que venga en source para realizar acciones distintas
                     {
                         case "CrearHabitacion":
                             Response.Redirect("~/Pages/ListaHabitaciones.aspx");

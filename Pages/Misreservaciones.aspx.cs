@@ -21,7 +21,7 @@ namespace Pv_Final_Reservaciones.Pages
             {
                 Response.Redirect("~/Pages/Login.aspx");
             }
-            Usuario usuarioP = (Usuario)Session["Usuario"];
+            Usuario usuarioP = (Usuario)Session["Usuario"];//Validamos la sesion del usuario
             if (usuarioP.esEmpleado)
             {
                 //Validacion que se usa en misreservaciones, CrearReservacion para los empleados y el cambio de pestañas

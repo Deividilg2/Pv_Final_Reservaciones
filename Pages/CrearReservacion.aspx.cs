@@ -15,21 +15,22 @@ namespace Pv_Final_Reservaciones.Pages
     {
         String conn = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {//Validamos la sesion del usuario
             if (Session["Usuario"] == null)
             {
                 Response.Redirect("~/Pages/Login.aspx");
             }
-
+            //Validamos que la pagina se carga por primera vez
             if (Page.IsPostBack == false)
             {
                 try
                 {
+                    //Asignamos valores por defecto
                     txtNadultos.Text = "1";
                     txtNnihos.Text = "0";
 
-                    CargarHoteles();
-                    CargarClientes();
+                    CargarHoteles();//Cargamos  el DDL de los hoteles
+                    CargarClientes();//Cargamos el DDL de los clientes 
                 }
                 catch
                 {
@@ -37,9 +38,9 @@ namespace Pv_Final_Reservaciones.Pages
                 }
             }
         }
-
+        //Metodo para cargar la lista de los hoteles en un DDL
         protected void CargarHoteles() {
-            //creamos una lista
+            //creamos una lista para asignar a los hoteles
             var lista = new List<ListItem>();
 
             //para que aparezca un mensaje en el dropdown como primer item de la lista
@@ -48,13 +49,13 @@ namespace Pv_Final_Reservaciones.Pages
             //Lista Dinamica usando la BD
             //Realizamos la conexión con la BD
             using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
-            {
+            {//Consulta especifica para traer los datos necesarios
                 var query = db.SpConsultarHoteles().Select(H => new ListItem(H.Nombre, H.IdHotel.ToString())).ToList();
-
+                //Agregamos los datos a la lista
                 lista.AddRange(query);
             }
 
-            ddlHoteles.DataSource = lista;
+            ddlHoteles.DataSource = lista;//Pasamos la lista 
             //antes de hacer el databind hay que agregar el datatextfield, indicando cual es el campo que
             //queremos se muestre como texto y cual como valor
             ddlHoteles.DataTextField = "Text";
@@ -64,9 +65,10 @@ namespace Pv_Final_Reservaciones.Pages
             //para que se coloque ya una de las opciones predeterminadas
             ddlHoteles.Items.FindByValue("").Selected = true;
         }
-
+        //Metodo para cargar la lista de los clientes en un DDL
         protected void CargarClientes()
         {
+            //Creamos una instancia del usuario para hacer uso de sus atributos
             Usuario usuario = (Usuario)Session["Usuario"];
             //creamos una lista
             var lista = new List<ListItem>();
@@ -80,9 +82,9 @@ namespace Pv_Final_Reservaciones.Pages
                     .ToList();
                 lista.AddRange(query);
             }
-            
+            //Si el usuario es empleado y tiene el estado de cliente en false entramos
             if (usuario.esEmpleado && usuario.Estado == true)
-            {
+            {   //Eliminamos de la lista al empleado para que no pueda seleccionar/filtrar sus propias reservaciones
                 lista = lista.Where(item => item.Value != usuario.id.ToString()).ToList();
                 ddlClientes.DataSource = lista;
                 //antes de hacer el databind hay que agregar el datatextfield, indicando cual es el campo que
@@ -105,13 +107,13 @@ namespace Pv_Final_Reservaciones.Pages
                 string ddlusuario = usuario.id.ToString();
                 //Seleccionamos su nombre por defecto
                 ddlClientes.Items.FindByValue(ddlusuario).Selected = true;
-                //Bloqueamos la opci[on de utilizar el DDL
+                //Bloqueamos la opcion de utilizar el DDL
                 ddlClientes.Enabled = false;
             }
         }
 
         protected void cvFechaEntrada_ServerValidate(object source, ServerValidateEventArgs args)
-        {
+        {//Validamos que la fecha de entrada sea mayor o igual a la actual
             try
             {
                 //Tomamos por falso el valor desde un inicio
@@ -127,11 +129,12 @@ namespace Pv_Final_Reservaciones.Pages
             }
             catch
             {
+                args.IsValid = false;
             }
         }
 
         protected void cvFechaSalida_ServerValidate(object source, ServerValidateEventArgs args)
-        {
+        {//Validamos que la fecha de salida sea mayor o igual a la fecha de entrada
             try
             {
                 //Validamos como falso el argumento desde el principio
@@ -155,7 +158,7 @@ namespace Pv_Final_Reservaciones.Pages
         {
             // Recuperamos el objeto Usuario de la sesión
             Usuario usuario = (Usuario)Session["Usuario"];
-
+            //En caso de que el usuario no se logre tomar 
             if (usuario != null)
             {
                 // Realizamos una comprobación de si es o no empleado el usuario logeado
@@ -207,7 +210,7 @@ namespace Pv_Final_Reservaciones.Pages
                             }
                         }
                         else
-                        {
+                        {//Error de cantidad maxima en la habitacion superada
                             Response.Redirect("~/Pages/Errores?source=ErrorCrearReservacion", false);
                         }
                     }
