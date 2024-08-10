@@ -12,6 +12,11 @@ namespace Pv_Final_Reservaciones.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //validamos sesion del usuario
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("~/Pages/Login.aspx");
+            }
             if (!IsPostBack)
             {//Tomamos el source para mostrar diversos mensajes de resultados
                 string source = Request.QueryString["source"];
