@@ -54,7 +54,7 @@ namespace Pv_Final_Reservaciones.Pages
                 }
                 catch
                 {
-
+                    Response.Redirect("~/Pages/Errores.aspx?");
                 }
             }
         }
@@ -71,7 +71,6 @@ namespace Pv_Final_Reservaciones.Pages
                     int numeroAdultos = int.Parse(txtNumeroAdultos.Text);
                     int numeroNihos = int.Parse(txtNumeroNinhos.Text);
                     int totalPersonas = numeroAdultos + numeroNihos;
-                    int totalDiasReservacion = (int)(fechaSalida - fechaEntrada).TotalDays;
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {//Buscamos la reservacion para poder extraer el numeroHabitacion
                         var reservacion = db.SpConsultarReservacionPorID(id).FirstOrDefault();
@@ -99,11 +98,11 @@ namespace Pv_Final_Reservaciones.Pages
                             if (capacidadHabitacion.CapacidadMaxima >= totalPersonas)
                             {//Si cumple la validacion se modifica la reservacion
                                 db.SpModificarReservacionYRegistrarBitacora(id, capacidadHabitacion.IdHotel, fechaEntrada, fechaSalida, numeroAdultos, numeroNihos);
-                                Response.Redirect("~/Pages/Resultado.aspx?source=ModificarReservacion", false);
+                                Response.Redirect("~/Pages/Resultado?id=" + id + "&source=ModificarReservacion", false);
                             }
                             else//Si se pasa del maximo de la habitacion
                             {
-                                lblMensajeCapacidad.Text = "Demasiadas personas para la habitacón, máximo alcanzan " + capacidadHabitacion.CapacidadMaxima;
+                                lblMensajeCapacidad.Text = "Demasiadas personas para la habitación, máximo alcanzan " + capacidadHabitacion.CapacidadMaxima;
 
                             }
                         }
@@ -111,7 +110,7 @@ namespace Pv_Final_Reservaciones.Pages
                 }
                 catch
                 {
-                    Response.Redirect("~/Pages/Errores.aspx?source=Errormodificar");
+                    Response.Redirect("~/Pages/Errores.aspx");
                 }
             }
 

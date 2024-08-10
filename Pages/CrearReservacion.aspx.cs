@@ -33,7 +33,7 @@ namespace Pv_Final_Reservaciones.Pages
                 }
                 catch
                 {
-
+                    Response.Redirect("~/Pages/Errores.aspx");
                 }
             }
         }
@@ -203,7 +203,7 @@ namespace Pv_Final_Reservaciones.Pages
                             }
                             else
                             {
-                                lblMensajeCapacidad.Text = "Demasiadas personas para la habitacón, máximo alcanzan " + habitacion.Capacidad;
+                                lblMensajeCapacidad.Text = "Demasiadas personas para la habitación, máximo alcanzan " + habitacion.Capacidad;
                             }
                         }
                         else
@@ -222,24 +222,3 @@ namespace Pv_Final_Reservaciones.Pages
     }
     
 }
-/*
- ALTER PROCEDURE [dbo].[spConsultarHabitacionesDeHotel]
-    @totalPersonas INT,
-    @idHotel INT
-AS
-BEGIN
-    DECLARE @idHabitacion INT;
-
-    -- Seleccionamos la habitación con estado "A" cuya capacidad máxima se acerque más al total de personas
-    SELECT TOP 1 @idHabitacion = h.idHabitacion
-    FROM Habitacion h
-    WHERE h.estado = 'A' AND h.idHotel = @idHotel
-    ORDER BY ABS(h.capacidadMaxima - @totalPersonas) ASC;
-
-    -- Si es que encuentra una habitación disponible
-    IF @idHabitacion IS NOT NULL
-    BEGIN
-        SELECT @idHabitacion AS idHabitacion;
-    END
-END;
- */

@@ -27,7 +27,7 @@ namespace Pv_Final_Reservaciones.Pages
             /*Verificamos la sesion del usuario*/
             try
             {
-            if (IsPostBack == false)
+                if (IsPostBack == false)
                 //Comprobamos que la carga de página no venga de un boton y no realice la accion dentro
                 {
                     int id = int.Parse(Request.QueryString["id"]);
@@ -35,7 +35,7 @@ namespace Pv_Final_Reservaciones.Pages
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
                         Usuario usuario = Session["Usuario"] as Usuario;
-                        if (usuario.esEmpleado)
+                        if (usuario.esEmpleado && usuario.Estado)
                         {
                             //Pasamos el id al Storeprocedure
                             var detalle = db.SpConsultarDetallePorIdEmpleado(id).FirstOrDefault();  //Revisar en bd
@@ -80,7 +80,7 @@ namespace Pv_Final_Reservaciones.Pages
 
                                 // Logica para mostrar/ocultar el boton de editar
                                 lnkEditar.Visible = detalle.Estado == 'A' &&
-                                                    ((usuario.esEmpleado && detalle.FechaSalida > DateTime.Today) ||
+                                                    (((usuario.esEmpleado && !usuario.Estado) && detalle.FechaEntrada > DateTime.Today) ||
                                                      (!usuario.esEmpleado && detalle.FechaEntrada > DateTime.Today));
 
                                 // Logica para mostrar/ocultar el boton de cancelar
@@ -100,7 +100,7 @@ namespace Pv_Final_Reservaciones.Pages
             }
             catch
             {
-                
+                Response.Redirect("~/Pages/Errores.aspx");
             }
         }
 
@@ -128,25 +128,14 @@ namespace Pv_Final_Reservaciones.Pages
                     {
                         // Llamar al procedimiento almacenado para cancelar la reservación y registrar la acción en la bitácora
                         var resultado = db.SpCancelarReservacionYRegistrarBitacora(idReservacion, usuario.id).FirstOrDefault();
-                        // Obtener el mensaje de resultado del procedimiento almacenado
-                        string mensaje = resultado?.Resultado;
-                        // Verificar si la cancelación fue exitosa
-                        if (mensaje == "Reservación cancelada exitosamente")
+                        
+                        if(resultado != null)
                         {
-                            // Redirigir al usuario a la página correspondiente según su rol
-                            if (usuario.esEmpleado)
-                            {
-                                Response.Redirect("~/Pages/GestionarReservaciones.aspx");
-                            }
-                            else
-                            {
-                                Response.Redirect("~/Pages/Misreservaciones.aspx");
-                            }
+                            Response.Redirect("~/Pages/Resultado?id=" + idReservacion + "&source=CancelarReservacion", false);
                         }
                         else
                         {
-                            // Mostrar el mensaje de error si la cancelación no fue exitosa
-                            Response.Write(mensaje);
+                            Response.Redirect("~/Pages/Resultado.aspx?source=Errorcancelar");
                         }
                     }
                 }
@@ -189,39 +178,3 @@ namespace Pv_Final_Reservaciones.Pages
 
     }
 }
-/*
- CREATE PROCEDURE [dbo].[spConsultarDetallePorIdEmpleado]
-@idreservacion int
-AS
-BEGIN
-SELECT r.idReservacion,ha.idHabitacion,ha.numeroHabitacion,h.idHotel,h.nombre,r.fechaEntrada,r.fechaSalida,r.numeroAdultos,r.numeroNinhos,
-totalDiasReservacion = CASE 
-            WHEN DATEDIFF(DAY, r.fechaEntrada, r.fechaSalida) = 0 THEN 1
-            ELSE DATEDIFF(DAY, r.fechaEntrada, r.fechaSalida)
-END,
-costoTotal =totalDiasReservacion * ((r.numeroAdultos*r.costoPorCadaAdulto)+(r.numeroNinhos*r.costoPorCadaNinho)),
-r.estado,p.nombreCompleto
-FROM Reservacion r left join Habitacion ha on r.idHabitacion = ha.idHabitacion
---Seleccionamos a la tabla habitación para conectarnos con la tabla hotel y poder traer el nombre del hotel
-left join Hotel h on h.idHotel = ha.idHotel
-join Persona p on r.idPersona = p.idPersona
-WHERE r.idReservacion = @idreservacion
---Ordenamos de manera descendente
-Order by r.idreservacion desc
-END;
- 
-
-
-CREATE PROCEDURE [dbo].[spConsultarBitacoraEmpleado]
---Procedimiento para verificar los cambios que se han realizado 
---en las reservaciones mediante la Bitacora
-@idReservacion int
-AS
-BEGIN
-SELECT b.fechaDeLaAccion, b.accionRealizada, p.nombreCompleto, r.idReservacion, b.idBitacora
-from Bitacora b left join Persona p on p.idPersona=b.idPersona
-left join Reservacion r on r.idReservacion=b.idReservacion
-WHERE r.idReservacion=@idReservacion
-ORDER BY idBitacora DESC;
-END
- */

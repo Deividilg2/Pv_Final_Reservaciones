@@ -109,6 +109,7 @@
          <!--Colocamos las columnas respectivas de la tabla-->
          <br />
          <br />
+         
      <asp:GridView ID="grdReservaciones" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
       <Columns>
           
@@ -134,6 +135,10 @@
 
       </Columns>
          </asp:GridView>
+         
+             <asp:Label ID="lblnulo" CssClass="alert alert-warning" Visible="false"  runat="server" Text="No se encontraron registros en ese rango de fechas"></asp:Label>
+             
+
 <!--Mandamos mediante la url el id para Consultar o modificar los detalles de las reservaciónes-->
  </div>
 

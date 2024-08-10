@@ -57,9 +57,9 @@ namespace Pv_Final_Reservaciones.Pages
                     {
                         Response.Redirect("~/Pages/Detalles?id=" + id, false);
                     }
-                    else if (source == "EditarHabitacion" || source == "Inactivarhabitacion")
+                    else if (source == "CrearHabitacion" || source == "EditarHabitacion" || source == "Inactivarhabitacion")
                     {
-                        Response.Redirect("~/Pages/GestionarReservaciones.aspx");
+                        Response.Redirect("~/Pages/ListaHabitaciones.aspx");
                     }
                 }
                 else if (!usuario.esEmpleado)

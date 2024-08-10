@@ -1,5 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Detalles.aspx.cs" Inherits="Pv_Final_Reservaciones.Pages.Detalles" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <!--Colocamos un Script para mandar una alerta de confirmación en caso de querer cancelar una reservación-->
+    <script type="text/javascript">
+        function confirmCancel() {
+            return confirm('¿Estás seguro de que deseas cancelar?');
+        }
+    </script>
+
+
 
     <h1>Detalles de la Reservación</h1>
     <!--Colocamos un detailsview que es parecido al Gridview-->
@@ -25,7 +33,7 @@
        <%-- <a href="ModificarReservacion.aspx?idReservacion=<%# Eval("idReservacion")%>" >Editar reservación</a>--%>
         <asp:LinkButton ID="lnkEditar" runat="server" Text="Editar reservación"  OnClick="lnkEditar_Click" CssClass="btn btn-primary"/>
         &nbsp;
-        <asp:Button ID="btncancelar" runat="server" Text="Cancelar reservación" OnClick="btncancelar_Click" CssClass="btn btn-warning" />
+        <asp:Button ID="btncancelar" runat="server" Text="Cancelar reservación" OnClientClick="return confirmCancel();" OnClick="btncancelar_Click" CssClass="btn btn-warning" />
         &nbsp;
         <asp:Button ID="btnregresar" runat="server" Text="Regresar" OnClick="btnregresar_Click" CssClass="btn btn-secondary"/>
 
@@ -44,4 +52,6 @@
         </asp:GridView>
     </div>
 
+
+   
 </asp:Content>

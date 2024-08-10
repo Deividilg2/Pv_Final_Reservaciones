@@ -64,23 +64,20 @@ namespace Pv_Final_Reservaciones.Pages
                                 usuario.id = log.IdPersona;
                                 usuario.nombreCompleto  = log.NombreCompleto;
                                 usuario.esEmpleado = log.EsEmpleado;
-
                                 // Guardar idPersona en la sesión
                                 Session["idPersona"] = log.IdPersona;
-
                                 //Realizamos una comprovación de si es o no empleado el usuario logeado
                                 if (log.EsEmpleado)
                                 {
                                     usuario.Estado = true;
                                     Session["Usuario"] = usuario;
-                                    Response.Redirect("~/Pages/GestionarReservaciones.aspx");
+                                    Response.Redirect("~/Pages/GestionarReservaciones.aspx", false);
                                     
                                 }
                                 else if (log.EsEmpleado == false)
                                 {
-                                    usuario.Estado = false;
                                     Session["Usuario"] = usuario;
-                                    Response.Redirect($"~/Pages/Misreservaciones.aspx");
+                                    Response.Redirect($"~/Pages/Misreservaciones.aspx", false);
                                 }
                             }                            
                         }
@@ -88,19 +85,16 @@ namespace Pv_Final_Reservaciones.Pages
                         {
                             Response.Write("Credenciales incorrectas o el usuario se encuentra inactivo");
                         }
-
                     }
                 }
                 else
                 {
                     Response.Write("Es requerido rellenar ambos campos con credenciales");
                 }
-
             }
             catch
             {
-
-
+                Response.Redirect($"~/Pages/Errores.aspx");
             }
 
         }

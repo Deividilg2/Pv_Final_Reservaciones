@@ -7,7 +7,7 @@
         
         <br />
         <asp:Label ID="lblHotel" runat="server" Text="Hotel"></asp:Label>
-        <asp:DropDownList ID="ddlHoteles" runat="server" AutoPostBack="true" CssClass="form form-control dropdown" OnSelectedIndexChanged="ddlHoteles_SelectedIndexChanged"></asp:DropDownList>
+        <asp:DropDownList ID="ddlHoteles" runat="server" AutoPostBack="true" CssClass="form form-control dropdown" ></asp:DropDownList>
         <asp:RequiredFieldValidator ID="rqHotele" runat="server" ErrorMessage="Campo Obligatorio" 
             ControlToValidate="ddlHoteles"></asp:RequiredFieldValidator>
     </div>

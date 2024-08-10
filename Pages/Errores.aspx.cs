@@ -24,25 +24,34 @@ namespace Pv_Final_Reservaciones.Pages
                         lblMensaje.Text = "La dirección URL que busca no ha sido encontrada";
                         break;
                     case "ErrorId":
-                        lblMensaje.Text = "El id que se solicita no corresponde al usuario o no existe";
+                        lblMensaje.Text = "El id que se solicita no corresponde o no existe";
                         break;
                     case "ErrorInactivo":
                         lblMensaje.Text = "La habitación no puede ser modificada debido a que está inactiva";
                         break;
-                    case "ErrorActivo":
-                        lblMensaje.Text = "Actualmente existen reservaciones asociadas en proceso o espera para esta habitación";
-                        break;
+                    //case "ErrorActivo":
+                    //    lblMensaje.Text = "Actualmente existen reservaciones asociadas en proceso o espera para esta habitación";
+                    //    break;
                     case "ErrorInactivar":
                         lblMensaje.Text = "Habitación ya se encuentra inactiva";
                         break;
+                    case "ErrorModificarHabitacion":
+                        lblMensaje.Text = "No se ha logrado cargar la habitación para su modificación";
+                        break;
                     case "Errorhabitacion":
-                        lblMensaje.Text = "No se encontro una habitación";
+                        lblMensaje.Text = "Error, no se ha logrado crear la habitación";
                         break;
                     case "ErrorEstadoHabitacion":
                         lblMensaje.Text = "La habitación seleccionada tiene una reservación 'En proceso' o 'En Espera' ";
                         break;
+                    case "Errorcancelar":
+                        lblMensaje.Text = "La reservación no se ha logrado cancelar correctamente ";
+                        break;
+                    case "ErrorCrearReservacion":
+                        lblMensaje.Text = "La reservación no se ha logrado crear correctamente, inténtelo de nuevo";
+                        break;
                     default:
-                        lblMensaje.Text = "Operación realizada.";
+                        lblMensaje.Text = "Fallo al cargar";
                         break;
                 }
             }
@@ -71,7 +80,7 @@ namespace Pv_Final_Reservaciones.Pages
                             Response.Redirect("~/Pages/ListaHabitaciones.aspx");
                             break;
                         default:
-                            lblMensaje.Text = "Error desconocido";
+                            Response.Redirect("~/Pages/GestionarReservaciones.aspx");
                             break;
                     }
                 }

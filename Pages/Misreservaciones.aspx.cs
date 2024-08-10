@@ -48,6 +48,7 @@ namespace Pv_Final_Reservaciones.Pages
             }
             catch
             {
+                Response.Redirect($"~/Pages/Errores.aspx");
             }
         }
 

@@ -52,10 +52,16 @@ namespace Pv_Final_Reservaciones.Pages
                             txtDescripcion.Text = habitacion.Descripcion.ToString();
 
                         }
+                        else
+                        {
+                            Response.Redirect("~/Pages/Errores.aspx?source=ErrorId", false);
+                        }
                     }
-
                 }
-                catch { }
+                catch 
+                {
+                    Response.Redirect("~/Pages/Errores.aspx?source=ErrorModificarHabitacion", false);
+                }
             }
         }
 
@@ -97,7 +103,7 @@ namespace Pv_Final_Reservaciones.Pages
                             //Si encuentra uno o más manda error
                             if (reservaciones.ReservacionesActivas != 0)
                             {
-                                Response.Redirect("~/Pages/Errores.aspx?source=ErrorActivo", false);
+                                Response.Redirect("~/Pages/Errores.aspx?source=ErrorEstadoHabitacion", false);
                             }//Sino entonces logra editar la habitacion y manda a pantalla de resultado
                             else
                             {
@@ -113,7 +119,7 @@ namespace Pv_Final_Reservaciones.Pages
                 }
                 catch
                 {
-
+                    Response.Redirect("~/Pages/Resultado.aspx?source=ErrorModificarHabitacion");
                 }
             }
         }
@@ -133,14 +139,14 @@ namespace Pv_Final_Reservaciones.Pages
                     var errorHabitacion = db.SpConsultarHabitacionPorID(id).FirstOrDefault();
                     //En caso de que la habitación se encuentre con reservaciones activas en proceso o en espera 
                     var estadoReservacion = db.SpEstadoReservacion(id).FirstOrDefault();
-
+                    //En caso de que la habitacion tenga el estado 'I'
                     if(errorHabitacion.Estado != 'I')
-                    {
+                    {//Si la reservacion tiene la fechaSalida mayor a la actual entra
                         if(estadoReservacion.FechaSalida > DateTime.Today)
-                        {
+                        {//Redireccionamos a un error, ya que no corresponde la edicion
                             Response.Redirect("~/Pages/Errores.aspx?source=ErrorEstadoHabitacion", true);
                         }
-                        else if (estadoReservacion == null)
+                        else if (estadoReservacion == null)//Si viene null es porque no tiene reservaciones asociadas a la habitacion
                         {
                             //llamamos al procedimiento almacenado correspondiente, indicandole el parametro necesario para ejecutarse
                             db.SpInactivarHabitacion(id);
@@ -156,7 +162,7 @@ namespace Pv_Final_Reservaciones.Pages
             }
             catch
             {
-                
+                Response.Redirect("~/Pages/Errores.aspx?source=ErrorModificarHabitacion");
             }
         }
     }

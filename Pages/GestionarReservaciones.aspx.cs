@@ -128,18 +128,30 @@ namespace Pv_Final_Reservaciones.Pages
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
                         var lista = db.SpFiltrar(fechaEntrada, fechaSalida).ToList();
-                        grdReservaciones.DataSource = lista;
-                        grdReservaciones.DataBind();
+                        if (lista.Count > 0)//Si hay registros los carga
+                        {
+                            grdReservaciones.DataSource = lista;
+                            grdReservaciones.DataBind();
+                        }
+                        else//Sino carga la lista nula y muestra mensaje de aviso
+                        {
+                            grdReservaciones.DataSource = lista;
+                            grdReservaciones.DataBind();
+                            lblnulo.Visible = true;
+                        }
+                        
                     }
                 }
                 catch
                 { //Error planeado para recargar los datos de las reservaciones
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
+                        lblnulo.Visible = false;
                         Usuario usuario = (Usuario)Session["Usuario"];
                         var listareservaciones = db.SpConsultarReservaciones(usuario.id).ToList();
                         grdReservaciones.DataSource = listareservaciones;
                         grdReservaciones.DataBind();
+
                     }
                 }
             }
@@ -149,18 +161,18 @@ namespace Pv_Final_Reservaciones.Pages
         //Acción que permite seleccionar el cliente que se desea filtrar utilizando el DropDownList 
         protected void ddlClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            //Tomamos la personas seleccionada
             String Personaselec = ddlClientes.SelectedItem.Value;
             
             using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
-            {
-                if(Personaselec != "") 
+            {//Si Personaselec no viene vacio entra
+                if (Personaselec != "") 
                 {
                     var lista = db.SpFiltroPorID(Int32.Parse(Personaselec));
                     grdReservaciones.DataSource = lista;
                     grdReservaciones.DataBind();
                 }
-                else
+                else//Cargamos todo su viene vacio
                 {
                     Usuario usuario = (Usuario)Session["Usuario"];
                     //Código Para recargar las reservaciones
@@ -174,7 +186,7 @@ namespace Pv_Final_Reservaciones.Pages
         protected void cvFechaSalida_ServerValidate(object source, ServerValidateEventArgs args)
         {
             try
-            {
+            {//Validamos que la fecha de salida sea mayor o igual a la de entrada para el calendario
                 args.IsValid = false;
                 if (args.Value != null)
                 {

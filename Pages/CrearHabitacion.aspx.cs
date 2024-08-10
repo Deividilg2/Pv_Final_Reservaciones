@@ -63,10 +63,6 @@ namespace Pv_Final_Reservaciones.Pages
             }
         }
 
-        protected void ddlHoteles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        
-        }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -104,6 +100,7 @@ namespace Pv_Final_Reservaciones.Pages
                 catch
                 {
                     //agregar un error
+                    Response.Redirect("~/Pages/Errores.aspx?source=Errorhabitacion", false);
                 }
             }
         }
