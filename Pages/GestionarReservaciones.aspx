@@ -110,7 +110,7 @@
          <br />
          <br />
          
-     <asp:GridView ID="grdReservaciones" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
+     <asp:GridView ID="grdReservaciones" runat="server" AutoGenerateColumns="False" CssClass="table table-striped table-bordered">
       <Columns>
           
           <asp:BoundField DataField="idReservacion" HeaderText="# Reservación" HeaderStyle-CssClass="text-center font-weight-bold" ItemStyle-CssClass="text-center"/>

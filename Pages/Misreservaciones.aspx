@@ -48,7 +48,7 @@
         <!--Pasamos datos que necesitamos para detalles por medio de URL-->
         <br />
         <br />
-        <asp:GridView ID="grdMisreservaciones" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
+        <asp:GridView ID="grdMisreservaciones" runat="server" AutoGenerateColumns="False" CssClass="table table-striped table-bordered">
          <Columns>
              <asp:BoundField DataField="idReservacion" HeaderText="# Reservación" HeaderStyle-CssClass="text-center font-weight-bold" ItemStyle-CssClass="text-center"/>
              <asp:BoundField DataField="nombre" HeaderText="Hotel" HeaderStyle-CssClass="text-left font-weight-bold" ItemStyle-CssClass="text-left"/>
@@ -56,14 +56,14 @@
              <asp:BoundField DataField="fechaSalida" HeaderText="Fecha Salida" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-CssClass="text-center font-weight-bold" ItemStyle-CssClass="text-center"/>
              <asp:BoundField DataField="costoTotal" HeaderText="Costo" DataFormatString="{0:$#,##0.00}" HeaderStyle-CssClass="text-right font-weight-bold" ItemStyle-CssClass="text-right"/>
 
-             <asp:TemplateField HeaderText="Estado" HeaderStyle-CssClass="text-center font-weight-bold">
+             <asp:TemplateField HeaderText="Estado" HeaderStyle-CssClass="text-center font-weight-bold" ItemStyle-CssClass="text-center">
                 <HeaderTemplate>Estado</HeaderTemplate>
              <ItemTemplate>
                  <%# ConvertEstado(Eval("estado").ToString(), Convert.ToDateTime(Eval("fechaEntrada")), Convert.ToDateTime(Eval("fechaSalida"))) %>
              </ItemTemplate>
              </asp:TemplateField>
 
-             <asp:TemplateField>
+             <asp:TemplateField ItemStyle-CssClass="text-center">
                  <ItemTemplate>
                      <a href="Detalles.aspx?id=<%# Eval("idReservacion")%>" class="btn btn-primary">Consultar</a>
                  </ItemTemplate>

@@ -29,6 +29,7 @@
             background-color: #0056b3; /* Azul similar a Booking.com */
             border-color: #0056b3;
             padding: 20px 30px; /* Ajusta el padding para aumentar el ancho */
+            font-size: 16px;
         }
 
          .navbar-custom .navbar-nav .nav-item {

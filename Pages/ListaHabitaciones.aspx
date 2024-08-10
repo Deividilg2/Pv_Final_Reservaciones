@@ -60,7 +60,7 @@
     <br />
     <div>
 
-        <asp:GridView ID="grdHabitaciones" runat="server" CssClass="table table-striped" AutoGenerateColumns="False">
+        <asp:GridView ID="grdHabitaciones" runat="server" CssClass="table table-striped table-bordered" AutoGenerateColumns="False">
             <Columns>
                 <asp:BoundField HeaderText="ID" ReadOnly="True" DataField="idHabitacion" 
                     ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center font-bold" />
@@ -70,7 +70,7 @@
                     ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center font-bold" />
                 <asp:BoundField HeaderText="Capacidad Máxima" ReadOnly="True" DataField="capacidadMaxima"
                     ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center font-bold" />
-                <asp:TemplateField HeaderText="Estado" HeaderStyle-CssClass="text-center font-bold">
+                <asp:TemplateField HeaderText="Estado" HeaderStyle-CssClass="text-center font-bold" ItemStyle-CssClass="text-center">
                     <ItemTemplate>
                   <%--  Método para convertir la A y la I del Estado en Activo o Inactivo--%>
                    <asp:Label ID="lblEstado" runat="server" Text='<%# ConvertEstado(Eval("estado").ToString()) %>' CssClass="text-center"></asp:Label>
@@ -78,7 +78,7 @@
                     
                 </asp:TemplateField>
 
-                <asp:TemplateField>
+                <asp:TemplateField ItemStyle-CssClass="text-center">
                     <ItemTemplate>
 
                         <a href="EditarHabitacion.aspx?idHabitacion=<%# Eval("idHabitacion") %>" class="btn btn-primary">Modificar</a>
