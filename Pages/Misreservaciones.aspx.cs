@@ -21,11 +21,6 @@ namespace Pv_Final_Reservaciones.Pages
             {
                 Response.Redirect("~/Pages/Login.aspx");
             }
-            Usuario usuario = (Usuario)Session["Usuario"];
-            if (usuario.esEmpleado)
-            {
-                Response.Redirect("~/Pages/Errores.aspx?source=ErrorUrl", false);
-            }
             //Validamos la sesión del usuario
             //Colocamos un try catch en caso de cualquier error en nuestro código
             try

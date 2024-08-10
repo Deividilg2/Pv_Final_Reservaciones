@@ -45,26 +45,33 @@ namespace Pv_Final_Reservaciones.Pages
         protected void btnRegresar_Click(object sender, EventArgs e)
         {
             Usuario usuario = (Usuario)Session["Usuario"];
-
+            string id = Request.QueryString["id"];
+            string source = Request.QueryString["source"];
             if (usuario != null)
             {
-                
+
                 // Realizamos una comprobación de si es o no empleado el usuario logeado
                 if (usuario.esEmpleado)
                 {
-                    string source = Request.QueryString["source"];
-                    if (source == "CrearHabitacion" || source == "EditarHabitacion" || source == "Inactivarhabitacion")
+                    if (source == "CrearReservacion" || source == "ModificarReservacion" || source == "CancelarReservacion")
                     {
-                        Response.Redirect("~/Pages/ListaHabitaciones.aspx");
+                        Response.Redirect("~/Pages/Detalles?id=" + id, false);
                     }
-                    else
+                    else if (source == "EditarHabitacion" || source == "Inactivarhabitacion")
                     {
                         Response.Redirect("~/Pages/GestionarReservaciones.aspx");
                     }
                 }
-                if(!usuario.esEmpleado)
+                else if (!usuario.esEmpleado)
                 {
-                    Response.Redirect("~/Pages/Misreservaciones.aspx");
+                    if (source == "CrearReservacion" || source == "ModificarReservacion" || source == "CancelarReservacion")
+                    {
+                        Response.Redirect("~/Pages/Detalles?id=" + id, false);
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Pages/Misreservaciones.aspx");
+                    }
                 }
             }
             else
