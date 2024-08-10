@@ -20,6 +20,7 @@ namespace Pv_Final_Reservaciones.Pages
             {
                 Response.Redirect("~/Pages/Login.aspx");
             }
+
             if (Page.IsPostBack == false)
             {
                 try
@@ -72,33 +73,40 @@ namespace Pv_Final_Reservaciones.Pages
             //para que aparezca un mensaje en el dropdown como primer item de la lista
             lista.Add(new ListItem("Seleccione un cliente", ""));
            
-                //Realizamos la conexión con la BD
-                using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
-                {
-                    var query = db.SpConsultarPersonas(usuario.id).Select(S => new ListItem(S.NombreCompleto, S.IdPersona.ToString()))
-                        .ToList();
-                    lista.AddRange(query);
-                }
-
+            //Realizamos la conexión con la BD
+            using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
+            {
+                var query = db.SpConsultarPersonas(usuario.id).Select(S => new ListItem(S.NombreCompleto, S.IdPersona.ToString()))
+                    .ToList();
+                lista.AddRange(query);
+            }
+            
+            if (usuario.esEmpleado && usuario.Estado == true)
+            {
+                lista = lista.Where(item => item.Value != usuario.id.ToString()).ToList();
                 ddlClientes.DataSource = lista;
                 //antes de hacer el databind hay que agregar el datatextfield, indicando cual es el campo que
                 //queremos se muestre como texto y cual como valor
                 ddlClientes.DataTextField = "Text";
                 ddlClientes.DataValueField = "Value";
                 ddlClientes.DataBind();
-             if (usuario.esEmpleado)
-            {
                 //para que se coloque ya una de las opciones predeterminadas
                 ddlClientes.Items.FindByValue("").Selected = true;
             }
             else
             {
+                ddlClientes.DataSource = lista;
+                //antes de hacer el databind hay que agregar el datatextfield, indicando cual es el campo que
+                //queremos se muestre como texto y cual como valor
+                ddlClientes.DataTextField = "Text";
+                ddlClientes.DataValueField = "Value";
+                ddlClientes.DataBind();
                 //Cargamos el id del cliente para cargar su nombre
                 string ddlusuario = usuario.id.ToString();
                 //Seleccionamos su nombre por defecto
                 ddlClientes.Items.FindByValue(ddlusuario).Selected = true;
                 //Bloqueamos la opci[on de utilizar el DDL
-                ddlClientes.Enabled= false;
+                ddlClientes.Enabled = false;
             }
         }
 

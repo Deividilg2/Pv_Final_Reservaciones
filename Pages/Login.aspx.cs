@@ -71,12 +71,14 @@ namespace Pv_Final_Reservaciones.Pages
                                 //Realizamos una comprovación de si es o no empleado el usuario logeado
                                 if (log.EsEmpleado)
                                 {
+                                    usuario.Estado = true;
                                     Session["Usuario"] = usuario;
                                     Response.Redirect("~/Pages/GestionarReservaciones.aspx");
                                     
                                 }
                                 else if (log.EsEmpleado == false)
                                 {
+                                    usuario.Estado = false;
                                     Session["Usuario"] = usuario;
                                     Response.Redirect($"~/Pages/Misreservaciones.aspx");
                                 }

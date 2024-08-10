@@ -21,6 +21,12 @@ namespace Pv_Final_Reservaciones.Pages
             {
                 Response.Redirect("~/Pages/Login.aspx");
             }
+            Usuario usuarioP = (Usuario)Session["Usuario"];
+            if (usuarioP.esEmpleado)
+            {
+                //Validacion que se usa en misreservaciones, CrearReservacion para los empleados y el cambio de pestañas
+                usuarioP.Estado = false;
+            }
             //Validamos la sesión del usuario
             //Colocamos un try catch en caso de cualquier error en nuestro código
             try
@@ -31,8 +37,6 @@ namespace Pv_Final_Reservaciones.Pages
                     //Utilizamos using para realizar la conexion solamente cuando es necesario y que se desconecte cuando no está en uso
                     using (PvProyectoFinalDB db = new PvProyectoFinalDB(new DataOptions().UseSqlServer(conn)))
                     {
-                        Usuario usuarioP = (Usuario)Session["Usuario"];
-                        
                         //Creamos una instancia de usuario para poder llamar el id del usuario logeado
                         //Traemos los datos para rellenar la tabla con el store procedure correspondiente
                         var lista = db.SpMisReservaciones(usuarioP.id).ToList();

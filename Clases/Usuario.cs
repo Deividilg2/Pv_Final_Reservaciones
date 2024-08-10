@@ -12,5 +12,6 @@ namespace Pv_Final_Reservaciones.Clases
         public int id { get; set; }
         public string nombreCompleto { get; set; }
         public bool esEmpleado { get; set; }
+        public bool Estado { get; set; }
     }
 }

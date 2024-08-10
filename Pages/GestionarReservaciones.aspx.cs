@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
 using Pv_Final_Reservaciones.Clases;
+using System.Collections;
 
 
 namespace Pv_Final_Reservaciones.Pages
@@ -28,6 +29,11 @@ namespace Pv_Final_Reservaciones.Pages
             if (!usuario.esEmpleado)
             {
                 Response.Redirect("~/Pages/Errores.aspx?source=ErrorUrl", false);
+            }
+            else
+            {
+                //Validacion que se usa en misreservaciones, CrearReservacion para los empleados y el cambio de pestañas
+                usuario.Estado = true;
             }
 
             if (Page.IsPostBack == false)
@@ -57,6 +63,7 @@ namespace Pv_Final_Reservaciones.Pages
                         }
                     }
 
+                    listaddl = listaddl.Where(item => item.Value != usuario.id.ToString()).ToList();
 
                     //Asignamos la fuente de datos con DataSource
                     ddlClientes.DataSource = listaddl;

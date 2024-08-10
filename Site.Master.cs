@@ -21,8 +21,8 @@ namespace Pv_Final_Reservaciones
                 if (usuario.esEmpleado)
                 {
                     alistahabitaciones.Visible = true;
-                    aGestionarReservaciones.Visible=true;
-                    aMisReservaciones.Visible =true;    
+                    lnkMisreservaciones.Visible = true ;
+                    lnkGestionarReservacion.Visible = true;
                 }
             }
             
@@ -34,31 +34,6 @@ namespace Pv_Final_Reservaciones
             Response.Redirect("~/Pages/Login.aspx");
         }
 
-        protected void lnkInicio_Click(object sender, EventArgs e)
-        {
-            Usuario usuario = (Usuario)Session["Usuario"];
-
-            if (usuario != null)
-            {
-
-                // Realizamos una comprobación de si es o no empleado el usuario logeado
-                if (usuario.esEmpleado)
-                {
-                    Response.Redirect("~/Pages/GestionarReservaciones.aspx");
-                    
-                }
-                if (!usuario.esEmpleado)
-                {
-                    Response.Redirect("~/Pages/Misreservaciones.aspx");
-                }
-            }
-            else
-            {
-                // Si no se puede recuperar el usuario de la sesión, redirigimos a la página de inicio de sesión
-                Response.Redirect("~/Pages/Login.aspx");
-                Session.RemoveAll();
-            }
-        }
 
         protected void btnBooking_Click(object sender, EventArgs e)
         {
@@ -71,7 +46,7 @@ namespace Pv_Final_Reservaciones
                 if (usuario.esEmpleado)
                 {
                     Response.Redirect("~/Pages/GestionarReservaciones.aspx");
-
+                    usuario.Estado = true;
                 }
                 else
                 {
@@ -84,6 +59,20 @@ namespace Pv_Final_Reservaciones
                 Response.Redirect("~/Pages/Login.aspx");
                 Session.RemoveAll();
             }
+        }
+
+        protected void lnkMisreservaciones_Click(object sender, EventArgs e)
+        {
+            Usuario usuario = (Usuario)Session["Usuario"];
+            usuario.Estado= false;
+            Response.Redirect("~/Pages/Misreservaciones.aspx");
+        }
+
+        protected void lnkGestionarReservacion_Click(object sender, EventArgs e)
+        {
+            Usuario usuario = (Usuario)Session["Usuario"];
+            usuario.Estado = true;
+            Response.Redirect("~/Pages/GestionarReservaciones.aspx");
         }
     }
 }

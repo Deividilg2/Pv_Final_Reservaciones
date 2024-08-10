@@ -33,22 +33,22 @@ namespace Pv_Final_Reservaciones
         protected global::System.Web.UI.HtmlControls.HtmlAnchor alistahabitaciones;
 
         /// <summary>
-        /// Control aGestionarReservaciones.
+        /// Control lnkGestionarReservacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor aGestionarReservaciones;
+        protected global::System.Web.UI.WebControls.LinkButton lnkGestionarReservacion;
 
         /// <summary>
-        /// Control aMisReservaciones.
+        /// Control lnkMisreservaciones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor aMisReservaciones;
+        protected global::System.Web.UI.WebControls.LinkButton lnkMisreservaciones;
 
         /// <summary>
         /// Control lblnombre.
