@@ -20,7 +20,7 @@
         <asp:Label ID="lblFechaEntrada" runat="server" Text="Fecha de entrada" CssClass="form-label" Font-Bold="True"></asp:Label>
         <asp:TextBox ID="txtFechaEntrada" runat="server" TextMode="Date" placeholder="dd/MM/yyyy" CssClass="form-control"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvFechaEntrada" ControlToValidate="txtFechaEntrada" runat="server" 
-            ErrorMessage="La fecha de entrada es necesaria para el registro" CssClass="text-danger"></asp:RequiredFieldValidator>
+            ErrorMessage="La fecha de entrada es necesaria para el registro" CssClass="text-danger"></asp:RequiredFieldValidator><br />
         <asp:CustomValidator ID="cvFechaEntrada" runat="server" ControlToValidate="txtFechaEntrada" 
             OnServerValidate="cvFechaEntrada_ServerValidate" ErrorMessage="No se permiten fechas menores a la actual" CssClass="text-danger"></asp:CustomValidator>
         <br />
@@ -33,18 +33,18 @@
             ErrorMessage="La fecha de salida debe ser mayor o igual a la fecha de entrada" CssClass="text-danger"></asp:CustomValidator>
     </div>
     <div>
-        <asp:Label ID="lblMensajeCapacidad" runat="server" Text="" CssClass="form-label"></asp:Label>
+        <asp:Label ID="lblMensajeCapacidad" runat="server" Text="" CssClass="form-label"></asp:Label><br />
         <asp:Label ID="lblNadultos" runat="server" Text="Número de adultos" CssClass="form-label" Font-Bold="True"></asp:Label>
         <asp:TextBox ID="txtNadultos" TextMode="Number" runat="server" CssClass="form-control"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvNadultos" ControlToValidate="txtNadultos" runat="server" 
-            ErrorMessage="Este valor es requerido" CssClass="text-danger"></asp:RequiredFieldValidator>
+            ErrorMessage="Este valor es requerido" CssClass="text-danger"></asp:RequiredFieldValidator><br /> 
         <asp:RangeValidator ID="rvNadultos" ControlToValidate="txtNadultos" runat="server"
             MaximumValue="8" MinimumValue="1" ErrorMessage="Se necesita mínimo 1 adulto" CssClass="text-danger"></asp:RangeValidator>
         <br /> 
         <asp:Label ID="lblNnihos" runat="server" Text="Número de niños" CssClass="form-label" Font-Bold="True"></asp:Label>
         <asp:TextBox ID="txtNnihos" TextMode="Number" runat="server" CssClass="form-control"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvNnihos" runat="server" ErrorMessage="Este valor es requerido"
-            ControlToValidate="txtNnihos" CssClass="text-danger"></asp:RequiredFieldValidator>
+            ControlToValidate="txtNnihos" CssClass="text-danger"></asp:RequiredFieldValidator><br />
         <asp:RangeValidator ID="rvNnihos" ControlToValidate="txtNnihos" runat="server" MaximumValue="7" MinimumValue="0" 
             ErrorMessage="El número ingresado no puede ser procesado" CssClass="text-danger"></asp:RangeValidator>
     </div>

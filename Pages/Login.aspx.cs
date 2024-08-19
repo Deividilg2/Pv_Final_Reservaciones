@@ -17,6 +17,29 @@ namespace Pv_Final_Reservaciones.Pages
         String conn = ConfigurationManager.ConnectionStrings["Conn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
+            try
+            {
+                if(IsPostBack == false )
+                {
+                    if (Session["Usuario"] != null)
+                    {
+                        Usuario usuario = Session["Usuario"] as Usuario;
+                        if (usuario.esEmpleado)
+                        {
+                            Response.Redirect("~/Pages/GestionarReservaciones.aspx");
+                        }
+                        else
+                        {
+                            Response.Redirect("~/Pages/Misreservaciones.aspx");
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                
+            }
+            
         }
 
         protected void btnlogin_Click(object sender, EventArgs e)
